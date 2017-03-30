@@ -39,7 +39,7 @@ objects:
       app: launchpad-missioncontrol
     name: launchpad-missioncontrol
   spec:
-    dockerImageRepository: redhatdevelopers/launchpad-missioncontrol
+    dockerImageRepository: openshiftio/launchpad-missioncontrol
 - apiVersion: v1
   kind: DeploymentConfig
   metadata:
