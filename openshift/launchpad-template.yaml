@@ -1,0 +1,375 @@
+kind: Template
+apiVersion: v1
+metadata:
+  name: launchpad
+  annotations:
+    openshift.io/display-name: "Launchpad (Frontend + Backend + Mission Control)"
+    description: This application consists of the combination of Mission Control and the Backend and Frontend
+    tags: instant-app,launchpad
+    iconClass: icon-shadowman
+    template.openshift.io/long-description: This application consists of the combination of Catapult and Generator Backend and Frontend
+    template.openshift.io/provider-display-name: Red Hat, Inc.
+    template.openshift.io/documentation-url: https://github.com/openshiftio
+    template.openshift.io/support-url: https://access.redhat.com
+message: "The following service(s) have been created in your project: mission-control, launchpad-backend, launchpad-frontend.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/openshiftio"
+labels:
+  template: launchpad
+objects:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    labels:
+      app: catapult
+    name: catapult
+  spec:
+    ports:
+    - name: 8080-tcp
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      app: catapult
+      deploymentconfig: catapult
+    sessionAffinity: None
+    type: ClusterIP
+- apiVersion: v1
+  kind: ImageStream
+  metadata:
+    labels:
+      app: catapult
+    name: catapult
+  spec:
+    dockerImageRepository: redhatdevelopers/catapult
+- apiVersion: v1
+  kind: DeploymentConfig
+  metadata:
+    labels:
+      app: catapult
+    name: catapult
+  spec:
+    replicas: 1
+    selector:
+      app: catapult
+      deploymentconfig: catapult
+    strategy:
+      resources: {}
+      rollingParams:
+        intervalSeconds: 1
+        maxSurge: 25%
+        maxUnavailable: 25%
+        timeoutSeconds: 600
+        updatePeriodSeconds: 1
+      type: Rolling
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: catapult
+          deploymentconfig: catapult
+      spec:
+        containers:
+        - env:
+          - name: CATAPULT_OPENSHIFT_API_URL
+            value: https://openshift.default.svc.cluster.local
+          - name: CATAPULT_OPENSHIFT_CONSOLE_URL
+            value: ${CATAPULT_OPENSHIFT_CONSOLE_URL}
+          - name: CATAPULT_GITHUB_USERNAME
+            value: ${CATAPULT_GITHUB_USERNAME}
+          - name: CATAPULT_GITHUB_TOKEN
+            value: ${CATAPULT_GITHUB_TOKEN}
+          - name: CATAPULT_KEYCLOAK_URL
+            value: ${CATAPULT_KEYCLOAK_URL}
+          - name: CATAPULT_KEYCLOAK_REALM
+            value: ${CATAPULT_KEYCLOAK_REALM}
+          - name: CATAPULT_OPENSHIFT_USERNAME
+            value: ${CATAPULT_OPENSHIFT_USERNAME}
+          - name: CATAPULT_OPENSHIFT_PASSWORD
+            value: ${CATAPULT_OPENSHIFT_PASSWORD}
+          image: ""
+          imagePullPolicy: Always
+          name: catapult
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          readinessProbe:
+            httpGet:
+              path: /api/health/ready
+              port: 8080
+              scheme: HTTP
+            failureThreshold: 3
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          livenessProbe:
+            httpGet:
+              path: /api/health/ready
+              port: 8080
+              scheme: HTTP
+            failureThreshold: 3
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+    test: false
+    triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - catapult
+        from:
+          kind: ImageStreamTag
+          name: catapult:latest
+      type: ImageChange
+- apiVersion: v1
+  kind: Route
+  metadata:
+    annotations:
+      openshift.io/host.generated: "true"
+    labels:
+      app: catapult
+    name: catapult
+  spec:
+    to:
+      kind: Service
+      name: catapult
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: null
+    labels:
+      service: launchpad-backend
+    name: launchpad-backend
+  spec:
+    ports:
+    - name: "8080"
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      service: launchpad-backend
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: DeploymentConfig
+  metadata:
+    creationTimestamp: null
+    name: launchpad-backend
+    generation: 1
+  spec:
+    replicas: 1
+    selector:
+      service: launchpad-backend
+    strategy:
+      resources: {}
+      rollingParams:
+        intervalSeconds: 1
+        maxSurge: 25%
+        maxUnavailable: 25%
+        timeoutSeconds: 600
+        updatePeriodSeconds: 1
+      type: Rolling
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          service: launchpad-backend
+      spec:
+        containers:
+        - image: openshiftio/launchpad-backend:latest
+          imagePullPolicy: Always
+          name: launchpad-backend
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: 8080
+              scheme: HTTP
+            failureThreshold: 3
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          livenessProbe:
+            httpGet:
+              path: /health/ready
+              port: 8080
+              scheme: HTTP
+            failureThreshold: 3
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+    test: false
+    triggers:
+    - type: ConfigChange
+  status: {}
+- apiVersion: v1
+  kind: Route
+  metadata:
+    name: launchpad-backend
+    creationTimestamp: null
+  spec:
+    to:
+      kind: Service
+      name: launchpad-backend
+      weight: 100
+    wildcardPolicy: None
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: null
+    labels:
+      service: launchpad-frontend
+    name: launchpad-frontend
+    annotations:
+      service.alpha.openshift.io/dependencies: "[{\"name\":\"launchpad-backend\",\"namespace\":\"\",\"kind\":\"Service\"},{\"name\":\"catapult\",\"namespace\":\"\",\"kind\":\"Service\"}]"
+  spec:
+    ports:
+    - name: "8080"
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      service: launchpad-frontend
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: DeploymentConfig
+  metadata:
+    creationTimestamp: null
+    name: launchpad-frontend
+    generation: 1
+  spec:
+    replicas: 1
+    selector:
+      service: launchpad-frontend
+    strategy:
+      resources: {}
+      rollingParams:
+        intervalSeconds: 1
+        maxSurge: 25%
+        maxUnavailable: 25%
+        timeoutSeconds: 600
+        updatePeriodSeconds: 1
+      type: Rolling
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          service: launchpad-frontend
+      spec:
+        containers:
+        - image: openshiftio/launchpad-frontend:latest
+          imagePullPolicy: Always
+          name: launchpad-frontend
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          env:
+          - name: BACKEND_URL
+            value: ${BACKEND_URL}
+          - name: KEYCLOAK_SKIP
+            value: "true"
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          readinessProbe:
+            httpGet:
+              path: /wizard
+              port: 8080
+            initialDelaySeconds: 15
+            timeoutSeconds: 1
+            failureThreshold: 3
+            periodSeconds: 10
+            successThreshold: 1
+          livenessProbe:
+            httpGet:
+              path: /wizard
+              port: 8080
+            initialDelaySeconds: 15
+            timeoutSeconds: 1
+            failureThreshold: 3
+            periodSeconds: 10
+            successThreshold: 1
+        restartPolicy: Always
+        dnsPolicy: ClusterFirst
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+    test: false
+    triggers:
+    - type: ConfigChange
+  status: {}
+- apiVersion: v1
+  kind: Route
+  metadata:
+    creationTimestamp: null
+    name: launchpad-frontend
+  spec:
+    to:
+      kind: Service
+      name: launchpad-frontend
+      weight: 100
+    wildcardPolicy: None
+parameters:
+- description: Your GitHub username
+  displayName: Your GitHub username
+  name: CATAPULT_GITHUB_USERNAME
+  required: true
+- description: Your GitHub Catapult access token
+  displayName: Your GitHub Catapult access token
+  name: CATAPULT_GITHUB_TOKEN
+  required: true
+- description: The base URL of the MiniShift Console you are running this on
+    ie. https://hostname:port or https://ipaddress:port). Look at this page's
+    address bar of your browser or run "minishift console --url" to determine
+    the URL if you don't know it.
+  displayName: OpenShift Console URL
+  name: CATAPULT_OPENSHIFT_CONSOLE_URL
+  required: true
+  value: https://192.168.99.100:8443
+- description: OpenShift user name
+  displayName: OpenShift user name
+  name: CATAPULT_OPENSHIFT_USERNAME
+  required: true
+  value: developer
+- description: OpenShift password
+  displayName: OpenShift password
+  name: CATAPULT_OPENSHIFT_PASSWORD
+  required: true
+  value: developer
+- description: The URL (without the /auth part) of a Keycloak installation to perform SSO authentication
+  displayName: KeyCloak URL
+  name: CATAPULT_KEYCLOAK_URL
+  value: http://sso.prod-preview.openshift.io
+- description: The keycloak realm to be used
+  displayName: KeyCloak Realm
+  name: CATAPULT_KEYCLOAK_REALM
+  value: fabric8
+- description: The URL where the Launchpad Backend can be reached. You have to deduce
+    this yourself by taking the default value displayed in this field and replacing
+    PROJECTNAME with the actual name of the project you are adding this template to
+    and also replacing the IP number with the actual IP number of the MiniShift instance
+    your are running this on.
+  displayName: Launchpad Backend URL
+  name: BACKEND_URL
+  value: http://launchpad-backend-PROJECTNAME.192.168.99.100.nip.io
+

@@ -1,0 +1,13 @@
+== launchpad-templates
+:idprefix: id_ 
+The OpenShift templates that will create all the necessary services to run Launchpad
+        
+== Setup
+
+To install this template in your OpenShift project run the following:
+
+[source,bash]
+----
+    oc create -f openshift/launchàd-template.yaml
+----
+
