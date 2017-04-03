@@ -333,11 +333,9 @@ parameters:
 - description: Your GitHub username
   displayName: Your GitHub username
   name: LAUNCHPAD_MISSIONCONTROL_GITHUB_USERNAME
-  required: true
 - description: Your GitHub Mission Control access token
   displayName: Your GitHub Mission Control access token
   name: LAUNCHPAD_MISSIONCONTROL_GITHUB_TOKEN
-  required: true
 - description: The base URL of the MiniShift Console you are running this on
     ie. https://hostname:port or https://ipaddress:port). Look at this page's
     address bar of your browser or run "minishift console --url" to determine
@@ -349,12 +347,10 @@ parameters:
 - description: OpenShift user name
   displayName: OpenShift user name
   name: LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_USERNAME
-  required: true
   value: developer
 - description: OpenShift password
   displayName: OpenShift password
   name: LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_PASSWORD
-  required: true
   value: developer
 - description: The URL (without the /auth part) of a Keycloak installation to perform SSO authentication
   displayName: KeyCloak URL
