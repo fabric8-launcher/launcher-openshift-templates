@@ -8,6 +8,6 @@ To install this template in your OpenShift project run the following:
 
 [source,bash]
 ----
-    oc create -f openshift/launchàd-template.yaml
+    oc create -f openshift/launchpad-template.yaml
 ----
 
