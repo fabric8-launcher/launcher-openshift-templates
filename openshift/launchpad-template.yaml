@@ -343,14 +343,19 @@ parameters:
 - description: Your GitHub Mission Control access token
   displayName: Your GitHub Mission Control access token
   name: LAUNCHPAD_MISSIONCONTROL_GITHUB_TOKEN
-- description: The base URL of the MiniShift Console you are running this on
-    ie. https://hostname:port or https://ipaddress:port). Look at this page's
-    address bar of your browser or run "minishift console --url" to determine
-    the URL if you don't know it.
-  displayName: OpenShift Console URL
+- description: The base URL of the OpenShift Console you are running this on
+    (ie. https://hostname:port or https://ipaddress:port). Look at this page's
+    address bar of your browser for the URL if you don't know it.
+  displayName: Local OpenShift API URL
+  name: LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_API_URL
+  required: true
+  value: https://openshift.default.svc.cluster.local
+- description: The base URL of the OpenShift Console where the launched boosters
+    should be created (ie. https://hostname:port or https://ipaddress:port).
+  displayName: Target OpenShift Console URL
   name: LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_CONSOLE_URL
   required: true
-  value: https://192.168.99.100:8443
+  value: https://$HOSTNAMEORIP:8443
 - description: OpenShift user name
   displayName: OpenShift user name
   name: LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_USERNAME
