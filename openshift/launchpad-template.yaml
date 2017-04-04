@@ -367,22 +367,27 @@ parameters:
 - description: The URL (without the /auth part) of a Keycloak installation to perform SSO authentication
   displayName: KeyCloak URL
   name: LAUNCHPAD_MISSIONCONTROL_KEYCLOAK_URL
+  required: true
   value: http://sso.prod-preview.openshift.io
 - description: The keycloak realm to be used
   displayName: KeyCloak Realm
   name: LAUNCHPAD_MISSIONCONTROL_KEYCLOAK_REALM
+  required: true
   value: fabric8
 - description: The GitHub repository containing the booster catalog
   displayName: Catalog Git Repository
   name: LAUNCHPAD_BACKEND_CATALOG_GIT_REPOSITORY
+  required: true
   value: https://github.com/openshiftio/booster-catalog.git
 - description: The Git reference to use for the above repository
   displayName: Catalog Git Reference
   name: LAUNCHPAD_BACKEND_CATALOG_GIT_REF
+  required: true
   value: master
 - description: Time in minutes that the catalog will be periodically indexed ("0" means never)
   displayName: Catalog Index Period
   name: LAUNCHPAD_BACKEND_CATALOG_INDEX_PERIOD
+  required: true
   value: "0"
 - description: The URL where the Launchpad Backend can be reached. You have to deduce
     this yourself by taking the default value displayed in this field and replacing
@@ -391,5 +396,6 @@ parameters:
     OpenShift instance your are running this on.
   displayName: Launchpad Backend URL
   name: BACKEND_URL
+  required: true
   value: http://launchpad-backend-$PROJECTNAME.$HOSTNAMEORIP.nip.io
 
