@@ -362,10 +362,10 @@ parameters:
   value: fabric8
 - description: The URL where the Launchpad Backend can be reached. You have to deduce
     this yourself by taking the default value displayed in this field and replacing
-    PROJECTNAME with the actual name of the project you are adding this template to
-    and also replacing the IP number with the actual IP number of the MiniShift instance
-    your are running this on.
+    $PROJECTNAME with the actual name of the project you are adding this template to
+    and also replacing $HOSTNAMEORIP with the actual hsot name or IP number of the
+    OpenShift instance your are running this on.
   displayName: Launchpad Backend URL
   name: BACKEND_URL
-  value: http://launchpad-backend-PROJECTNAME.192.168.99.100.nip.io
+  value: http://launchpad-backend-$PROJECTNAME.$HOSTNAMEORIP.nip.io
 
