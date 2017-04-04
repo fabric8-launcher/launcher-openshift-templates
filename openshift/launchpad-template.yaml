@@ -185,7 +185,14 @@ objects:
           service: launchpad-backend
       spec:
         containers:
-        - image: openshiftio/launchpad-backend:latest
+        - env:
+          - name: LAUNCHPAD_BACKEND_CATALOG_GIT_REPOSITORY
+            value: ${LAUNCHPAD_BACKEND_CATALOG_GIT_REPOSITORY}
+          - name: LAUNCHPAD_BACKEND_CATALOG_GIT_REF
+            value: ${LAUNCHPAD_BACKEND_CATALOG_GIT_REF}
+          - name: LAUNCHPAD_BACKEND_CATALOG_INDEX_PERIOD
+            value: ${LAUNCHPAD_BACKEND_CATALOG_INDEX_PERIOD}
+          image: openshiftio/launchpad-backend:latest
           imagePullPolicy: Always
           name: launchpad-backend
           ports:
@@ -360,6 +367,18 @@ parameters:
   displayName: KeyCloak Realm
   name: LAUNCHPAD_MISSIONCONTROL_KEYCLOAK_REALM
   value: fabric8
+- description: The GitHub repository containing the booster catalog
+  displayName: Catalog Git Repository
+  name: LAUNCHPAD_BACKEND_CATALOG_GIT_REPOSITORY
+  value: https://github.com/openshiftio/booster-catalog.git
+- description: The Git reference to use for the above repository
+  displayName: Catalog Git Reference
+  name: LAUNCHPAD_BACKEND_CATALOG_GIT_REF
+  value: master
+- description: Time in minutes that the catalog will be periodically indexed ("0" means never)
+  displayName: Catalog Index Period
+  name: LAUNCHPAD_BACKEND_CATALOG_INDEX_PERIOD
+  value: "0"
 - description: The URL where the Launchpad Backend can be reached. You have to deduce
     this yourself by taking the default value displayed in this field and replacing
     $PROJECTNAME with the actual name of the project you are adding this template to
