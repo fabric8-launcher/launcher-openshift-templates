@@ -368,7 +368,7 @@ parameters:
   displayName: KeyCloak URL
   name: LAUNCHPAD_MISSIONCONTROL_KEYCLOAK_URL
   required: true
-  value: http://sso.prod-preview.openshift.io
+  value: https://sso.prod-preview.openshift.io
 - description: The keycloak realm to be used
   displayName: KeyCloak Realm
   name: LAUNCHPAD_MISSIONCONTROL_KEYCLOAK_REALM
