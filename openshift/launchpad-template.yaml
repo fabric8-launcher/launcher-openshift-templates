@@ -78,9 +78,9 @@ objects:
           - name: LAUNCHPAD_MISSIONCONTROL_GITHUB_TOKEN
             value: ${LAUNCHPAD_MISSIONCONTROL_GITHUB_TOKEN}
           - name: LAUNCHPAD_MISSIONCONTROL_KEYCLOAK_URL
-            value: ${LAUNCHPAD_MISSIONCONTROL_KEYCLOAK_URL}
+            value: ${LAUNCHPAD_KEYCLOAK_URL}
           - name: LAUNCHPAD_MISSIONCONTROL_KEYCLOAK_REALM
-            value: ${LAUNCHPAD_MISSIONCONTROL_KEYCLOAK_REALM}
+            value: ${LAUNCHPAD_KEYCLOAK_REALM}
           - name: LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_USERNAME
             value: ${LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_USERNAME}
           - name: LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_PASSWORD
@@ -295,6 +295,10 @@ objects:
           env:
           - name: BACKEND_URL
             value: ${BACKEND_URL}
+          - name: KEYCLOAK_URL
+            value: ${LAUNCHPAD_KEYCLOAK_URL}
+          - name: KEYCLOAK_REALM
+            value: ${LAUNCHPAD_KEYCLOAK_REALM}
           - name: KEYCLOAK_SKIP
             value: "true"
           resources: {}
@@ -366,12 +370,12 @@ parameters:
   value: developer
 - description: The URL (without the /auth part) of a Keycloak installation to perform SSO authentication
   displayName: KeyCloak URL
-  name: LAUNCHPAD_MISSIONCONTROL_KEYCLOAK_URL
+  name: LAUNCHPAD_KEYCLOAK_URL
   required: true
   value: https://sso.prod-preview.openshift.io
 - description: The keycloak realm to be used
   displayName: KeyCloak Realm
-  name: LAUNCHPAD_MISSIONCONTROL_KEYCLOAK_REALM
+  name: LAUNCHPAD_KEYCLOAK_REALM
   required: true
   value: fabric8
 - description: The GitHub repository containing the booster catalog
