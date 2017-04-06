@@ -300,7 +300,7 @@ objects:
           - name: LAUNCHPAD_KEYCLOAK_REALM
             value: ${LAUNCHPAD_KEYCLOAK_REALM}
           - name: LAUNCHPAD_KEYCLOAK_SKIP
-            value: "true"
+            value: "false"
           resources: {}
           terminationMessagePath: /dev/termination-log
           readinessProbe:
