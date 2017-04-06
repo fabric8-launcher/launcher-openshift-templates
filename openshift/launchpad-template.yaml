@@ -299,8 +299,6 @@ objects:
             value: ${LAUNCHPAD_KEYCLOAK_URL}
           - name: LAUNCHPAD_KEYCLOAK_REALM
             value: ${LAUNCHPAD_KEYCLOAK_REALM}
-          - name: LAUNCHPAD_KEYCLOAK_SKIP
-            value: "false"
           resources: {}
           terminationMessagePath: /dev/termination-log
           readinessProbe:
@@ -371,12 +369,10 @@ parameters:
 - description: The URL (without the /auth part) of a Keycloak installation to perform SSO authentication
   displayName: KeyCloak URL
   name: LAUNCHPAD_KEYCLOAK_URL
-  required: true
   value: https://sso.prod-preview.openshift.io
 - description: The keycloak realm to be used
   displayName: KeyCloak Realm
   name: LAUNCHPAD_KEYCLOAK_REALM
-  required: true
   value: fabric8
 - description: The GitHub repository containing the booster catalog
   displayName: Catalog Git Repository
