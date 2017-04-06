@@ -293,13 +293,13 @@ objects:
           - containerPort: 8080
             protocol: TCP
           env:
-          - name: BACKEND_URL
-            value: ${BACKEND_URL}
-          - name: KEYCLOAK_URL
+          - name: LAUNCHPAD_BACKEND_URL
+            value: ${LAUNCHPAD_BACKEND_URL}
+          - name: LAUNCHPAD_KEYCLOAK_URL
             value: ${LAUNCHPAD_KEYCLOAK_URL}
-          - name: KEYCLOAK_REALM
+          - name: LAUNCHPAD_KEYCLOAK_REALM
             value: ${LAUNCHPAD_KEYCLOAK_REALM}
-          - name: KEYCLOAK_SKIP
+          - name: LAUNCHPAD_KEYCLOAK_SKIP
             value: "true"
           resources: {}
           terminationMessagePath: /dev/termination-log
@@ -399,7 +399,7 @@ parameters:
     and also replacing $HOSTNAMEORIP with the actual hsot name or IP number of the
     OpenShift instance your are running this on.
   displayName: Launchpad Backend URL
-  name: BACKEND_URL
+  name: LAUNCHPAD_BACKEND_URL
   required: true
   value: http://launchpad-backend-$PROJECTNAME.$HOSTNAMEORIP.nip.io
 
