@@ -366,7 +366,7 @@ parameters:
   displayName: OpenShift password
   name: LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_PASSWORD
   value: developer
-- description: The URL (without the /auth part) of a Keycloak installation to perform SSO authentication
+- description: The URL (with the /auth part) of a Keycloak installation to perform SSO authentication
   displayName: KeyCloak URL
   name: LAUNCHPAD_KEYCLOAK_URL
   value: https://sso.prod-preview.openshift.io/auth
