@@ -126,7 +126,7 @@ objects:
         - launchpad-missioncontrol
         from:
           kind: ImageStreamTag
-          name: launchpad-missioncontrol:latest
+          name: launchpad-missioncontrol:v2
       type: ImageChange
 - apiVersion: v1
   kind: Route
@@ -192,7 +192,7 @@ objects:
             value: ${LAUNCHPAD_BACKEND_CATALOG_GIT_REF}
           - name: LAUNCHPAD_BACKEND_CATALOG_INDEX_PERIOD
             value: ${LAUNCHPAD_BACKEND_CATALOG_INDEX_PERIOD}
-          image: openshiftio/launchpad-backend:latest
+          image: openshiftio/launchpad-backend:1
           imagePullPolicy: Always
           name: launchpad-backend
           ports:
@@ -286,7 +286,7 @@ objects:
           service: launchpad-frontend
       spec:
         containers:
-        - image: openshiftio/launchpad-frontend:latest
+        - image: openshiftio/launchpad-frontend:1
           imagePullPolicy: Always
           name: launchpad-frontend
           ports:
@@ -383,7 +383,7 @@ parameters:
   displayName: Catalog Git Reference
   name: LAUNCHPAD_BACKEND_CATALOG_GIT_REF
   required: true
-  value: master
+  value: "1"
 - description: Time in minutes that the catalog will be periodically indexed ("0" means never)
   displayName: Catalog Index Period
   name: LAUNCHPAD_BACKEND_CATALOG_INDEX_PERIOD
