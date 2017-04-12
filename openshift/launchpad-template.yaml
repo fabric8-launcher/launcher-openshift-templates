@@ -367,7 +367,7 @@ objects:
     name: launchpad-frontend-missioncontrol-rproxy
   spec:
     host: ${LAUNCHPAD_FRONTEND_HOST}
-    path: /missioncontrol
+    path: /status
     to:
       kind: Service
       name: launchpad-missioncontrol
