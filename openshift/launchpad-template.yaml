@@ -33,14 +33,6 @@ objects:
     sessionAffinity: None
     type: ClusterIP
 - apiVersion: v1
-  kind: ImageStream
-  metadata:
-    labels:
-      app: launchpad-missioncontrol
-    name: launchpad-missioncontrol
-  spec:
-    dockerImageRepository: openshiftio/launchpad-missioncontrol
-- apiVersion: v1
   kind: DeploymentConfig
   metadata:
     labels:
@@ -85,7 +77,7 @@ objects:
             value: ${LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_USERNAME}
           - name: LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_PASSWORD
             value: ${LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_PASSWORD}
-          image: ""
+          image: openshiftio/launchpad-missioncontrol:latest
           imagePullPolicy: Always
           name: launchpad-missioncontrol
           ports:
@@ -120,14 +112,6 @@ objects:
     test: false
     triggers:
     - type: ConfigChange
-    - imageChangeParams:
-        automatic: true
-        containerNames:
-        - launchpad-missioncontrol
-        from:
-          kind: ImageStreamTag
-          name: launchpad-missioncontrol:latest
-      type: ImageChange
 - apiVersion: v1
   kind: Route
   metadata:
