@@ -77,7 +77,7 @@ objects:
             value: ${LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_USERNAME}
           - name: LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_PASSWORD
             value: ${LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_PASSWORD}
-          image: openshiftio/launchpad-missioncontrol:latest
+          image: openshiftio/launchpad-missioncontrol:v3
           imagePullPolicy: Always
           name: launchpad-missioncontrol
           ports:
@@ -176,7 +176,7 @@ objects:
             value: ${LAUNCHPAD_BACKEND_CATALOG_GIT_REF}
           - name: LAUNCHPAD_BACKEND_CATALOG_INDEX_PERIOD
             value: ${LAUNCHPAD_BACKEND_CATALOG_INDEX_PERIOD}
-          image: openshiftio/launchpad-backend:latest
+          image: openshiftio/launchpad-backend:v2
           imagePullPolicy: Always
           name: launchpad-backend
           ports:
@@ -270,7 +270,7 @@ objects:
           service: launchpad-frontend
       spec:
         containers:
-        - image: openshiftio/launchpad-frontend:latest
+        - image: openshiftio/launchpad-frontend:v2
           imagePullPolicy: Always
           name: launchpad-frontend
           ports:
@@ -411,7 +411,7 @@ parameters:
   displayName: Catalog Git Reference
   name: LAUNCHPAD_BACKEND_CATALOG_GIT_REF
   required: true
-  value: master
+  value: v2
 - description: Time in minutes that the catalog will be periodically indexed ("0" means only once at startup)
   displayName: Catalog Index Period
   name: LAUNCHPAD_BACKEND_CATALOG_INDEX_PERIOD
