@@ -396,12 +396,12 @@ parameters:
     authentication above)
   displayName: KeyCloak URL
   name: LAUNCHPAD_KEYCLOAK_URL
-  value: https://sso.prod-preview.openshift.io/auth
+  value: https://sso.openshift.io/auth
 - description: The keycloak realm to be used (leave empty if you've explicitly specified
     GitHub/OpenShift authentication above)
   displayName: KeyCloak Realm
   name: LAUNCHPAD_KEYCLOAK_REALM
-  value: fabric8
+  value: launchpad
 - description: The GitHub repository containing the booster catalog
   displayName: Catalog Git Repository
   name: LAUNCHPAD_BACKEND_CATALOG_GIT_REPOSITORY
