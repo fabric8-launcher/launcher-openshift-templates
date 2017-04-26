@@ -326,7 +326,7 @@ objects:
       weight: 100
     tls:
       termination: edge
-      insecureEdgeTerminationPolicy: Allow
+      insecureEdgeTerminationPolicy: Redirect
     wildcardPolicy: None
 - apiVersion: v1
   kind: Route
@@ -342,7 +342,7 @@ objects:
       weight: 100
     tls:
       termination: edge
-      insecureEdgeTerminationPolicy: Allow
+      insecureEdgeTerminationPolicy: Redirect
     wildcardPolicy: None
 - apiVersion: v1
   kind: Route
@@ -358,7 +358,7 @@ objects:
       weight: 100
     tls:
       termination: edge
-      insecureEdgeTerminationPolicy: Allow
+      insecureEdgeTerminationPolicy: Redirect
     wildcardPolicy: None
 parameters:
 - description: Your GitHub username (leave empty when using Keycloak)
