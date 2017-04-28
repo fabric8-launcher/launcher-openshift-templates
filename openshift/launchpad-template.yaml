@@ -401,7 +401,7 @@ parameters:
     GitHub/OpenShift authentication above)
   displayName: KeyCloak Realm
   name: LAUNCHPAD_KEYCLOAK_REALM
-  value: launchpad
+  value: osio-launch-prod
 - description: The GitHub repository containing the booster catalog
   displayName: Catalog Git Repository
   name: LAUNCHPAD_BACKEND_CATALOG_GIT_REPOSITORY
