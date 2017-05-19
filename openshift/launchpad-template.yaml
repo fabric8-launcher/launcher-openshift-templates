@@ -77,6 +77,8 @@ objects:
             value: ${LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_USERNAME}
           - name: LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_PASSWORD
             value: ${LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_PASSWORD}
+          - name: LAUNCHPAD_MISSIONCONTROL_SEGMENT_TOKEN
+            value: ${LAUNCHPAD_MISSIONCONTROL_SEGMENT_TOKEN}
           image: openshiftio/launchpad-missioncontrol:latest
           imagePullPolicy: Always
           name: launchpad-missioncontrol
@@ -402,6 +404,11 @@ parameters:
   displayName: KeyCloak Realm
   name: LAUNCHPAD_KEYCLOAK_REALM
   value: osio-launch-prod
+- description: The token to use for Segment tracking. Leaving this empty will default
+    to the token used for the development environment. This must be set to the proper
+    tokens for staging and production!
+  displayName: Segment Token
+  name: LAUNCHPAD_MISSIONCONTROL_SEGMENT_TOKEN
 - description: The GitHub repository containing the booster catalog
   displayName: Catalog Git Repository
   name: LAUNCHPAD_BACKEND_CATALOG_GIT_REPOSITORY
