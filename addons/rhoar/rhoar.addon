@@ -1,0 +1,6 @@
+# Name: rhoar
+# Description:  Red Hat OpenShift Application Runtimes
+
+echo Installing Red Hat OpenShift Application Runtimes...
+oc create -f https://raw.githubusercontent.com/openshiftio/launchpad-templates/master/openshift/launchpad-template.yaml -n openshift
+echo Red Hat OpenShift Application Runtimes was successfully installed!
