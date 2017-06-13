@@ -11,3 +11,6 @@ To install this template in your OpenShift project run the following:
     oc create -f openshift/launchpad-template.yaml
 ----
 
+== Addon
+
+We provide an addon to load this template in the OpenShift/MiniShift catalog. Just copy the `addons` directory to your `~/.minishift/addons` as explained here: https://docs.openshift.org/latest/minishift/using/addons.html#custom-addons
