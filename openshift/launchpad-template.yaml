@@ -97,7 +97,21 @@ objects:
   metadata:
     name: launchpad
   data:
-    LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_API_URL: openshift.local
+#    LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_API_URL: openshift.local
+    launchpad.missioncontrol.github.username: ${LAUNCHPAD_MISSIONCONTROL_GITHUB_USERNAME}
+    launchpad.missioncontrol.github.token: ${LAUNCHPAD_MISSIONCONTROL_GITHUB_TOKEN}
+    launchpad.missioncontrol.openshift.username: ${LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_USERNAME}
+    launchpad.missioncontrol.openshift.password: ${LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_PASSWORD}
+    launchpad.missioncontrol.openshift.api.url: ${LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_API_URL}
+    launchpad.missioncontrol.openshift.console.url: ${LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_CONSOLE_URL}
+    launchpad.missioncontrol.url: wss://${LAUNCHPAD_FRONTEND_HOST}
+    launchpad.backend.url: https://${LAUNCHPAD_FRONTEND_HOST}
+    launchpad.backend.catalog.git.repository: ${LAUNCHPAD_BACKEND_CATALOG_GIT_REPOSITORY}
+    launchpad.backend.catalog.git.ref: ${LAUNCHPAD_BACKEND_CATALOG_GIT_REF}
+    launchpad.backend.catalog.index.period: ${LAUNCHPAD_BACKEND_CATALOG_INDEX_PERIOD}
+    launchpad.keycloak.url: ${LAUNCHPAD_KEYCLOAK_URL}
+    launchpad.keycloak.realm: ${LAUNCHPAD_KEYCLOAK_REALM}
+    launchpad.tracker.segment.token: ${LAUNCHPAD_TRACKER_SEGMENT_TOKEN}
 - kind: ImageStream
   apiVersion: v1
   metadata:
@@ -153,23 +167,50 @@ objects:
         containers:
         - env:
           - name: LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_API_URL
-            value: ${LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_API_URL}
+            valueFrom:
+              configMapKeyRef:
+                name: launchpad
+                key: launchpad.missioncontrol.openshift.api.url
           - name: LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_CONSOLE_URL
-            value: ${LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_CONSOLE_URL}
+            valueFrom:
+              configMapKeyRef:
+                name: launchpad
+                key: launchpad.missioncontrol.openshift.console.url
           - name: LAUNCHPAD_MISSIONCONTROL_GITHUB_USERNAME
-            value: ${LAUNCHPAD_MISSIONCONTROL_GITHUB_USERNAME}
+            valueFrom:
+              configMapKeyRef:
+                name: launchpad
+                key: launchpad.missioncontrol.github.username
           - name: LAUNCHPAD_MISSIONCONTROL_GITHUB_TOKEN
-            value: ${LAUNCHPAD_MISSIONCONTROL_GITHUB_TOKEN}
+            valueFrom:
+              configMapKeyRef:
+                name: launchpad
+                key: launchpad.missioncontrol.github.token
           - name: LAUNCHPAD_KEYCLOAK_URL
-            value: ${LAUNCHPAD_KEYCLOAK_URL}
+            valueFrom:
+              configMapKeyRef:
+                name: launchpad
+                key: launchpad.keycloak.url
           - name: LAUNCHPAD_KEYCLOAK_REALM
-            value: ${LAUNCHPAD_KEYCLOAK_REALM}
+            valueFrom:
+              configMapKeyRef:
+                name: launchpad
+                key: launchpad.keycloak.realm
           - name: LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_USERNAME
-            value: ${LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_USERNAME}
+            valueFrom:
+              configMapKeyRef:
+                name: launchpad
+                key: launchpad.missioncontrol.openshift.username
           - name: LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_PASSWORD
-            value: ${LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_PASSWORD}
+            valueFrom:
+              configMapKeyRef:
+                name: launchpad
+                key: launchpad.missioncontrol.openshift.password
           - name: LAUNCHPAD_TRACKER_SEGMENT_TOKEN
-            value: ${LAUNCHPAD_TRACKER_SEGMENT_TOKEN}
+            valueFrom:
+              configMapKeyRef:
+                name: launchpad
+                key: launchpad.tracker.segment.token
           image: launchpad-missioncontrol
           imagePullPolicy: Always
           name: launchpad-missioncontrol
@@ -260,11 +301,20 @@ objects:
         containers:
         - env:
           - name: LAUNCHPAD_BACKEND_CATALOG_GIT_REPOSITORY
-            value: ${LAUNCHPAD_BACKEND_CATALOG_GIT_REPOSITORY}
+            valueFrom:
+              configMapKeyRef:
+                name: launchpad
+                key: launchpad.backend.catalog.git.repository
           - name: LAUNCHPAD_BACKEND_CATALOG_GIT_REF
-            value: ${LAUNCHPAD_BACKEND_CATALOG_GIT_REF}
+            valueFrom:
+              configMapKeyRef:
+                name: launchpad
+                key: launchpad.backend.catalog.git.ref
           - name: LAUNCHPAD_BACKEND_CATALOG_INDEX_PERIOD
-            value: ${LAUNCHPAD_BACKEND_CATALOG_INDEX_PERIOD}
+            valueFrom:
+              configMapKeyRef:
+                name: launchpad
+                key: launchpad.backend.catalog.index.period
           image: launchpad-backend
           imagePullPolicy: Always
           name: launchpad-backend
@@ -365,15 +415,30 @@ objects:
             protocol: TCP
           env:
           - name: LAUNCHPAD_BACKEND_URL
-            value: https://${LAUNCHPAD_FRONTEND_HOST}
+            valueFrom:
+              configMapKeyRef:
+                name: launchpad
+                key: launchpad.backend.url
           - name: LAUNCHPAD_MISSIONCONTROL_URL
-            value: wss://${LAUNCHPAD_FRONTEND_HOST}
+            valueFrom:
+              configMapKeyRef:
+                name: launchpad
+                key: launchpad.missioncontrol.url
           - name: LAUNCHPAD_KEYCLOAK_URL
-            value: ${LAUNCHPAD_KEYCLOAK_URL}
-          - name: LAUNCHPAD_KEYCLOAK_REALM
-            value: ${LAUNCHPAD_KEYCLOAK_REALM}
+            valueFrom:
+              configMapKeyRef:
+                name: launchpad
+                key: launchpad.keycloak.url
+          - name: LAUNCHPAD_KEYCLOAK_URL
+            valueFrom:
+              configMapKeyRef:
+                name: launchpad
+                key: launchpad.keycloak.url
           - name: LAUNCHPAD_TRACKER_SEGMENT_TOKEN
-            value: ${LAUNCHPAD_TRACKER_SEGMENT_TOKEN}
+            valueFrom:
+              configMapKeyRef:
+                name: launchpad
+                key: launchpad.tracker.segment.token
           resources: {}
           terminationMessagePath: /dev/termination-log
           readinessProbe:
