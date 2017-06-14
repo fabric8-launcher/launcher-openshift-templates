@@ -429,11 +429,11 @@ objects:
               configMapKeyRef:
                 name: launchpad
                 key: launchpad.keycloak.url
-          - name: LAUNCHPAD_KEYCLOAK_URL
+          - name: LAUNCHPAD_KEYCLOAK_REALM
             valueFrom:
               configMapKeyRef:
                 name: launchpad
-                key: launchpad.keycloak.url
+                key: launchpad.keycloak.realm
           - name: LAUNCHPAD_TRACKER_SEGMENT_TOKEN
             valueFrom:
               configMapKeyRef:
