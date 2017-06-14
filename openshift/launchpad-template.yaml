@@ -35,7 +35,7 @@ parameters:
     can most likely look at this page's address bar of your browser and copy the URL
     Example value (https://$HOSTNAMEORIP:8443)
   displayName: Target OpenShift Console URL
-  name: LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_CONSOLE_URLDeploymentCOn
+  name: LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_CONSOLE_URL
   required: true
   value:
 - description: OpenShift user name (leave empty when using Keycloak)
@@ -209,7 +209,7 @@ objects:
       imageChangeParams:
         automatic: true
         containerNames:
-          - "launchpad-missioncontrol"
+          - launchpad-missioncontrol
         from:
           kind: ImageStreamTag
           name: launchpad-missioncontrol:latest
@@ -304,7 +304,7 @@ objects:
       imageChangeParams:
         automatic: true
         containerNames:
-          - "launchpad-backend"
+          - launchpad-backend
         from:
           kind: ImageStreamTag
           name: launchpad-backend:latest
@@ -405,7 +405,7 @@ objects:
       imageChangeParams:
         automatic: true
         containerNames:
-          - "launchpad-frontend"
+          - launchpad-frontend
         from:
           kind: ImageStreamTag
           name: launchpad-frontend:latest
