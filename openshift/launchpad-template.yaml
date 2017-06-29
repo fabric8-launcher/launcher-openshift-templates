@@ -41,11 +41,13 @@ parameters:
 - description: OpenShift user name (leave empty when using Keycloak)
   displayName: OpenShift user name
   name: LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_USERNAME
-  value: developer
+  value: 
+  required: true
 - description: OpenShift password (leave empty when using Keycloak)
   displayName: OpenShift password
   name: LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_PASSWORD
-  value: developer
+  value: 
+  required: true
 - description: The URL (with the /auth part) of a Keycloak installation to perform SSO
     authentication (leave empty if you've explicitly specified GItHub/OpenShift
     authentication above)
