@@ -15,30 +15,30 @@ message: "The following service(s) have been created in your project: mission-co
 labels:
   template: launchpad
 parameters:
-- description: Your GitHub username (leave empty when using Keycloak)
+- name: LAUNCHPAD_MISSIONCONTROL_GITHUB_USERNAME
   displayName: Your GitHub username
-  name: LAUNCHPAD_MISSIONCONTROL_GITHUB_USERNAME
-- description: Your GitHub Mission Control access token (leave empty when using Keycloak)
+  description: Your GitHub username (leave empty when using Keycloak)
+- name: LAUNCHPAD_MISSIONCONTROL_GITHUB_TOKEN
   displayName: Your GitHub Mission Control access token
-  name: LAUNCHPAD_MISSIONCONTROL_GITHUB_TOKEN
-- description: The base URL of the OpenShift API where the launched boosters
+  description: Your GitHub Mission Control access token (leave empty when using Keycloak)
+- name: LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_API_URL
+  displayName: Target OpenShift API URL
+  description: The base URL of the OpenShift API where the launched boosters
     should be created (ie. https://hostname[:port] or https://ipaddress[:port]).
     Leave the default value when targetting the same OpenShift/Minishift you are
     running this on
-  displayName: Target OpenShift API URL
-  name: LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_API_URL
-  required: true
   value: https://openshift.default.svc.cluster.local
-- description: The base URL of the OpenShift Console where the launched boosters
+  required: true
+- name: LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_CONSOLE_URL
+  displayName: Target OpenShift Console URL
+  description: The base URL of the OpenShift Console where the launched boosters
     should be created (ie. https://hostname[:port] or https://ipaddress[:port]).
     When targetting the same OpenShift/Minishift instance you are running this on you
     can most likely look at this page's address bar of your browser and copy the URL
     Example value (https://$HOSTNAMEORIP:8443)
-  displayName: Target OpenShift Console URL
-  name: LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_CONSOLE_URL
-  required: true
   value:
-- description: OpenShift user name (leave empty when using Keycloak)
+  required: true
+- name: LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_USERNAME
   displayName: OpenShift user name
   name: LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_USERNAME
   value: developer
@@ -46,38 +46,35 @@ parameters:
   displayName: OpenShift password
   name: LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_PASSWORD
   value: developer
-- description: The URL (with the /auth part) of a Keycloak installation to perform SSO
+- name: LAUNCHPAD_KEYCLOAK_URL
+  displayName: KeyCloak URL
+  description: The URL (with the /auth part) of a Keycloak installation to perform SSO
     authentication (leave empty if you've explicitly specified GItHub/OpenShift
     authentication above)
-  displayName: KeyCloak URL
-  name: LAUNCHPAD_KEYCLOAK_URL
   value: https://sso.openshift.io/auth
-- description: The keycloak realm to be used (leave empty if you've explicitly specified
-    GitHub/OpenShift authentication above)
+- name: LAUNCHPAD_KEYCLOAK_REALM
   displayName: KeyCloak Realm
-  name: LAUNCHPAD_KEYCLOAK_REALM
+  description: The keycloak realm to be used (leave empty if you've explicitly specified
+    GitHub/OpenShift authentication above)
   value: osio-launch-prod
-- description: The token to use for Segment tracking. Leaving this empty will default
+- name: LAUNCHPAD_TRACKER_SEGMENT_TOKEN
+  displayName: Segment Token
+  description: The token to use for Segment tracking. Leaving this empty will default
     to the token used for the development environment. This must be set to the proper
     tokens for staging and production!
-  displayName: Segment Token
-  name: LAUNCHPAD_TRACKER_SEGMENT_TOKEN
-- description: The GitHub repository containing the booster catalog
+- name: LAUNCHPAD_BACKEND_CATALOG_GIT_REPOSITORY
   displayName: Catalog Git Repository
-  name: LAUNCHPAD_BACKEND_CATALOG_GIT_REPOSITORY
-  required: true
+  description: The GitHub repository containing the booster catalog
   value: https://github.com/openshiftio/booster-catalog.git
-- description: The Git reference to use for the above repository
+  required: true
+- name: LAUNCHPAD_BACKEND_CATALOG_GIT_REF
   displayName: Catalog Git Reference
-  name: LAUNCHPAD_BACKEND_CATALOG_GIT_REF
-  required: true
+  description: The Git reference to use for the above repository
   value: master
-- description: Time in minutes that the catalog will be periodically indexed ("0" means only once at startup)
-  displayName: Catalog Index Period
-  name: LAUNCHPAD_BACKEND_CATALOG_INDEX_PERIOD
   required: true
-  value: "0"
-- description: The host name where the Frontend Launchpad application can be reached.
+- name: LAUNCHPAD_FRONTEND_HOST
+  displayName: Launchpad Frontend Host
+  description: The host name where the Frontend Launchpad application can be reached.
     You have to deduce yourself as no meaningfull default value can be supplied.
     If you're running everything on a local OpenShift/minishift instance you can
     take a look at the default value displayed in this field and replace $PROJECTNAME
@@ -87,17 +84,14 @@ parameters:
     field should probably look somewhat like the URL you see in this page's address
     bar of your browser.
     Example value (launchpad-frontend-$PROJECTNAME.$HOSTNAMEORIP.nip.io)
-  displayName: Launchpad Frontend Host
-  name: LAUNCHPAD_FRONTEND_HOST
-  required: true
   value:
+  required: true
 objects:
 - kind: ConfigMap
   apiVersion: v1
   metadata:
     name: launchpad
   data:
-#    LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_API_URL: openshift.local
     launchpad.missioncontrol.github.username: ${LAUNCHPAD_MISSIONCONTROL_GITHUB_USERNAME}
     launchpad.missioncontrol.github.token: ${LAUNCHPAD_MISSIONCONTROL_GITHUB_TOKEN}
     launchpad.missioncontrol.openshift.username: ${LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_USERNAME}
@@ -108,7 +102,6 @@ objects:
     launchpad.backend.url: https://${LAUNCHPAD_FRONTEND_HOST}
     launchpad.backend.catalog.git.repository: ${LAUNCHPAD_BACKEND_CATALOG_GIT_REPOSITORY}
     launchpad.backend.catalog.git.ref: ${LAUNCHPAD_BACKEND_CATALOG_GIT_REF}
-    launchpad.backend.catalog.index.period: ${LAUNCHPAD_BACKEND_CATALOG_INDEX_PERIOD}
     launchpad.keycloak.url: ${LAUNCHPAD_KEYCLOAK_URL}
     launchpad.keycloak.realm: ${LAUNCHPAD_KEYCLOAK_REALM}
     launchpad.tracker.segment.token: ${LAUNCHPAD_TRACKER_SEGMENT_TOKEN}
