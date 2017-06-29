@@ -176,8 +176,6 @@ objects:
             value: ${LAUNCHPAD_BACKEND_CATALOG_GIT_REPOSITORY}
           - name: LAUNCHPAD_BACKEND_CATALOG_GIT_REF
             value: ${LAUNCHPAD_BACKEND_CATALOG_GIT_REF}
-          - name: LAUNCHPAD_BACKEND_CATALOG_INDEX_PERIOD
-            value: ${LAUNCHPAD_BACKEND_CATALOG_INDEX_PERIOD}
           image: openshiftio/launchpad-backend:latest
           imagePullPolicy: Always
           name: launchpad-backend
@@ -421,11 +419,6 @@ parameters:
   name: LAUNCHPAD_BACKEND_CATALOG_GIT_REF
   required: true
   value: master
-- description: Time in minutes that the catalog will be periodically indexed ("0" means only once at startup)
-  displayName: Catalog Index Period
-  name: LAUNCHPAD_BACKEND_CATALOG_INDEX_PERIOD
-  required: true
-  value: "0"
 - description: The host name where the Frontend Launchpad application can be reached.
     You have to deduce yourself as no meaningfull default value can be supplied.
     If you're running everything on a local OpenShift/minishift instance you can
