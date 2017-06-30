@@ -69,7 +69,7 @@ parameters:
 - name: LAUNCHPAD_BACKEND_CATALOG_GIT_REF
   displayName: Catalog Git Reference
   description: The Git reference to use for the above repository
-  value: master
+  value: v5
   required: true
 - name: LAUNCHPAD_FRONTEND_HOST
   displayName: Launchpad Frontend Host
@@ -110,7 +110,7 @@ objects:
     name: launchpad-backend
   spec:
     tags:
-    - name: latest
+    - name: v5
       from:
         kind: DockerImage
         name: openshiftio/launchpad-backend
@@ -120,7 +120,7 @@ objects:
     name: launchpad-frontend
   spec:
     tags:
-    - name: latest
+    - name: v5
       from:
         kind: DockerImage
         name: openshiftio/launchpad-frontend
@@ -130,7 +130,7 @@ objects:
     name: launchpad-missioncontrol
   spec:
     tags:
-    - name: latest
+    - name: v6
       from:
         kind: DockerImage
         name: openshiftio/launchpad-missioncontrol
@@ -245,7 +245,7 @@ objects:
           - launchpad-missioncontrol
         from:
           kind: ImageStreamTag
-          name: launchpad-missioncontrol:latest
+          name: launchpad-missioncontrol:v6
 - kind: Service
   apiVersion: v1
   metadata:
@@ -344,7 +344,7 @@ objects:
           - launchpad-backend
         from:
           kind: ImageStreamTag
-          name: launchpad-backend:latest
+          name: launchpad-backend:v5
 - kind: Service
   apiVersion: v1
   metadata:
@@ -460,7 +460,7 @@ objects:
           - launchpad-frontend
         from:
           kind: ImageStreamTag
-          name: launchpad-frontend:latest
+          name: launchpad-frontend:v5
 - kind: Service
   apiVersion: v1
   metadata:
