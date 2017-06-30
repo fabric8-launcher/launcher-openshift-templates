@@ -38,13 +38,13 @@ parameters:
     Example value (https://$HOSTNAMEORIP:8443)
   value:
   required: true
-- description: OpenShift user (leave empty when using Keycloak)
+- name: LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_USERNAME
   displayName: OpenShift user name
-  name: LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_USERNAME
+  description: OpenShift user (leave empty when using Keycloak)
   value: developer
-- description: OpenShift password (leave empty when using Keycloak)
+- name: LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_PASSWORD
   displayName: OpenShift password
-  name: LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_PASSWORD
+  description: OpenShift password (leave empty when using Keycloak)  
   value: developer
 - name: LAUNCHPAD_KEYCLOAK_URL
   displayName: KeyCloak URL
