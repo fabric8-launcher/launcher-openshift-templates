@@ -59,9 +59,8 @@ parameters:
   value: osio-launch-prod
 - name: LAUNCHPAD_TRACKER_SEGMENT_TOKEN
   displayName: Segment Token
-  description: The token to use for Segment tracking. Leaving this empty will default
-    to the token used for the development environment. This must be set to the proper
-    tokens for staging and production!
+  description: The token to use for Segment tracking. Leaving this empty will disable
+    tracking. This must be set to the proper tokens for staging and production!
 - name: LAUNCHPAD_BACKEND_CATALOG_GIT_REPOSITORY
   displayName: Catalog Git Repository
   description: The GitHub repository containing the booster catalog
