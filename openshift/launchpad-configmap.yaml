@@ -71,20 +71,6 @@ parameters:
   description: The Git reference to use for the above repository
   value: master
   required: true
-- name: LAUNCHPAD_FRONTEND_HOST
-  displayName: Launchpad Frontend Host
-  description: The host name where the Frontend Launchpad application can be reached.
-    You have to deduce yourself as no meaningfull default value can be supplied.
-    If you're running everything on a local OpenShift/minishift instance you can
-    take a look at the default value displayed in this field and replace $PROJECTNAME
-    with the actual name of the project you are adding this template to and also
-    replace $HOSTNAMEORIP with the IP number of the OpenShift instance you are
-    running this on. If you're running this on an external server the URL in this
-    field should probably look somewhat like the URL you see in this page's address
-    bar of your browser.
-    Example value (launchpad-frontend-$PROJECTNAME.$HOSTNAMEORIP.nip.io)
-  value:
-  required: true
 objects:
 - kind: ConfigMap
   apiVersion: v1
@@ -97,8 +83,6 @@ objects:
     launchpad.missioncontrol.openshift.password: ${LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_PASSWORD}
     launchpad.missioncontrol.openshift.api.url: ${LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_API_URL}
     launchpad.missioncontrol.openshift.console.url: ${LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_CONSOLE_URL}
-    launchpad.missioncontrol.url: wss://${LAUNCHPAD_FRONTEND_HOST}
-    launchpad.backend.url: https://${LAUNCHPAD_FRONTEND_HOST}
     launchpad.backend.catalog.git.repository: ${LAUNCHPAD_BACKEND_CATALOG_GIT_REPOSITORY}
     launchpad.backend.catalog.git.ref: ${LAUNCHPAD_BACKEND_CATALOG_GIT_REF}
     launchpad.keycloak.url: ${LAUNCHPAD_KEYCLOAK_URL}
