@@ -1,0 +1,47 @@
+kind: Template
+apiVersion: v1
+metadata:
+  name: launchpad-imagestreams
+  annotations:
+    openshift.io/display-name: "Launchpad - ImageStreams"
+    description: This application contains the Launchpad image streams
+    tags: instant-app,launchpad
+    iconClass: icon-shadowman
+    template.openshift.io/long-description: This application contains the Launchpad image streams
+    template.openshift.io/provider-display-name: Red Hat, Inc.
+    template.openshift.io/documentation-url: https://github.com/openshiftio/launchpad-templates
+    template.openshift.io/support-url: https://access.redhat.com
+message: "The following service has been created in your project: launchpad-configuration.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/openshiftio"
+labels:
+  template: launchpad-imagestreams
+objects:
+- kind: ImageStream
+  apiVersion: v1
+  metadata:
+    name: launchpad-backend
+  spec:
+    tags:
+    - name: latest
+      from:
+        kind: DockerImage
+        name: openshiftio/launchpad-backend
+- kind: ImageStream
+  apiVersion: v1
+  metadata:
+    name: launchpad-frontend
+  spec:
+    tags:
+    - name: latest
+      from:
+        kind: DockerImage
+        name: openshiftio/launchpad-frontend
+- kind: ImageStream
+  apiVersion: v1
+  metadata:
+    name: launchpad-missioncontrol
+  spec:
+    tags:
+    - name: latest
+      from:
+        kind: DockerImage
+        name: openshiftio/launchpad-missioncontrol

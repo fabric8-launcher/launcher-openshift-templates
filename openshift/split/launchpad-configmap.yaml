@@ -88,33 +88,3 @@ objects:
     launchpad.keycloak.url: ${LAUNCHPAD_KEYCLOAK_URL}
     launchpad.keycloak.realm: ${LAUNCHPAD_KEYCLOAK_REALM}
     launchpad.tracker.segment.token: ${LAUNCHPAD_TRACKER_SEGMENT_TOKEN}
-- kind: ImageStream
-  apiVersion: v1
-  metadata:
-    name: launchpad-backend
-  spec:
-    tags:
-    - name: latest
-      from:
-        kind: DockerImage
-        name: openshiftio/launchpad-backend
-- kind: ImageStream
-  apiVersion: v1
-  metadata:
-    name: launchpad-frontend
-  spec:
-    tags:
-    - name: latest
-      from:
-        kind: DockerImage
-        name: openshiftio/launchpad-frontend
-- kind: ImageStream
-  apiVersion: v1
-  metadata:
-    name: launchpad-missioncontrol
-  spec:
-    tags:
-    - name: latest
-      from:
-        kind: DockerImage
-        name: openshiftio/launchpad-missioncontrol
