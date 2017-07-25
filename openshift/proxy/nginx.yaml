@@ -38,7 +38,7 @@ objects:
           run: launchpad-nginx
       spec:
         containers:
-        - image: registry.centos.org/kbsingh/openshift-nginx:$TAG
+        - image: registry.centos.org/kbsingh/openshift-nginx:$IMAGE_TAG
           imagePullPolicy: Always
           name: launchpad-nginx
           ports:
