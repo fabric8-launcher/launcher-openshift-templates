@@ -68,11 +68,10 @@ data:
             }
 
             location /status/ {
-              add_header 'Access-Control-Allow-Origin' "$http_origin";
-              add_header 'Access-Control-Allow-Credentials' 'true';
-              add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS';
-
               proxy_pass http://missioncontrol/status/;
+              proxy_http_version 1.1;
+              proxy_set_header Upgrade $http_upgrade;
+              proxy_set_header Connection "upgrade";
             }
 
             location /launchpad/ {
