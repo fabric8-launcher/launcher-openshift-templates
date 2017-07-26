@@ -35,7 +35,7 @@ objects:
           run: launchpad-nginx
       spec:
         containers:
-        - image: registry.centos.org/kbsingh/openshift-nginx:${IMAGE_TAG}
+        - image: registry.centos.org/kbsingh/openshift-nginx:latest
           imagePullPolicy: Always
           name: launchpad-nginx
           ports:
@@ -85,6 +85,3 @@ objects:
       weight: 100
     wildcardPolicy: None
   status: {}
-parameters:
-- name: IMAGE_TAG
-  value: latest
