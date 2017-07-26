@@ -62,6 +62,8 @@ objects:
   kind: Service
   metadata:
     name: launchpad-nginx
+    annotations:
+      service.alpha.openshift.io/dependencies: "[{\"name\":\"launchpad-frontend\",\"namespace\":\"\",\"kind\":\"Service\"},{\"name\":\"launchpad-backend\",\"namespace\":\"\",\"kind\":\"Service\"},{\"name\":\"launchpad-missioncontrol\",\"namespace\":\"\",\"kind\":\"Service\"}]"
   spec:
     ports:
     - name: "8080"
