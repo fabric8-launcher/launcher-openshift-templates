@@ -75,19 +75,19 @@ parameters:
   value: openshiftio/launchpad-missioncontrol
   required: true
 - name: MISSIONCONTROL_IMAGE_TAG
-  value: latest
+  value: v8
   required: true
 - name: BACKEND_IMAGE
   value: openshiftio/launchpad-backend
   required: true
 - name: BACKEND_IMAGE_TAG
-  value: latest
+  value: v7
   required: true
 - name: FRONTEND_IMAGE
   value: openshiftio/launchpad-frontend
   required: true
 - name: FRONTEND_IMAGE_TAG
-  value: latest
+  value: v7
   required: true
 objects:
 - kind: ConfigMap
@@ -197,7 +197,7 @@ objects:
     name: launchpad-backend
   spec:
     tags:
-    - name: latest
+    - name: v7
       from:
         kind: DockerImage
         name: openshiftio/launchpad-backend
@@ -207,7 +207,7 @@ objects:
     name: launchpad-frontend
   spec:
     tags:
-    - name: latest
+    - name: v7
       from:
         kind: DockerImage
         name: openshiftio/launchpad-frontend
@@ -217,7 +217,7 @@ objects:
     name: launchpad-missioncontrol
   spec:
     tags:
-    - name: latest
+    - name: v8
       from:
         kind: DockerImage
         name: openshiftio/launchpad-missioncontrol
