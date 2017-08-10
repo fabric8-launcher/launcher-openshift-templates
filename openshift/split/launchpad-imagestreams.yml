@@ -21,7 +21,7 @@ objects:
     name: launchpad-backend
   spec:
     tags:
-    - name: latest
+    - name: v8
       from:
         kind: DockerImage
         name: openshiftio/launchpad-backend
@@ -31,7 +31,7 @@ objects:
     name: launchpad-frontend
   spec:
     tags:
-    - name: latest
+    - name: v8
       from:
         kind: DockerImage
         name: openshiftio/launchpad-frontend
@@ -41,7 +41,7 @@ objects:
     name: launchpad-missioncontrol
   spec:
     tags:
-    - name: latest
+    - name: v9
       from:
         kind: DockerImage
         name: openshiftio/launchpad-missioncontrol
