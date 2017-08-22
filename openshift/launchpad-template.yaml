@@ -307,7 +307,7 @@ objects:
             initialDelaySeconds: 120
             periodSeconds: 10
             successThreshold: 1
-            timeoutSeconds: 1
+            timeoutSeconds: 10
           livenessProbe:
             httpGet:
               path: /api/health/ready
@@ -317,7 +317,7 @@ objects:
             initialDelaySeconds: 60
             periodSeconds: 10
             successThreshold: 1
-            timeoutSeconds: 1
+            timeoutSeconds: 10
         dnsPolicy: ClusterFirst
         restartPolicy: Always
         securityContext: {}
@@ -398,7 +398,7 @@ objects:
             initialDelaySeconds: 300
             periodSeconds: 10
             successThreshold: 1
-            timeoutSeconds: 1
+            timeoutSeconds: 10
           livenessProbe:
             httpGet:
               path: /health/ready
@@ -408,7 +408,7 @@ objects:
             initialDelaySeconds: 60
             periodSeconds: 10
             successThreshold: 1
-            timeoutSeconds: 1
+            timeoutSeconds: 10
         dnsPolicy: ClusterFirst
         restartPolicy: Always
         securityContext: {}
@@ -498,7 +498,7 @@ objects:
               path: /wizard
               port: 8080
             initialDelaySeconds: 120
-            timeoutSeconds: 1
+            timeoutSeconds: 10
             failureThreshold: 3
             periodSeconds: 10
             successThreshold: 1
@@ -507,7 +507,7 @@ objects:
               path: /wizard
               port: 8080
             initialDelaySeconds: 60
-            timeoutSeconds: 1
+            timeoutSeconds: 10
             failureThreshold: 3
             periodSeconds: 10
             successThreshold: 1
@@ -581,8 +581,8 @@ objects:
             httpGet:
               path: /wizard
               port: 8080
-            initialDelaySeconds: 15
-            timeoutSeconds: 1
+            initialDelaySeconds: 120
+            timeoutSeconds: 10
             failureThreshold: 3
             periodSeconds: 10
             successThreshold: 1
@@ -590,8 +590,8 @@ objects:
             httpGet:
               path: /wizard
               port: 8080
-            initialDelaySeconds: 15
-            timeoutSeconds: 1
+            initialDelaySeconds: 60
+            timeoutSeconds: 10
             failureThreshold: 3
             periodSeconds: 10
             successThreshold: 1
