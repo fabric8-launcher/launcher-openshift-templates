@@ -50,7 +50,7 @@ objects:
             httpGet:
               path: /wizard
               port: 8080
-            initialDelaySeconds: 15
+            initialDelaySeconds: 120
             timeoutSeconds: 1
             failureThreshold: 3
             periodSeconds: 10
@@ -59,7 +59,7 @@ objects:
             httpGet:
               path: /wizard
               port: 8080
-            initialDelaySeconds: 15
+            initialDelaySeconds: 60
             timeoutSeconds: 1
             failureThreshold: 3
             periodSeconds: 10
