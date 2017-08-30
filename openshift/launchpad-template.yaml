@@ -339,14 +339,6 @@ objects:
       deploymentconfig: launchpad-missioncontrol
     sessionAffinity: None
     type: ClusterIP
-- kind: Route
-  apiVersion: v1
-  metadata:
-    name: launchpad-missioncontrol
-  spec:
-    to:
-      kind: Service
-      name: launchpad-missioncontrol
 - kind: DeploymentConfig
   apiVersion: v1
   metadata:
@@ -432,16 +424,6 @@ objects:
       service: launchpad-backend
     sessionAffinity: None
     type: ClusterIP
-- kind: Route
-  apiVersion: v1
-  metadata:
-    name: launchpad-backend
-  spec:
-    to:
-      kind: Service
-      name: launchpad-backend
-      weight: 100
-    wildcardPolicy: None
 - kind: DeploymentConfig
   apiVersion: v1
   metadata:
