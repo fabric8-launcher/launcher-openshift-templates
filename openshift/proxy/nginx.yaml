@@ -35,17 +35,13 @@ objects:
           run: launchpad-nginx
       spec:
         containers:
-        - image: registry.centos.org/kbsingh/openshift-nginx:latest
+        - image: registry.devshift.net/openshiftio/launchpad-nginx:latest
           imagePullPolicy: Always
           name: launchpad-nginx
           ports:
           - containerPort: 8080
             protocol: TCP
           terminationMessagePath: /dev/termination-log
-          volumeMounts:
-          - mountPath: /etc/nginx/nginx.conf
-            subPath: nginx.conf 
-            name: configmap-volume
           readinessProbe:
             httpGet:
               path: /wizard
