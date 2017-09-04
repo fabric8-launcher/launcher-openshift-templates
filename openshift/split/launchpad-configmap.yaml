@@ -28,7 +28,6 @@ parameters:
     Leave the default value when targetting the same OpenShift/Minishift you are
     running this on
   value: https://openshift.default.svc.cluster.local
-  required: true
 - name: LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_CONSOLE_URL
   displayName: Target OpenShift Console URL
   description: The base URL of the OpenShift Console where the launched boosters
@@ -37,7 +36,6 @@ parameters:
     can most likely look at this page's address bar of your browser and copy the URL
     Example value (https://$HOSTNAMEORIP:8443)
   value:
-  required: true
 - name: LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_USERNAME
   displayName: OpenShift user name
   description: OpenShift user (leave empty when using Keycloak)
@@ -56,7 +54,7 @@ parameters:
   displayName: KeyCloak Realm
   description: The keycloak realm to be used (leave empty if you've explicitly specified
     GitHub/OpenShift authentication above)
-  value: osio-launch-prod
+  value: rh-developers-launch
 - name: LAUNCHPAD_TRACKER_SEGMENT_TOKEN
   displayName: Segment Token
   description: The token to use for Segment tracking. Leaving this empty will disable
@@ -88,3 +86,22 @@ objects:
     launchpad.keycloak.url: ${LAUNCHPAD_KEYCLOAK_URL}
     launchpad.keycloak.realm: ${LAUNCHPAD_KEYCLOAK_REALM}
     launchpad.tracker.segment.token: ${LAUNCHPAD_TRACKER_SEGMENT_TOKEN}
+- kind: ConfigMap
+  apiVersion: v1
+  metadata:
+    name: launchpad-missioncontrol
+  data:
+    openshift-clusters.yaml: |-
+      - id: starter-us-east-1
+	apiUrl: https://api.starter-us-east-1.openshift.com
+	consoleUrl: https://console.starter-us-east-1.openshift.com/console
+      - id: starter-us-west-1
+	apiUrl: https://api.starter-us-west-1.openshift.com
+	consoleUrl: https://console.starter-us-west-1.openshift.com/console
+      - id: starter-us-west-2
+	apiUrl: https://api.starter-us-west-2.openshift.com
+	consoleUrl: https://console.starter-us-west-2.openshift.com/console
+      - id: starter-ca-central-1
+	apiUrl: https://api.starter-ca-central-1.openshift.com
+	consoleUrl: https://console.starter-ca-central-1.openshift.com/console
+

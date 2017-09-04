@@ -26,18 +26,16 @@ parameters:
   description: The base URL of the OpenShift API where the launched boosters
     should be created (ie. https://hostname[:port] or https://ipaddress[:port]).
     Leave the default value when targetting the same OpenShift/Minishift you are
-    running this on
+    running this on (leave empty when using Keycloak)
   value: https://openshift.default.svc.cluster.local
-  required: true
 - name: LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_CONSOLE_URL
   displayName: Target OpenShift Console URL
   description: The base URL of the OpenShift Console where the launched boosters
     should be created (ie. https://hostname[:port] or https://ipaddress[:port]).
     When targetting the same OpenShift/Minishift instance you are running this on you
     can most likely look at this page's address bar of your browser and copy the URL
-    Example value (https://$HOSTNAMEORIP:8443)
+    Example value (https://$HOSTNAMEORIP:8443) (leave empty when using Keycloak)
   value:
-  required: true
 - name: LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_USERNAME
   displayName: OpenShift user name
   description: OpenShift user (leave empty when using Keycloak)
@@ -49,14 +47,14 @@ parameters:
 - name: LAUNCHPAD_KEYCLOAK_URL
   displayName: KeyCloak URL
   description: The URL (with the /auth part) of a Keycloak installation to perform SSO
-    authentication (leave empty if you've explicitly specified GItHub/OpenShift
+    authentication (leave empty if you've explicitly specified GitHub/OpenShift
     authentication above)
   value: https://sso.openshift.io/auth
 - name: LAUNCHPAD_KEYCLOAK_REALM
   displayName: KeyCloak Realm
   description: The keycloak realm to be used (leave empty if you've explicitly specified
     GitHub/OpenShift authentication above)
-  value: osio-launch-prod
+  value: rh-developers-launch
 - name: LAUNCHPAD_TRACKER_SEGMENT_TOKEN
   displayName: Segment Token
   description: The token to use for Segment tracking. Leaving this empty will disable
@@ -106,6 +104,24 @@ objects:
     launchpad.keycloak.url: ${LAUNCHPAD_KEYCLOAK_URL}
     launchpad.keycloak.realm: ${LAUNCHPAD_KEYCLOAK_REALM}
     launchpad.tracker.segment.token: ${LAUNCHPAD_TRACKER_SEGMENT_TOKEN}
+- kind: ConfigMap
+  apiVersion: v1
+  metadata:
+    name: launchpad-missioncontrol
+  data:
+    openshift-clusters.yaml: |-
+      - id: starter-us-east-1
+        apiUrl: https://api.starter-us-east-1.openshift.com
+        consoleUrl: https://console.starter-us-east-1.openshift.com/console
+      - id: starter-us-west-1
+        apiUrl: https://api.starter-us-west-1.openshift.com
+        consoleUrl: https://console.starter-us-west-1.openshift.com/console
+      - id: starter-us-west-2
+        apiUrl: https://api.starter-us-west-2.openshift.com
+        consoleUrl: https://console.starter-us-west-2.openshift.com/console
+      - id: starter-ca-central-1
+        apiUrl: https://api.starter-ca-central-1.openshift.com
+        consoleUrl: https://console.starter-ca-central-1.openshift.com/console
 - kind: ConfigMap
   apiVersion: v1
   metadata:
@@ -255,6 +271,8 @@ objects:
               configMapKeyRef:
                 name: launchpad
                 key: launchpad.missioncontrol.openshift.console.url
+          - name: LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_CLUSTERS_FILE
+            value: /etc/openshift-clusters.yaml
           - name: LAUNCHPAD_MISSIONCONTROL_GITHUB_USERNAME
             valueFrom:
               configMapKeyRef:
@@ -298,6 +316,10 @@ objects:
             protocol: TCP
           resources: {}
           terminationMessagePath: /dev/termination-log
+          volumeMounts:
+          - mountPath: /etc/openshift-clusters.yaml
+            subPath: openshift-clusters.yaml
+            name: configmap-volume
           readinessProbe:
             httpGet:
               path: /api/health/ready
@@ -322,6 +344,10 @@ objects:
         restartPolicy: Always
         securityContext: {}
         terminationGracePeriodSeconds: 30
+        volumes:
+        - name: configmap-volume
+          configMap:
+            name: launchpad-missioncontrol
     test: false
     triggers:
     - type: ConfigChange
