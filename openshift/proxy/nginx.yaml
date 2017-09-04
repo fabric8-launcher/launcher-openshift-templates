@@ -60,10 +60,6 @@ objects:
             failureThreshold: 3
             periodSeconds: 10
             successThreshold: 1
-        volumes:
-        - name: configmap-volume
-          configMap:
-            name: launchpad-nginx
         dnsPolicy: ClusterFirst
         restartPolicy: Always
         securityContext: {}
