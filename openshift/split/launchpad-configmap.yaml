@@ -93,17 +93,17 @@ objects:
   data:
     openshift-clusters.yaml: |-
       - id: starter-us-east-1
-	apiUrl: https://api.starter-us-east-1.openshift.com
-	consoleUrl: https://console.starter-us-east-1.openshift.com/console
+        apiUrl: https://api.starter-us-east-1.openshift.com
+        consoleUrl: https://console.starter-us-east-1.openshift.com/console
       - id: starter-us-west-1
-	apiUrl: https://api.starter-us-west-1.openshift.com
-	consoleUrl: https://console.starter-us-west-1.openshift.com/console
+        apiUrl: https://api.starter-us-west-1.openshift.com
+        consoleUrl: https://console.starter-us-west-1.openshift.com/console
       - id: starter-us-west-2
-	apiUrl: https://api.starter-us-west-2.openshift.com
-	consoleUrl: https://console.starter-us-west-2.openshift.com/console
+        apiUrl: https://api.starter-us-west-2.openshift.com
+        consoleUrl: https://console.starter-us-west-2.openshift.com/console
       - id: starter-ca-central-1
-	apiUrl: https://api.starter-ca-central-1.openshift.com
-	consoleUrl: https://console.starter-ca-central-1.openshift.com/console
+        apiUrl: https://api.starter-ca-central-1.openshift.com
+        consoleUrl: https://console.starter-ca-central-1.openshift.com/console
       - id: pro-us-east-1
         apiUrl: https://api.pro-us-east-1.openshift.com
         consoleUrl: https://console.pro-us-east-1.openshift.com/console	
