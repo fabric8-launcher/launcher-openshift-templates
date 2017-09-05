@@ -104,4 +104,7 @@ objects:
       - id: starter-ca-central-1
 	apiUrl: https://api.starter-ca-central-1.openshift.com
 	consoleUrl: https://console.starter-ca-central-1.openshift.com/console
+      - id: pro-us-east-1
+        apiUrl: https://api.pro-us-east-1.openshift.com
+        consoleUrl: https://console.pro-us-east-1.openshift.com/console	
 
