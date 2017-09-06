@@ -411,7 +411,7 @@ objects:
               path: /health/ready
               port: 8080
               scheme: HTTP
-            initialDelaySeconds: 45
+            initialDelaySeconds: 15
             periodSeconds: 20
             timeoutSeconds: 10
           livenessProbe:
@@ -419,7 +419,7 @@ objects:
               path: /health/ready
               port: 8080
               scheme: HTTP
-            initialDelaySeconds: 60
+            initialDelaySeconds: 30
             periodSeconds: 20
             timeoutSeconds: 10
         dnsPolicy: ClusterFirst
