@@ -10,7 +10,7 @@
 main() {
     # Step 1 - Run mvn to create the fabric8 OpenSHift temapltes
     echo "Running 'mvn fabric8:resource' to create application templates..."
-    mvn > /dev/null fabric8:resource
+    mvn > /dev/null fabric8:resource || { echo "Maven command failed" ; exit 1; }
 
     # Step 2 - Find the templates
     TEMPLATES=$(find . -wholename '*/fabric8/openshift.yml')
@@ -47,12 +47,6 @@ main() {
             echo "    $OCCMD > $SRVTPL"
             $OCCMD > $SRVTPL
         fi
-
-        # TODO replace the service's project name by "${PROJECT}-service-name"
-        # Step 9 - Find the project's name in the service template
-        #SRVPRJNAME=$(findProjectName $SRVTPL)
-        #echo $SRVPRJNAME
-
     done
 
     echo ""
