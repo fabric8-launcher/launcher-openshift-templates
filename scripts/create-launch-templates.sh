@@ -31,8 +31,8 @@ main() {
         APPTPL=$OSIODIR/application.yaml
         createTemplate $APPTPL $APPPRJNAME
         
-        # Step 7 - Append the fabric8 template replacing the project name with ${PROJECT}-project-name
-        appendTemplate $tpl $APPTPL $APPPRJNAME
+        # Step 7 - Append the fabric8 template
+        appendTemplate $tpl $APPTPL
 
         echo "Created template '$APPTPL' for project '$APPPRJNAME'"
 
@@ -82,17 +82,12 @@ __EOF__
 }
 
 appendTemplate() {
-    export PRJNAME=$3
     perl < $1 >> $2 -e '
     use strict;
     use warnings;
     my $start=0;
-    my $prjname=$ENV{"PRJNAME"};
     while (my $line = <>) {
         if ($start == 1) {
-            if ($line !~ /fabric8/) {
-                $line =~ s/$prjname/\${PROJECT}-$prjname/g
-            }
             if ($line !~/fabric8\.io\/git-commit/) {
                 print $line;
             }
@@ -137,10 +132,6 @@ metadata:
     description: This template creates a Build Configuration using an S2I builder.
     tags: instant-app
 parameters:
-- name: PROJECT
-  description: The name assigned to all of the application objects defined in this template.
-  displayName: Application Name
-  required: true
 - name: SOURCE_REPOSITORY_URL
   description: The source URL for the application
   displayName: Source URL
@@ -165,7 +156,7 @@ objects:
 - apiVersion: v1
   kind: ImageStream
   metadata:
-    name: ${PROJECT}
+    name: ${SRVNAME}
   spec: {}
 - apiVersion: v1
   kind: ImageStream
@@ -180,12 +171,12 @@ objects:
 - apiVersion: v1
   kind: BuildConfig
   metadata:
-    name: ${PROJECT}
+    name: ${SRVNAME}
   spec:
     output:
       to:
         kind: ImageStreamTag
-        name: ${PROJECT}:latest
+        name: ${SRVNAME}:latest
     postCommit: {}
     resources: {}
     source:
@@ -217,7 +208,7 @@ objects:
 __EOF__
     if [[ ! -z $2 ]]
     then
-        perl -i -pe "s/\\\$\{PROJECT}/\\\$\{PROJECT}-$2/g" $1
+        perl -i -pe "s/\\\$\{SRVNAME}/$2/g" $1
     fi
 }
 
