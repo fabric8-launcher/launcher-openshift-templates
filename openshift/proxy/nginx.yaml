@@ -2,6 +2,11 @@ apiVersion: v1
 kind: Template
 metadata:  
   name: launchpad-nginx
+parameters:
+- name: IMAGE
+  value: registry.devshift.net/openshiftio/launchpad-nginx
+- name: IMAGE_TAG
+  value: latest
 objects:
 - apiVersion: v1
   kind: DeploymentConfig
@@ -35,7 +40,7 @@ objects:
           run: launchpad-nginx
       spec:
         containers:
-        - image: registry.devshift.net/openshiftio/launchpad-nginx:${IMAGE_TAG}
+        - image: ${IMAGE}:${IMAGE_TAG}
           imagePullPolicy: Always
           name: launchpad-nginx
           ports:
@@ -55,9 +60,6 @@ objects:
               port: 8080
             initialDelaySeconds: 30
             timeoutSeconds: 10
-            failureThreshold: 3
-            periodSeconds: 10
-            successThreshold: 1
             periodSeconds: 20
         dnsPolicy: ClusterFirst
         restartPolicy: Always
@@ -96,6 +98,3 @@ objects:
       weight: 100
     wildcardPolicy: None
   status: {}
-parameters:
-- name: IMAGE_TAG
-  value: latest
