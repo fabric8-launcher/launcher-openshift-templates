@@ -1,0 +1,16 @@
+kind: Template
+apiVersion: v1
+metadata:
+  name: launchpad
+  annotations:
+    openshift.io/display-name: "Launchpad (Frontend + Backend + Mission Control)"
+    description: This application consists of the combination of Mission Control and the Backend and Frontend
+    tags: instant-app,launchpad
+    iconClass: icon-shadowman
+    template.openshift.io/long-description: This application consists of the combination of Mission Control, Backend and Frontend
+    template.openshift.io/provider-display-name: Red Hat, Inc.
+    template.openshift.io/documentation-url: https://github.com/openshiftio
+    template.openshift.io/support-url: https://access.redhat.com
+message: "The following service(s) have been created in your project: mission-control, launchpad-backend, launchpad-frontend.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/openshiftio"
+labels:
+  template: launchpad
