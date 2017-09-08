@@ -26,10 +26,12 @@ main() {
 
         # Step 5 - Find the project's name in the fabric8 template
         APPPRJNAME=$(findProjectName $tpl)
+        IMAGENAME=$(findImageName $tpl)
+        echo "IMAGE $IMAGENAME"
 
         # Step 6 - Create the first part of the template
         APPTPL=$OSIODIR/application.yaml
-        createTemplate $APPTPL $APPPRJNAME
+        createTemplate $APPTPL $APPPRJNAME $IMAGENAME
         
         # Step 7 - Append the fabric8 template
         appendTemplate $tpl $APPTPL
@@ -102,7 +104,10 @@ findProjectName() {
         chomp $line;
         if ($selindent >= 0) {
             if ($line =~ /^(\s*)\w/) {
-                $selindent=-1;
+                my $indent=length($1);
+                if ($indent <= $selindent) {
+                    $selindent=-1;
+                }
             }
             if ($line =~ /\s*(app:|project:)\s*(\S+)/) {
                 $prjname=$2;
@@ -113,6 +118,33 @@ findProjectName() {
         }
     }
     print $prjname;
+__EOF__
+}
+
+findImageName() {
+    perl - $1 <<-'__EOF__'
+    use strict;
+    use warnings;
+    my $imgname='';
+    my $selindent=-1;
+    while (my $line = <>) {
+        chomp $line;
+        if ($selindent >= 0) {
+            if ($line =~ /^([-\s]*)\w/) {
+                my $indent=length($1);
+                if ($indent <= $selindent) {
+                    $selindent=-1;
+                }
+            }
+            if ($line =~ /[-\s]*image:\s*(\S+)/) {
+                $imgname=$1;
+            }
+        }
+        if ($line =~ /^([-\s]*)containers:/) {
+            $selindent=length($1);
+        }
+    }
+    print $imgname;
 __EOF__
 }
 
@@ -170,7 +202,7 @@ objects:
     output:
       to:
         kind: ImageStreamTag
-        name: ${SRVNAME}:latest
+        name: ${IMAGENAME}
     postCommit: {}
     resources: {}
     source:
@@ -203,6 +235,10 @@ __EOF__
     if [[ ! -z $2 ]]
     then
         perl -i -pe "s/\\\$\{SRVNAME}/$2/g" $1
+    fi
+    if [[ ! -z $3 ]]
+    then
+        perl -i -pe "s/\\\$\{IMAGENAME}/$3/g" $1
     fi
 }
 
