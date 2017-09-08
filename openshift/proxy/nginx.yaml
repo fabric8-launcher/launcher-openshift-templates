@@ -46,20 +46,19 @@ objects:
             httpGet:
               path: /wizard
               port: 8080
-            initialDelaySeconds: 120
+            initialDelaySeconds: 15
             timeoutSeconds: 10
-            failureThreshold: 3
-            periodSeconds: 10
-            successThreshold: 1
+            periodSeconds: 20
           livenessProbe:
             httpGet:
               path: /wizard
               port: 8080
-            initialDelaySeconds: 60
+            initialDelaySeconds: 30
             timeoutSeconds: 10
             failureThreshold: 3
             periodSeconds: 10
             successThreshold: 1
+            periodSeconds: 20
         dnsPolicy: ClusterFirst
         restartPolicy: Always
         securityContext: {}

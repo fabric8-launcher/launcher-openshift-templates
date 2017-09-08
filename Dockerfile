@@ -12,10 +12,10 @@ RUN rm -rf /etc/nginx/conf.d/default.conf &&\
     rm /usr/share/nginx/html/*
 
 # Copy the entrypoint script
-ADD scripts/run.sh /usr/bin/
+ADD cico/scripts/run.sh /usr/bin/
 
 # Copy the nginx.conf to the image
-ADD root /
+ADD cico/root /
 
 RUN chgrp -R 0 /var/log/nginx &&\
     chmod -R g+rw /var/log/nginx &&\
