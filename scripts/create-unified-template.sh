@@ -19,7 +19,6 @@ main() {
     printTemplateParams $DIR/../openshift/proxy/nginx.yaml "PROXY"
     echo "objects:"
     printTemplateObjects $DIR/../openshift/split/launchpad-configmap.yaml
-    printTemplateObjects $DIR/../openshift/split/launchpad-imagestreams.yaml
     printTemplateObjects $DIR/../../launchpad-missioncontrol/openshift/template.yaml "MISSIONCONTROL"
     printTemplateObjects $DIR/../../launchpad-backend/openshift/template.yaml "BACKEND"
     printTemplateObjects $DIR/../../launchpad-frontend/openshift/template.yaml "FRONTEND"
