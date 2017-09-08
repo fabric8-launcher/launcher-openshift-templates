@@ -59,7 +59,7 @@ printTemplateObjects() {
         if ($start == 1) {
             if ($line =~ /^[\s-]/) {
                 $line =~ s/\$\{IMAGE}/\${${modname}_IMAGE}/g;
-                $line =~ s/\$\{IMAGE_TAG}/\${${modname}_IMAGE_TAG}_TAG/g;
+                $line =~ s/\$\{IMAGE_TAG}/\${${modname}_IMAGE_TAG}/g;
                 print $line;
             } else {
                 exit;
