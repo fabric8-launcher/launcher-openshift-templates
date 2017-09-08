@@ -231,7 +231,7 @@ objects:
                 key: launchpad.tracker.segment.token
           - name: LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_CLUSTERS_FILE
             value: /etc/openshift-clusters.yaml
-          image: ${MISSIONCONTROL_IMAGE}:${MISSIONCONTROL_IMAGE_TAG}_TAG
+          image: ${MISSIONCONTROL_IMAGE}:${MISSIONCONTROL_IMAGE_TAG}
           imagePullPolicy: Always
           name: launchpad-missioncontrol
           ports:
@@ -318,7 +318,7 @@ objects:
               configMapKeyRef:
                 name: launchpad
                 key: launchpad.backend.catalog.git.ref
-          image: ${BACKEND_IMAGE}:${BACKEND_IMAGE_TAG}_TAG
+          image: ${BACKEND_IMAGE}:${BACKEND_IMAGE_TAG}
           imagePullPolicy: Always
           name: launchpad-backend
           ports:
@@ -388,7 +388,7 @@ objects:
           service: launchpad-frontend
       spec:
         containers:
-        - image: ${FRONTEND_IMAGE}:${FRONTEND_IMAGE_TAG}_TAG
+        - image: ${FRONTEND_IMAGE}:${FRONTEND_IMAGE_TAG}
           imagePullPolicy: Always
           name: launchpad-frontend
           ports:
@@ -485,7 +485,7 @@ objects:
           run: launchpad-nginx
       spec:
         containers:
-        - image: ${PROXY_IMAGE}:${PROXY_IMAGE_TAG}_TAG
+        - image: ${PROXY_IMAGE}:${PROXY_IMAGE_TAG}
           imagePullPolicy: Always
           name: launchpad-nginx
           ports:
