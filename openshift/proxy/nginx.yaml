@@ -35,7 +35,7 @@ objects:
           run: launchpad-nginx
       spec:
         containers:
-        - image: registry.devshift.net/openshiftio/launchpad-nginx:latest
+        - image: registry.devshift.net/openshiftio/launchpad-nginx:${IMAGE_TAG}
           imagePullPolicy: Always
           name: launchpad-nginx
           ports:
