@@ -96,3 +96,6 @@ objects:
       weight: 100
     wildcardPolicy: None
   status: {}
+parameters:
+- name: IMAGE_TAG
+  value: latest
