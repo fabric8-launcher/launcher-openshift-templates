@@ -130,36 +130,6 @@ objects:
         apiUrl: https://api.pro-us-east-1.openshift.com
         consoleUrl: https://console.pro-us-east-1.openshift.com
 
-- kind: ImageStream
-  apiVersion: v1
-  metadata:
-    name: launchpad-backend
-  spec:
-    tags:
-    - name: latest
-      from:
-        kind: DockerImage
-        name: openshiftio/launchpad-backend
-- kind: ImageStream
-  apiVersion: v1
-  metadata:
-    name: launchpad-frontend
-  spec:
-    tags:
-    - name: latest
-      from:
-        kind: DockerImage
-        name: openshiftio/launchpad-frontend
-- kind: ImageStream
-  apiVersion: v1
-  metadata:
-    name: launchpad-missioncontrol
-  spec:
-    tags:
-    - name: latest
-      from:
-        kind: DockerImage
-        name: openshiftio/launchpad-missioncontrol
 - kind: DeploymentConfig
   apiVersion: v1
   metadata:
