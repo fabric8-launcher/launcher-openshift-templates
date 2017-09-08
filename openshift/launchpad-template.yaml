@@ -26,7 +26,7 @@ parameters:
   description: The base URL of the OpenShift API where the launched boosters
     should be created (ie. https://hostname[:port] or https://ipaddress[:port]).
     Leave the default value when targetting the same OpenShift/Minishift you are
-    running this on (leave empty when using Keycloak)
+    running this on
   value: https://openshift.default.svc.cluster.local
 - name: LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_CONSOLE_URL
   displayName: Target OpenShift Console URL
@@ -34,7 +34,7 @@ parameters:
     should be created (ie. https://hostname[:port] or https://ipaddress[:port]).
     When targetting the same OpenShift/Minishift instance you are running this on you
     can most likely look at this page's address bar of your browser and copy the URL
-    Example value (https://$HOSTNAMEORIP:8443) (leave empty when using Keycloak)
+    Example value (https://$HOSTNAMEORIP:8443)
   value:
 - name: LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_USERNAME
   displayName: OpenShift user name
@@ -47,7 +47,7 @@ parameters:
 - name: LAUNCHPAD_KEYCLOAK_URL
   displayName: KeyCloak URL
   description: The URL (with the /auth part) of a Keycloak installation to perform SSO
-    authentication (leave empty if you've explicitly specified GitHub/OpenShift
+    authentication (leave empty if you've explicitly specified GItHub/OpenShift
     authentication above)
   value: https://sso.openshift.io/auth
 - name: LAUNCHPAD_KEYCLOAK_REALM
@@ -87,6 +87,10 @@ parameters:
 - name: FRONTEND_IMAGE_TAG
   value: latest
   required: true
+- name: PROXY_IMAGE
+  value: registry.devshift.net/openshiftio/launchpad-nginx
+- name: PROXY_IMAGE_TAG
+  value: latest
 objects:
 - kind: ConfigMap
   apiVersion: v1
@@ -125,91 +129,7 @@ objects:
       - id: pro-us-east-1
         apiUrl: https://api.pro-us-east-1.openshift.com
         consoleUrl: https://console.pro-us-east-1.openshift.com
-- kind: ConfigMap
-  apiVersion: v1
-  metadata:
-    name: launchpad-nginx
-  data:
-    nginx.conf: |-
-      daemon off;
-  
-      error_log /dev/stdout debug;
-      pid /run/nginx.pid; 
-  
-      events {
-          worker_connections  1024;
-      }
-  
-      http {
-  
-          default_type  application/octet-stream;
-  
-          log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
-                            '$status $body_bytes_sent "$http_referer" '
-                            '"$http_user_agent" "$http_x_forwarded_for"';
-  
-          access_log /dev/stdout;
-  
-          access_log          /dev/stdout main;                                                                                                                                                                                              
-          client_body_temp_path /tmp;                                                                                                                                                                                                        
-          fastcgi_temp_path /tmp;                                                                                                                                                                                                            
-          scgi_temp_path /tmp;                                                                                                                                                                                                               
-          proxy_temp_path /tmp;                                                                                                                                                                                                              
-          uwsgi_temp_path /tmp;                                                                                                                                                                                                              
-          sendfile            on;                                                                                                                                                                                                            
-          tcp_nopush          on;                                                                                                                                                                                                            
-          tcp_nodelay         on;                                                                                                                                                                                                            
-          keepalive_timeout   65;                                                                                                                                                                                                            
-          types_hash_max_size 2048;                                                                                                                                                                                                          
-                                                                                                                                                                                                                                            
-          include             /etc/nginx/mime.types;   
-          
-          upstream backend {
-            server launchpad-backend:8080;
-          }      
-  
-          upstream frontend {
-            server launchpad-frontend:8080;
-          }      
-  
-          upstream missioncontrol {
-            server launchpad-missioncontrol:8080;
-          }                 
-  
-  
-          server {
-  
-              client_body_temp_path /tmp/nginx_client_temp 1 2;
-  
-              listen       8080;
-              root         /usr/share/nginx/html;
-  
-              
-  
-              location / {
-                add_header 'Access-Control-Allow-Origin' "$http_origin";
-                add_header 'Access-Control-Allow-Credentials' 'true';
-                add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS';
-  
-                proxy_pass http://frontend/;
-              }
-  
-              location /status/ {
-                proxy_pass http://missioncontrol/status/;
-                proxy_http_version 1.1;
-                proxy_set_header Upgrade $http_upgrade;
-                proxy_set_header Connection "upgrade";
-              }
-  
-              location /launchpad/ {
-                add_header 'Access-Control-Allow-Origin' "$http_origin";
-                add_header 'Access-Control-Allow-Credentials' 'true';
-                add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS';
-  
-                proxy_pass http://backend/launchpad/;
-              }
-          }
-      }
+
 - kind: ImageStream
   apiVersion: v1
   metadata:
@@ -274,8 +194,6 @@ objects:
               configMapKeyRef:
                 name: launchpad
                 key: launchpad.missioncontrol.openshift.console.url
-          - name: LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_CLUSTERS_FILE
-            value: /etc/openshift-clusters.yaml
           - name: LAUNCHPAD_MISSIONCONTROL_GITHUB_USERNAME
             valueFrom:
               configMapKeyRef:
@@ -311,7 +229,9 @@ objects:
               configMapKeyRef:
                 name: launchpad
                 key: launchpad.tracker.segment.token
-          image: ${MISSIONCONTROL_IMAGE}:${MISSIONCONTROL_IMAGE_TAG}
+          - name: LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_CLUSTERS_FILE
+            value: /etc/openshift-clusters.yaml
+          image: ${MISSIONCONTROL_IMAGE}:${MISSIONCONTROL_IMAGE_TAG}_TAG
           imagePullPolicy: Always
           name: launchpad-missioncontrol
           ports:
@@ -398,7 +318,7 @@ objects:
               configMapKeyRef:
                 name: launchpad
                 key: launchpad.backend.catalog.git.ref
-          image: ${BACKEND_IMAGE}:${BACKEND_IMAGE_TAG}
+          image: ${BACKEND_IMAGE}:${BACKEND_IMAGE_TAG}_TAG
           imagePullPolicy: Always
           name: launchpad-backend
           ports:
@@ -468,7 +388,7 @@ objects:
           service: launchpad-frontend
       spec:
         containers:
-        - image: ${FRONTEND_IMAGE}:${FRONTEND_IMAGE_TAG}
+        - image: ${FRONTEND_IMAGE}:${FRONTEND_IMAGE_TAG}_TAG
           imagePullPolicy: Always
           name: launchpad-frontend
           ports:
@@ -523,6 +443,8 @@ objects:
     labels:
       service: launchpad-frontend
     name: launchpad-frontend
+    annotations:
+      service.alpha.openshift.io/dependencies: "[{\"name\":\"launchpad-backend\",\"namespace\":\"\",\"kind\":\"Service\"},{\"name\":\"launchpad-missioncontrol\",\"namespace\":\"\",\"kind\":\"Service\"}]"
   spec:
     ports:
     - name: "8080"
@@ -565,17 +487,13 @@ objects:
           run: launchpad-nginx
       spec:
         containers:
-        - image: registry.centos.org/kbsingh/openshift-nginx:latest
+        - image: ${PROXY_IMAGE}:${PROXY_IMAGE_TAG}_TAG
           imagePullPolicy: Always
           name: launchpad-nginx
           ports:
           - containerPort: 8080
             protocol: TCP
           terminationMessagePath: /dev/termination-log
-          volumeMounts:
-          - mountPath: /etc/nginx/nginx.conf
-            subPath: nginx.conf 
-            name: configmap-volume
           readinessProbe:
             httpGet:
               path: /wizard
@@ -589,11 +507,10 @@ objects:
               port: 8080
             initialDelaySeconds: 30
             timeoutSeconds: 10
+            failureThreshold: 3
+            periodSeconds: 10
+            successThreshold: 1
             periodSeconds: 20
-        volumes:
-        - name: configmap-volume
-          configMap:
-            name: launchpad-nginx
         dnsPolicy: ClusterFirst
         restartPolicy: Always
         securityContext: {}
