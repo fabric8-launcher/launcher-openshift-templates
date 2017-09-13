@@ -69,6 +69,11 @@ parameters:
   description: The Git reference to use for the above repository
   value: master
   required: true
+- name: LAUNCHPAD_BACKEND_CATALOG_REINDEX_TOKEN
+  displayName: Catalog Reindex Token
+  description: A token that must be passed to the catalog reindex service to trigger the catalog
+    reindexing.
+  value:
 objects:
 - kind: ConfigMap
   apiVersion: v1
@@ -83,6 +88,7 @@ objects:
     launchpad.missioncontrol.openshift.console.url: ${LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_CONSOLE_URL}
     launchpad.backend.catalog.git.repository: ${LAUNCHPAD_BACKEND_CATALOG_GIT_REPOSITORY}
     launchpad.backend.catalog.git.ref: ${LAUNCHPAD_BACKEND_CATALOG_GIT_REF}
+    launchpad.backend.catalog.reindex.token: ${LAUNCHPAD_BACKEND_CATALOG_REINDEX_TOKEN}
     launchpad.keycloak.url: ${LAUNCHPAD_KEYCLOAK_URL}
     launchpad.keycloak.realm: ${LAUNCHPAD_KEYCLOAK_REALM}
     launchpad.tracker.segment.token: ${LAUNCHPAD_TRACKER_SEGMENT_TOKEN}
