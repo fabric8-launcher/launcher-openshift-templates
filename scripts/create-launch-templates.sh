@@ -38,16 +38,41 @@ main() {
 
         echo "Created template '$APPTPL' for project '$APPPRJNAME'"
 
-        # Step 8 - Check if Jenkinsfile exists and has an "oc new-app" command
+        # If Jenkinsfile exists we'll check it for mroe things to convert
         JENKINSFILE=$PRJDIR/Jenkinsfile
-        OCCMD=$(findOcNewAppCommand $JENKINSFILE)
-        if [[ ! -z $OCCMD ]]
+        if [ -e $JENKINSFILE ]
         then
-            SRVTPL=$OSIODIR/service.yaml
-            echo "A command to create a support service has been found,"
-            echo "will now run the following to try to create a template for it:"
-            echo "    $OCCMD > $SRVTPL"
-            $OCCMD > $SRVTPL
+            # Step 8 - Check if Jenkinsfile has an "oc new-app" command
+            OCCMD=$(findOcNewAppCommand $JENKINSFILE)
+            if [[ ! -z $OCCMD ]]
+            then
+                SRVTPL=$OSIODIR/service.yaml
+                echo "A command to create a support service has been found,"
+                echo "will now run the following to try to create a template for it:"
+                echo "    $OCCMD > $SRVTPL"
+                $OCCMD > $SRVTPL
+            fi
+
+            # Step 9 - Check if Jenkinsfile has an "oc create configmap" command
+            OCCMD=$(findOcCreateConfigmapCommand $JENKINSFILE)
+            if [[ ! -z $OCCMD ]]
+            then
+                CFGMAPTPL=$OSIODIR/resource.configmap.yaml
+                echo "A command to create a config map has been found,"
+                echo "will now run the following to try to create a template for it:"
+                echo "    $OCCMD > $CFGMAPTPL"
+                $OCCMD > $CFGMAPTPL
+            fi
+
+            # Step 10 - Check if Jenkinsfile has an "oc policy" command
+            POLICY=$(findOcPolicy $JENKINSFILE)
+            if [[ ! -z $POLICY ]]
+            then
+                CFGMAPTPL=$OSIODIR/resource.roles.yaml
+                echo "A command to create user roles has been found,"
+                echo "will create a template for it."
+                echo "$POLICY" > $CFGMAPTPL
+            fi
         fi
     done
 
@@ -62,19 +87,54 @@ main() {
 }
 
 findOcNewAppCommand() {
-    if [ -e $1 ]
-    then
-        perl - $1 <<-'__EOF__'
-        use strict;
-        use warnings;
-        while (my $line = <>) {
-            chomp $line;
-            if ($line =~ /(oc\s+new-app\s+.+?)[;"]/) {
-                print "$1 -o yaml"
-            }
+    perl - $1 <<-'__EOF__'
+    use strict;
+    use warnings;
+    while (my $line = <>) {
+        chomp $line;
+        if ($line =~ /(oc\s+new-app\s+.+?)[;"]/) {
+            print "$1 --dry-run -o yaml"
         }
+    }
 __EOF__
-    fi
+}
+
+findOcCreateConfigmapCommand() {
+    perl - $1 <<-'__EOF__'
+    use strict;
+    use warnings;
+    while (my $line = <>) {
+        chomp $line;
+        if ($line =~ /(oc\s+create\s+configmap\s+.+?)[;"]/) {
+            print "$1 --dry-run -o yaml"
+        }
+    }
+__EOF__
+}
+
+findOcPolicy() {
+    perl - $1 <<-'__EOF__'
+    use strict;
+    use warnings;
+    while (my $line = <>) {
+        chomp $line;
+        if ($line =~ /oc\s+policy\s+add-role-to-user\s+(.+?)\s+-z\s+(.+?)"/) {
+            print "apiVersion: v1
+kind: List
+items:
+ - apiVersion: v1
+   kind: RoleBinding
+   metadata:
+     name: some-role
+   subjects:
+    - kind: ServiceAccount
+      name: $2
+   roleRef:
+      name: $1
+"
+        }
+    }
+__EOF__
 }
 
 appendTemplate() {
