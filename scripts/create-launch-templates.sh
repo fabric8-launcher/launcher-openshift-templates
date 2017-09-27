@@ -125,7 +125,7 @@ items:
  - apiVersion: v1
    kind: RoleBinding
    metadata:
-     name: some-role
+     name: role-view-default
    subjects:
     - kind: ServiceAccount
       name: $2
