@@ -47,7 +47,7 @@ parameters:
 - name: LAUNCHPAD_KEYCLOAK_URL
   displayName: KeyCloak URL
   description: The URL (with the /auth part) of a Keycloak installation to perform SSO
-    authentication (leave empty if you've explicitly specified GitHub/OpenShift
+    authentication (leave empty if you've explicitly specified GItHub/OpenShift
     authentication above)
   value: https://sso.openshift.io/auth
 - name: LAUNCHPAD_KEYCLOAK_REALM
@@ -72,7 +72,7 @@ parameters:
 - name: LAUNCHPAD_BACKEND_CATALOG_REINDEX_TOKEN
   displayName: Catalog Reindex Token
   description: A token that must be passed to the catalog reindex service to trigger the catalog
-    reindexing. Leave empty if you are installing in your local minishift instance.
+    reindexing.
   value:
 - name: MISSIONCONTROL_IMAGE
   value: openshiftio/launchpad-missioncontrol
