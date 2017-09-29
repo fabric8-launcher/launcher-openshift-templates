@@ -67,7 +67,7 @@ parameters:
 - name: LAUNCHPAD_BACKEND_CATALOG_GIT_REF
   displayName: Catalog Git Reference
   description: The Git reference to use for the above repository
-  value: master
+  value: v11
   required: true
 - name: LAUNCHPAD_BACKEND_CATALOG_REINDEX_TOKEN
   displayName: Catalog Reindex Token
