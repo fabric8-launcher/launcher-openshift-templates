@@ -5,8 +5,10 @@ metadata:
 parameters:
 - name: IMAGE
   value: registry.devshift.net/openshiftio/launchpad-nginx
+  required: true
 - name: IMAGE_TAG
   value: latest
+  required: true
 objects:
 - apiVersion: v1
   kind: DeploymentConfig
