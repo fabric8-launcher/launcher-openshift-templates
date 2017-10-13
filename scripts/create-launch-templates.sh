@@ -276,6 +276,7 @@ objects:
         from:
           kind: ImageStreamTag
           name: runtime:latest
+        incremental: true
         env:
         - name: MAVEN_ARGS_APPEND
           value: "-pl ${SOURCE_REPOSITORY_DIR}"
