@@ -14,13 +14,13 @@ objects:
   kind: ServiceAccount
   metadata:
     labels:
-      app: configmapcontroller
+      service: configmapcontroller
     name: configmapcontroller
 - apiVersion: v1
   kind: RoleBinding
   metadata:
     labels:
-      app: configmapcontroller
+      service: configmapcontroller
     name: configmapcontroller-edit
   roleRef:
     name: edit
@@ -31,13 +31,13 @@ objects:
   kind: DeploymentConfig
   metadata:
     labels:
-      app: configmapcontroller
+      service: configmapcontroller
     name: configmapcontroller
   spec:
     replicas: 1
     revisionHistoryLimit: 2
     selector:
-      app: configmapcontroller
+      service: configmapcontroller
     strategy:
       rollingParams:
         timeoutSeconds: 7200
@@ -45,7 +45,7 @@ objects:
     template:
       metadata:
         labels:
-          app: configmapcontroller
+          service: configmapcontroller
       spec:
         containers:
         - env:

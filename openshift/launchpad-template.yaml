@@ -13,7 +13,9 @@ metadata:
     template.openshift.io/support-url: https://access.redhat.com
 message: "The following service(s) have been created in your project: mission-control, launchpad-backend, launchpad-frontend.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/openshiftio"
 labels:
-  template: launchpad
+  template: launchpad-header
+  app: launchpad
+
 parameters:
 - name: LAUNCHPAD_MISSIONCONTROL_GITHUB_USERNAME
   displayName: Your GitHub username
@@ -542,13 +544,13 @@ objects:
   kind: ServiceAccount
   metadata:
     labels:
-      app: configmapcontroller
+      service: configmapcontroller
     name: configmapcontroller
 - apiVersion: v1
   kind: RoleBinding
   metadata:
     labels:
-      app: configmapcontroller
+      service: configmapcontroller
     name: configmapcontroller-edit
   roleRef:
     name: edit
@@ -559,13 +561,13 @@ objects:
   kind: DeploymentConfig
   metadata:
     labels:
-      app: configmapcontroller
+      service: configmapcontroller
     name: configmapcontroller
   spec:
     replicas: 1
     revisionHistoryLimit: 2
     selector:
-      app: configmapcontroller
+      service: configmapcontroller
     strategy:
       rollingParams:
         timeoutSeconds: 7200
@@ -573,7 +575,7 @@ objects:
     template:
       metadata:
         labels:
-          app: configmapcontroller
+          service: configmapcontroller
       spec:
         containers:
         - env:

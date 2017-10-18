@@ -13,4 +13,6 @@ metadata:
     template.openshift.io/support-url: https://access.redhat.com
 message: "The following service(s) have been created in your project: mission-control, launchpad-backend, launchpad-frontend.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/openshiftio"
 labels:
-  template: launchpad
+  template: launchpad-header
+  app: launchpad
+
