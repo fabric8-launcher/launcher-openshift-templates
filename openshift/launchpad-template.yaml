@@ -218,7 +218,7 @@ objects:
                 name: launchpad
                 key: launchpad.tracker.segment.token
           - name: LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_CLUSTERS_FILE
-            value: /etc/openshift-clusters.yaml
+            value: /etc/fabric8-launch/openshift-clusters.yaml
           image: ${MISSIONCONTROL_IMAGE}:${MISSIONCONTROL_IMAGE_TAG}
           imagePullPolicy: Always
           name: launchpad-missioncontrol
@@ -228,8 +228,7 @@ objects:
           resources: {}
           terminationMessagePath: /dev/termination-log
           volumeMounts:
-          - mountPath: /etc/openshift-clusters.yaml
-            subPath: openshift-clusters.yaml
+          - mountPath: /etc/fabric8-launch/
             name: configmap-volume
           readinessProbe:
             httpGet:
