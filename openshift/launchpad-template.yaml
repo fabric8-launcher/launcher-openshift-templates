@@ -145,6 +145,12 @@ objects:
       - id: pro-us-east-1
         apiUrl: https://api.pro-us-east-1.openshift.com
         consoleUrl: https://console.pro-us-east-1.openshift.com
+      - id: pro-eu-west-1
+        apiUrl: https://api.pro-eu-west-1.openshift.com
+        consoleUrl: https://console.pro-eu-west-1.openshift.com/console
+      - id: pro-ap-southeast-2
+        apiUrl: https://api.pro-ap-southeast-2.openshift.com
+        consoleUrl: https://console.pro-ap-southeast-2.openshift.com/console
 
 - kind: DeploymentConfig
   apiVersion: v1
