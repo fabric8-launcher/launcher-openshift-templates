@@ -1,19 +1,18 @@
 kind: Template
 apiVersion: v1
 metadata:
-  name: launchpad-configmap
+  name: launcher-configmap
   annotations:
-    openshift.io/display-name: "Launchpad - Configuration"
-    description: This application contains the Launchpad configuration settings
-    tags: instant-app,launchpad
+    openshift.io/display-name: "Launcher - Configuration"
+    description: This application contains the configuration settings for the Launcher
+    tags: instant-app,fabric8-launcher
     iconClass: icon-shadowman
-    template.openshift.io/long-description: This application contains the Launchpad configuration settings
+    template.openshift.io/long-description: This application contains the configuration settings for the Launcher
     template.openshift.io/provider-display-name: Red Hat, Inc.
-    template.openshift.io/documentation-url: https://github.com/openshiftio/launchpad-templates
+    template.openshift.io/documentation-url: https://github.com/fabric8-launch/launchpad-templates
     template.openshift.io/support-url: https://access.redhat.com
-message: "The following service has been created in your project: launchpad-configuration.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/openshiftio"
 labels:
-  template: launchpad-configmap
+  template: launcher-configmap
 parameters:
 - name: LAUNCHPAD_MISSIONCONTROL_GITHUB_USERNAME
   displayName: Your GitHub username
@@ -78,26 +77,26 @@ objects:
 - kind: ConfigMap
   apiVersion: v1
   metadata:
-    name: launchpad
+    name: launcher
   data:
-    launchpad.missioncontrol.github.username: ${LAUNCHPAD_MISSIONCONTROL_GITHUB_USERNAME}
-    launchpad.missioncontrol.github.token: ${LAUNCHPAD_MISSIONCONTROL_GITHUB_TOKEN}
-    launchpad.missioncontrol.openshift.username: ${LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_USERNAME}
-    launchpad.missioncontrol.openshift.password: ${LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_PASSWORD}
-    launchpad.missioncontrol.openshift.api.url: ${LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_API_URL}
-    launchpad.missioncontrol.openshift.console.url: ${LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_CONSOLE_URL}
-    launchpad.backend.catalog.git.repository: ${LAUNCHPAD_BACKEND_CATALOG_GIT_REPOSITORY}
-    launchpad.backend.catalog.git.ref: ${LAUNCHPAD_BACKEND_CATALOG_GIT_REF}
-    launchpad.backend.catalog.reindex.token: ${LAUNCHPAD_BACKEND_CATALOG_REINDEX_TOKEN}
-    launchpad.keycloak.url: ${LAUNCHPAD_KEYCLOAK_URL}
-    launchpad.keycloak.realm: ${LAUNCHPAD_KEYCLOAK_REALM}
-    launchpad.tracker.segment.token: ${LAUNCHPAD_TRACKER_SEGMENT_TOKEN}
-    launchpad.backend.url: /
-    launchpad.missioncontrol.url: /
+    launcher.missioncontrol.github.username: ${LAUNCHPAD_MISSIONCONTROL_GITHUB_USERNAME}
+    launcher.missioncontrol.github.token: ${LAUNCHPAD_MISSIONCONTROL_GITHUB_TOKEN}
+    launcher.missioncontrol.openshift.username: ${LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_USERNAME}
+    launcher.missioncontrol.openshift.password: ${LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_PASSWORD}
+    launcher.missioncontrol.openshift.api.url: ${LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_API_URL}
+    launcher.missioncontrol.openshift.console.url: ${LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_CONSOLE_URL}
+    launcher.backend.catalog.git.repository: ${LAUNCHPAD_BACKEND_CATALOG_GIT_REPOSITORY}
+    launcher.backend.catalog.git.ref: ${LAUNCHPAD_BACKEND_CATALOG_GIT_REF}
+    launcher.backend.catalog.reindex.token: ${LAUNCHPAD_BACKEND_CATALOG_REINDEX_TOKEN}
+    launcher.keycloak.url: ${LAUNCHPAD_KEYCLOAK_URL}
+    launcher.keycloak.realm: ${LAUNCHPAD_KEYCLOAK_REALM}
+    launcher.tracker.segment.token: ${LAUNCHPAD_TRACKER_SEGMENT_TOKEN}
+    launcher.backend.url: /
+    launcher.missioncontrol.url: /
 - kind: ConfigMap
   apiVersion: v1
   metadata:
-    name: launchpad-missioncontrol
+    name: launcher-clusters
   data:
     openshift-clusters.yaml: |-
       - id: starter-us-east-1

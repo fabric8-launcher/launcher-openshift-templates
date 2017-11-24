@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Template
 metadata:  
-  name: launchpad-configmapcontroller
+  name: launcher-configmapcontroller
 parameters:
 - name: IMAGE
   value: fabric8/configmapcontroller

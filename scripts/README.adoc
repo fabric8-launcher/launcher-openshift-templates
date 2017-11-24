@@ -8,10 +8,10 @@ To create the unified template just run the following command without arguments:
 
 [source,bash]
 ----
-    ./create-unified-template.sh > ../openshift/launchpad-template.yaml
+    ./create-unified-template.sh > ../openshift/launcher-template.yaml
 ----
 
-For this script to work it's required to have the other launchpad projects (launchpad-missioncontrol, launchpad-backend and launchjpad-frontend) cloned in the same folder as this project.
+For this script to work it's required to have the other launcher projects (launcher-backend and launchpad-frontend) cloned in the same folder as this project.
 
 == Creating the S2I support files
 

@@ -4,27 +4,25 @@
 # This script can be used to generate the unified template for the entire Launch application
 #
 # Just run it and pipe its output to "openshift/launch-template.yaml".
-# It is required to have the missioncontrol, backend and frontend modules available
+# It is required to have the launcher-backend and launchpad-frontend modules available
 # as sibling folders of this "launchpad-templates" project.
 #
 
 main() {
     DIR=$(dirname $(readlink -f $0))
-    cat $DIR/../openshift/split/launchpad-header.yaml
+    cat $DIR/../openshift/split/launcher-header.yaml
     echo "parameters:"
-    printTemplateParams $DIR/../openshift/split/launchpad-configmap.yaml
-    printTemplateParams $DIR/../../launchpad-missioncontrol/openshift/template.yaml "MISSIONCONTROL"
-    printTemplateParams $DIR/../../launchpad-backend/openshift/template.yaml "BACKEND"
+    printTemplateParams $DIR/../openshift/split/launcher-configmap.yaml
+    printTemplateParams $DIR/../../launcher-backend/openshift/template.yaml "BACKEND"
     printTemplateParams $DIR/../../launchpad-frontend/openshift/template.yaml "FRONTEND"
     printTemplateParams $DIR/../openshift/proxy/nginx.yaml "PROXY"
-    printTemplateParams $DIR/../openshift/split/launchpad-configmapcontroller.yaml "CONTROLLER"
+    printTemplateParams $DIR/../openshift/split/launcher-configmapcontroller.yaml "CONTROLLER"
     echo "objects:"
-    printTemplateObjects $DIR/../openshift/split/launchpad-configmap.yaml
-    printTemplateObjects $DIR/../../launchpad-missioncontrol/openshift/template.yaml "MISSIONCONTROL"
-    printTemplateObjects $DIR/../../launchpad-backend/openshift/template.yaml "BACKEND"
+    printTemplateObjects $DIR/../openshift/split/launcher-configmap.yaml
+    printTemplateObjects $DIR/../../launcher-backend/openshift/template.yaml "BACKEND"
     printTemplateObjects $DIR/../../launchpad-frontend/openshift/template.yaml "FRONTEND"
     printTemplateObjects $DIR/../openshift/proxy/nginx.yaml "PROXY"
-    printTemplateObjects $DIR/../openshift/split/launchpad-configmapcontroller.yaml "CONTROLLER"
+    printTemplateObjects $DIR/../openshift/split/launcher-configmapcontroller.yaml "CONTROLLER"
 }
 
 printTemplateParams() {

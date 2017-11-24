@@ -1,4 +1,4 @@
-== launchpad-templates
+== launcher-templates
 :idprefix: id_ 
 The OpenShift templates that will create all the necessary services to run Launchpad
         
