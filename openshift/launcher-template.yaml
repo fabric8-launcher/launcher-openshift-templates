@@ -393,12 +393,12 @@ objects:
   metadata:
     generation: 1
     labels:
-      run: launchpad-nginx
-    name: launchpad-nginx
+      run: launcher-nginx
+    name: launcher-nginx
   spec:
     replicas: 1
     selector:
-      run: launchpad-nginx
+      run: launcher-nginx
     strategy:
       resources:
         requests:
@@ -417,12 +417,12 @@ objects:
     template:
       metadata:
         labels:
-          run: launchpad-nginx
+          run: launcher-nginx
       spec:
         containers:
         - image: ${PROXY_IMAGE}:${PROXY_IMAGE_TAG}
           imagePullPolicy: Always
-          name: launchpad-nginx
+          name: launcher-nginx
           ports:
           - containerPort: 8080
             protocol: TCP
@@ -452,9 +452,9 @@ objects:
 - apiVersion: v1
   kind: Service
   metadata:
-    name: launchpad-nginx
+    name: launcher-nginx
     annotations:
-      service.alpha.openshift.io/dependencies: "[{\"name\":\"launchpad-frontend\",\"namespace\":\"\",\"kind\":\"Service\"},{\"name\":\"launchpad-backend\",\"namespace\":\"\",\"kind\":\"Service\"},{\"name\":\"launchpad-missioncontrol\",\"namespace\":\"\",\"kind\":\"Service\"}]"
+      service.alpha.openshift.io/dependencies: "[{\"name\":\"launcher-frontend\",\"namespace\":\"\",\"kind\":\"Service\"},{\"name\":\"launcher-backend\",\"namespace\":\"\",\"kind\":\"Service\"}]"
   spec:
     ports:
     - name: "8080"
@@ -462,7 +462,7 @@ objects:
       protocol: TCP
       targetPort: 8080
     selector:
-      run: launchpad-nginx
+      run: launcher-nginx
     sessionAffinity: None
     type: ClusterIP
   status:
@@ -470,11 +470,11 @@ objects:
 - apiVersion: v1
   kind: Route
   metadata: 
-    name: launchpad-nginx
+    name: launcher-nginx
   spec:
     to:
       kind: Service
-      name: launchpad-nginx
+      name: launcher-nginx
       weight: 100
     wildcardPolicy: None
   status: {}
