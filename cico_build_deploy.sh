@@ -22,7 +22,7 @@ service docker start
 
 # Build the app
 
-IMAGE="launchpad-nginx"
+IMAGE="launcher-nginx"
 REGISTRY="push.registry.devshift.net"
 REPOSITORY="${REGISTRY}/openshiftio"
 
