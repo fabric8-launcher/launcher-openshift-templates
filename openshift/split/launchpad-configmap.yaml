@@ -92,6 +92,8 @@ objects:
     launchpad.keycloak.url: ${LAUNCHPAD_KEYCLOAK_URL}
     launchpad.keycloak.realm: ${LAUNCHPAD_KEYCLOAK_REALM}
     launchpad.tracker.segment.token: ${LAUNCHPAD_TRACKER_SEGMENT_TOKEN}
+    launchpad.backend.url: /
+    launchpad.missioncontrol.url: /
 - kind: ConfigMap
   apiVersion: v1
   metadata:
@@ -118,5 +120,5 @@ objects:
         consoleUrl: https://console.pro-eu-west-1.openshift.com
       - id: pro-ap-southeast-2
         apiUrl: https://api.pro-ap-southeast-2.openshift.com
-        consoleUrl: https://console.pro-ap-southeast-2.openshift.com        
+        consoleUrl: https://console.pro-ap-southeast-2.openshift.com
 

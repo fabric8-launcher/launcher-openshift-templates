@@ -124,6 +124,8 @@ objects:
     launchpad.keycloak.url: ${LAUNCHPAD_KEYCLOAK_URL}
     launchpad.keycloak.realm: ${LAUNCHPAD_KEYCLOAK_REALM}
     launchpad.tracker.segment.token: ${LAUNCHPAD_TRACKER_SEGMENT_TOKEN}
+    launchpad.backend.url: /
+    launchpad.missioncontrol.url: /
 - kind: ConfigMap
   apiVersion: v1
   metadata:
@@ -224,7 +226,7 @@ objects:
                 name: launchpad
                 key: launchpad.tracker.segment.token
           - name: LAUNCHPAD_MISSIONCONTROL_OPENSHIFT_CLUSTERS_FILE
-            value: /etc/fabric8-launch/openshift-clusters.yaml
+            value: /etc/openshift-clusters.yaml
           image: ${MISSIONCONTROL_IMAGE}:${MISSIONCONTROL_IMAGE_TAG}
           imagePullPolicy: Always
           name: launchpad-missioncontrol
@@ -234,7 +236,8 @@ objects:
           resources: {}
           terminationMessagePath: /dev/termination-log
           volumeMounts:
-          - mountPath: /etc/fabric8-launch/
+          - mountPath: /etc/openshift-clusters.yaml
+            subPath: openshift-clusters.yaml
             name: configmap-volume
           readinessProbe:
             httpGet:
@@ -398,9 +401,15 @@ objects:
             protocol: TCP
           env:
           - name: LAUNCHPAD_BACKEND_URL
-            value: /
+            valueFrom:
+              configMapKeyRef:
+                name: launchpad
+                key: launchpad.backend.url
           - name: LAUNCHPAD_MISSIONCONTROL_URL
-            value: /
+            valueFrom:
+              configMapKeyRef:
+                name: launchpad
+                key: launchpad.missioncontrol.url
           - name: LAUNCHPAD_KEYCLOAK_URL
             valueFrom:
               configMapKeyRef:
