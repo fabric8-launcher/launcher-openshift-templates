@@ -320,13 +320,13 @@ objects:
           - name: LAUNCHPAD_BACKEND_URL
             valueFrom:
               configMapKeyRef:
-                name: launchpad
-                key: launchpad.backend.url
+                name: launcher
+                key: launcher.backend.url
           - name: LAUNCHPAD_MISSIONCONTROL_URL
             valueFrom:
               configMapKeyRef:
-                name: launchpad
-                key: launchpad.missioncontrol.url
+                name: launcher
+                key: launcher.missioncontrol.url
           - name: LAUNCHPAD_KEYCLOAK_URL
             valueFrom:
               configMapKeyRef:
