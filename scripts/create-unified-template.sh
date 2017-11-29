@@ -16,11 +16,13 @@ main() {
     printTemplateParams $DIR/../../launcher-backend/openshift/template.yaml "BACKEND"
     printTemplateParams $DIR/../../launchpad-frontend/openshift/template.yaml "FRONTEND"
     printTemplateParams $DIR/../openshift/split/launcher-configmapcontroller.yaml "CONTROLLER"
+    printTemplateParams $DIR/../openshift/split/launcher-route.yaml
     echo "objects:"
     printTemplateObjects $DIR/../openshift/split/launcher-configmap.yaml
     printTemplateObjects $DIR/../../launcher-backend/openshift/template.yaml "BACKEND"
     printTemplateObjects $DIR/../../launchpad-frontend/openshift/template.yaml "FRONTEND"
     printTemplateObjects $DIR/../openshift/split/launcher-configmapcontroller.yaml "CONTROLLER"
+    printTemplateObjects $DIR/../openshift/split/launcher-route.yaml
 }
 
 printTemplateParams() {

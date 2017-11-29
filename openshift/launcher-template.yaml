@@ -431,3 +431,15 @@ objects:
     triggers:
     - type: ConfigChange
 
+- apiVersion: v1
+  kind: Route
+  metadata:
+    name: launcher-frontend
+  spec:
+    to:
+      kind: Service
+      name: launcher-frontend
+      weight: 100
+    wildcardPolicy: None
+  status: {}
+
