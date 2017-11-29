@@ -91,8 +91,8 @@ objects:
     launcher.keycloak.url: ${LAUNCHPAD_KEYCLOAK_URL}
     launcher.keycloak.realm: ${LAUNCHPAD_KEYCLOAK_REALM}
     launcher.tracker.segment.token: ${LAUNCHPAD_TRACKER_SEGMENT_TOKEN}
-    launcher.backend.url: /
-    launcher.missioncontrol.url: /
+    launcher.backend.url: /launch/api
+    launcher.missioncontrol.url: /launch
 - kind: ConfigMap
   apiVersion: v1
   metadata:
