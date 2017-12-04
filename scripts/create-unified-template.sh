@@ -4,8 +4,8 @@
 # This script can be used to generate the unified template for the entire Launch application
 #
 # Just run it and pipe its output to "openshift/launch-template.yaml".
-# It is required to have the launcher-backend and launchpad-frontend modules available
-# as sibling folders of this "launchpad-templates" project.
+# It is required to have the launcher-backend and launcher-frontend modules available
+# as sibling folders of this "launcher-openshift-templates" project.
 #
 
 main() {
@@ -14,13 +14,13 @@ main() {
     echo "parameters:"
     printTemplateParams $DIR/../openshift/split/launcher-configmap.yaml
     printTemplateParams $DIR/../../launcher-backend/openshift/template.yaml "BACKEND"
-    printTemplateParams $DIR/../../launchpad-frontend/openshift/template.yaml "FRONTEND"
+    printTemplateParams $DIR/../../launcher-frontend/openshift/template.yaml "FRONTEND"
     printTemplateParams $DIR/../openshift/split/launcher-configmapcontroller.yaml "CONTROLLER"
     printTemplateParams $DIR/../openshift/split/launcher-route.yaml
     echo "objects:"
     printTemplateObjects $DIR/../openshift/split/launcher-configmap.yaml
     printTemplateObjects $DIR/../../launcher-backend/openshift/template.yaml "BACKEND"
-    printTemplateObjects $DIR/../../launchpad-frontend/openshift/template.yaml "FRONTEND"
+    printTemplateObjects $DIR/../../launcher-frontend/openshift/template.yaml "FRONTEND"
     printTemplateObjects $DIR/../openshift/split/launcher-configmapcontroller.yaml "CONTROLLER"
     printTemplateObjects $DIR/../openshift/split/launcher-route.yaml
 }

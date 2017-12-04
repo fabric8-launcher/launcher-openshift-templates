@@ -1,6 +1,6 @@
 == launcher-templates
 :idprefix: id_ 
-The OpenShift templates that will create all the necessary services to run Launchpad
+The OpenShift templates that will create all the necessary services to run the Launcher
         
 == Setup
 
@@ -8,7 +8,7 @@ To install this template in your OpenShift project run the following:
 
 [source,bash]
 ----
-    oc create -f openshift/launchpad-template.yaml
+    oc create -f openshift/launcher-template.yaml
 ----
 
 == Addon

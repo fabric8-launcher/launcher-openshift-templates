@@ -2,5 +2,5 @@
 # Description:  Fabric8 Launcher
 
 echo Installing Fabric8 Launcher...
-oc create -f https://raw.githubusercontent.com/fabric8-launch/launchpad-templates/master/openshift/launchpad-template.yaml -n openshift
+oc create -f https://raw.githubusercontent.com/fabric8-launcher/launcher-openshift-templates/master/openshift/launcher-template.yaml -n openshift
 echo Fabric8 Launcher was successfully installed!

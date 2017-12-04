@@ -213,7 +213,7 @@ createTemplate() {
 apiVersion: v1
 kind: Template
 metadata:
-  name: launchpad-builder
+  name: launcher-builder
   annotations:
     description: This template creates a Build Configuration using an S2I builder.
     tags: instant-app
