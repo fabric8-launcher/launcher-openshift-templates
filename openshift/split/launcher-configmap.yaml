@@ -61,7 +61,7 @@ parameters:
 - name: LAUNCHPAD_BACKEND_CATALOG_GIT_REPOSITORY
   displayName: Catalog Git Repository
   description: The GitHub repository containing the booster catalog
-  value: https://github.com/openshiftio/booster-catalog.git
+  value: https://github.com/fabric8-launcher/launcher-booster-catalog.git
   required: true
 - name: LAUNCHPAD_BACKEND_CATALOG_GIT_REF
   displayName: Catalog Git Reference
