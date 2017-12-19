@@ -58,12 +58,12 @@ parameters:
   displayName: Segment Token
   description: The token to use for Segment tracking. Leaving this empty will disable
     tracking. This must be set to the proper tokens for staging and production!
-- name: LAUNCHER_BACKEND_CATALOG_GIT_REPOSITORY
+- name: LAUNCHER_BOOSTER_CATALOG_REPOSITORY
   displayName: Catalog Git Repository
   description: The GitHub repository containing the booster catalog
   value: https://github.com/fabric8-launcher/launcher-booster-catalog.git
   required: true
-- name: LAUNCHER_BACKEND_CATALOG_GIT_REF
+- name: LAUNCHER_CATALOG_REF
   displayName: Catalog Git Reference
   description: The Git reference to use for the above repository
   value: master
@@ -85,8 +85,8 @@ objects:
     launcher.missioncontrol.openshift.password: ${LAUNCHER_MISSIONCONTROL_OPENSHIFT_PASSWORD}
     launcher.missioncontrol.openshift.api.url: ${LAUNCHER_MISSIONCONTROL_OPENSHIFT_API_URL}
     launcher.missioncontrol.openshift.console.url: ${LAUNCHER_MISSIONCONTROL_OPENSHIFT_CONSOLE_URL}
-    launcher.backend.catalog.git.repository: ${LAUNCHER_BACKEND_CATALOG_GIT_REPOSITORY}
-    launcher.backend.catalog.git.ref: ${LAUNCHER_BACKEND_CATALOG_GIT_REF}
+    launcher.backend.catalog.git.repository: ${LAUNCHER_BOOSTER_CATALOG_REPOSITORY}
+    launcher.backend.catalog.git.ref: ${LAUNCHER_CATALOG_REF}
     launcher.backend.catalog.reindex.token: ${LAUNCHER_BACKEND_CATALOG_REINDEX_TOKEN}
     launcher.keycloak.url: ${LAUNCHER_KEYCLOAK_URL}
     launcher.keycloak.realm: ${LAUNCHER_KEYCLOAK_REALM}
