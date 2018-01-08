@@ -43,7 +43,7 @@ main() {
         if [ -e $JENKINSFILE ]
         then
             # Step 8 - Check if Jenkinsfile has an "oc new-app" command
-            OCCMD=$(findOcNewAppCommand $JENKINSFILE)
+            OCCMD=$(findOcNewAppCommand $JENKINSFILE $APPPRJNAME)
             if [[ ! -z $OCCMD ]]
             then
                 SRVTPL=$OSIODIR/service.yaml
@@ -62,6 +62,13 @@ main() {
                 echo "will now run the following to try to create a template for it:"
                 echo "    $OCCMD > $CFGMAPTPL"
                 $OCCMD > $CFGMAPTPL
+                echo ""
+                echo "The ConfigMap has been created in the file: '$CFGMAPTPL'."
+                echo "Edit it and add the following lines to any toplevel 'metadata:' sections:"
+                echo "(the lines should be indented with respect to each 'metadata:' section)"
+                echo ""
+                echo "    labels:"
+                echo "      booster: $APPPRJNAME"
             fi
 
             # Step 10 - Check if Jenkinsfile has an "oc policy" command
@@ -87,13 +94,15 @@ main() {
 }
 
 findOcNewAppCommand() {
+    export PRJNAME=$2
     perl - $1 <<-'__EOF__'
     use strict;
     use warnings;
+    my $prjname=$ENV{"PRJNAME"};
     while (my $line = <>) {
         chomp $line;
         if ($line =~ /(oc\s+new-app\s+.+?)[;"]/) {
-            print "$1 --dry-run -o yaml"
+            print "$1 --dry-run -o yaml -l booster=$prjname"
         }
     }
 __EOF__
@@ -113,24 +122,28 @@ __EOF__
 }
 
 findOcPolicy() {
+    export PRJNAME=$2
     perl - $1 <<-'__EOF__'
     use strict;
     use warnings;
+    my $prjname=$ENV{"PRJNAME"};
     while (my $line = <>) {
         chomp $line;
         if ($line =~ /oc\s+policy\s+add-role-to-user\s+(.+?)\s+-z\s+(.+?)"/) {
             print "apiVersion: v1
 kind: List
 items:
- - apiVersion: v1
-   kind: RoleBinding
-   metadata:
-     name: role-view-default
-   subjects:
-    - kind: ServiceAccount
-      name: $2
-   roleRef:
-      name: $1
+- apiVersion: v1
+  kind: RoleBinding
+  metadata:
+    name: role-view-default
+    labels:
+      booster: ${prjname}
+  subjects:
+  - kind: ServiceAccount
+    name: $2
+  roleRef:
+    name: $1
 "
         }
     }
@@ -243,11 +256,15 @@ objects:
   kind: ImageStream
   metadata:
     name: ${SRVNAME}
+    labels:
+      booster: ${SRVNAME}
   spec: {}
 - apiVersion: v1
   kind: ImageStream
   metadata:
-    name: runtime
+    name: runtime-${SRVNAME}
+    labels:
+      booster: ${SRVNAME}
   spec:
     tags:
     - name: latest
@@ -258,6 +275,8 @@ objects:
   kind: BuildConfig
   metadata:
     name: ${SRVNAME}
+    labels:
+      booster: ${SRVNAME}
   spec:
     output:
       to:
@@ -275,7 +294,7 @@ objects:
       sourceStrategy:
         from:
           kind: ImageStreamTag
-          name: runtime:latest
+          name: runtime-${SRVNAME}:latest
         incremental: true
         env:
         - name: MAVEN_ARGS_APPEND
