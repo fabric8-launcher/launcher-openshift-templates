@@ -77,10 +77,11 @@ parameters:
     reindexing.
   value:
 - name: LAUNCHER_BACKEND_ENVIRONMENT
-  displayName: Environment
-  description: The environment where this backend is running. This is used in the environment metadata in the booster catalog entries.
-  value: development
-  required: true
+  displayName: Booster Environment
+  description: The environment where this backend is running. This is used in the environment section
+    in the booster catalog entries. Leaving this empty will set the value to 'development' if the
+    'Catalog Git Reference' is set to 'master', in any other case the value will default to 'production'.
+  value:
 - name: BACKEND_IMAGE
   value: fabric8/launcher-backend
   required: true
