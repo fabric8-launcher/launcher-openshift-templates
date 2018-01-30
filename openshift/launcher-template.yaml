@@ -76,6 +76,11 @@ parameters:
   description: A token that must be passed to the catalog reindex service to trigger the catalog
     reindexing.
   value:
+- name: LAUNCHER_BACKEND_ENVIRONMENT
+  displayName: Environment
+  description: The environment where this backend is running. This is used in the environment metadata in the booster catalog entries.
+  value: development
+  required: true
 - name: BACKEND_IMAGE
   value: fabric8/launcher-backend
   required: true
@@ -109,6 +114,7 @@ objects:
     launcher.backend.catalog.git.repository: ${LAUNCHER_BOOSTER_CATALOG_REPOSITORY}
     launcher.backend.catalog.git.ref: ${LAUNCHER_BOOSTER_CATALOG_REF}
     launcher.backend.catalog.reindex.token: ${LAUNCHER_BACKEND_CATALOG_REINDEX_TOKEN}
+    launcher.backend.environment: ${LAUNCHER_BACKEND_ENVIRONMENT}
     launcher.keycloak.url: ${LAUNCHER_KEYCLOAK_URL}
     launcher.keycloak.realm: ${LAUNCHER_KEYCLOAK_REALM}
     launcher.tracker.segment.token: ${LAUNCHER_TRACKER_SEGMENT_TOKEN}
@@ -123,24 +129,31 @@ objects:
       - id: starter-us-east-1
         apiUrl: https://api.starter-us-east-1.openshift.com
         consoleUrl: https://console.starter-us-east-1.openshift.com
+        type: starter
       - id: starter-us-west-1
         apiUrl: https://api.starter-us-west-1.openshift.com
         consoleUrl: https://console.starter-us-west-1.openshift.com
+        type: starter
       - id: starter-us-west-2
         apiUrl: https://api.starter-us-west-2.openshift.com
         consoleUrl: https://console.starter-us-west-2.openshift.com
+        type: starter
       - id: starter-ca-central-1
         apiUrl: https://api.starter-ca-central-1.openshift.com
         consoleUrl: https://console.starter-ca-central-1.openshift.com
+        type: starter
       - id: pro-us-east-1
         apiUrl: https://api.pro-us-east-1.openshift.com
         consoleUrl: https://console.pro-us-east-1.openshift.com
+        type: pro
       - id: pro-eu-west-1
         apiUrl: https://api.pro-eu-west-1.openshift.com
         consoleUrl: https://console.pro-eu-west-1.openshift.com
+        type: pro
       - id: pro-ap-southeast-2
         apiUrl: https://api.pro-ap-southeast-2.openshift.com
         consoleUrl: https://console.pro-ap-southeast-2.openshift.com
+        type: pro
 
 - kind: DeploymentConfig
   apiVersion: v1
@@ -228,6 +241,11 @@ objects:
               configMapKeyRef:
                 name: launcher
                 key: launcher.tracker.segment.token
+          - name: LAUNCHER_BACKEND_ENVIRONMENT
+            valueFrom:
+              configMapKeyRef:
+                name: launcher
+                key: launcher.backend.environment
           - name: LAUNCHER_MISSIONCONTROL_OPENSHIFT_CLUSTERS_FILE
             value: /etc/fabric8-launcher/openshift-clusters.yaml
           - name: LAUNCHER_MISSIONCONTROL_SERVICE_HOST
