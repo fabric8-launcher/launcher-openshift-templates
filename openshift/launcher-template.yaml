@@ -68,8 +68,8 @@ parameters:
   required: true
 - name: LAUNCHER_BOOSTER_CATALOG_REF
   displayName: Catalog Git Reference
-  description: The Git reference to use for the above repository
-  value: master
+  description: The Git reference to use for the above repository. 'latest' means the latest release
+  value: latest
   required: true
 - name: LAUNCHER_BACKEND_CATALOG_REINDEX_TOKEN
   displayName: Catalog Reindex Token
