@@ -249,6 +249,13 @@ objects:
                 key: launcher.backend.environment
           - name: LAUNCHER_MISSIONCONTROL_OPENSHIFT_CLUSTERS_FILE
             value: /etc/fabric8-launcher/openshift-clusters.yaml
+          resources:
+            requests:
+              cpu: 10m
+              memory: 768M
+            limits:
+              cpu: 1000m
+              memory: 2G
           image: ${BACKEND_IMAGE}:${BACKEND_IMAGE_TAG}
           imagePullPolicy: Always
           name: launcher-backend
@@ -360,7 +367,13 @@ objects:
               configMapKeyRef:
                 name: launcher
                 key: launcher.tracker.segment.token
-          resources: {}
+          resources:
+            requests:
+              cpu: 10m
+              memory: 8M
+            limits:
+              cpu: 50m
+              memory: 64M
           terminationMessagePath: /dev/termination-log
           readinessProbe:
             httpGet:
