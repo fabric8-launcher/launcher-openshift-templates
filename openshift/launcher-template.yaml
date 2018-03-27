@@ -249,8 +249,6 @@ objects:
                 key: launcher.backend.environment
           - name: LAUNCHER_MISSIONCONTROL_OPENSHIFT_CLUSTERS_FILE
             value: /etc/fabric8-launcher/openshift-clusters.yaml
-          - name: LAUNCHER_MISSIONCONTROL_SERVICE_HOST
-            value: localhost
           image: ${BACKEND_IMAGE}:${BACKEND_IMAGE_TAG}
           imagePullPolicy: Always
           name: launcher-backend
