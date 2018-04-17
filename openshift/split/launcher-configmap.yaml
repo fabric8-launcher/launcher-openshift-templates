@@ -100,6 +100,12 @@ objects:
     launcher.tracker.segment.token: ${LAUNCHER_TRACKER_SEGMENT_TOKEN}
     launcher.backend.url: /launch/api
     launcher.missioncontrol.url: /launch
+    osio.keycloak.saas.url: https://api.prod-preview.openshift.io
+    osio.openshift.api.url: https://f8osoproxy-test-dsaas-preview.b6ff.rh-idev.openshiftapps.com
+    osio.wit.url: https://api.prod-preview.openshift.io
+    osio.auth.url: https://auth.prod-preview.openshift.io
+    osio.jenkins.url: https://jenkins.prod-preview.openshift.io
+    osio.sentry.dsn: ""
 - kind: ConfigMap
   apiVersion: v1
   metadata:
