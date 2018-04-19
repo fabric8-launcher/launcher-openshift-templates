@@ -180,6 +180,7 @@ objects:
     launcher.backend.catalog.git.ref: ${LAUNCHER_BOOSTER_CATALOG_REF}
     launcher.backend.catalog.reindex.token: ${LAUNCHER_BACKEND_CATALOG_REINDEX_TOKEN}
     launcher.backend.environment: ${LAUNCHER_BACKEND_ENVIRONMENT}
+    launcher.backend.documentation.reload.token: ${LAUNCHER_BACKEND_CATALOG_REINDEX_TOKEN}
     launcher.keycloak.url: ${LAUNCHER_KEYCLOAK_URL}
     launcher.keycloak.realm: ${LAUNCHER_KEYCLOAK_REALM}
     launcher.tracker.segment.token: ${LAUNCHER_TRACKER_SEGMENT_TOKEN}
