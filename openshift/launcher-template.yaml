@@ -69,7 +69,7 @@ parameters:
 - name: LAUNCHER_BOOSTER_CATALOG_REF
   displayName: Catalog Git Reference
   description: The Git reference to use for the above repository
-  value: v29
+  value: v30
   required: true
 - name: LAUNCHER_BOOSTER_CATALOG_FILTER
   displayName: Catalog Filter
@@ -129,7 +129,7 @@ parameters:
   required: true
 
 - name: FRONTEND_IMAGE_TAG
-  value: c3d7587
+  value: 57bccd2
   required: true
 
 - description: CPU request
