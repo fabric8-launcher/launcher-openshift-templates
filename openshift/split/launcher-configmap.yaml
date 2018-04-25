@@ -68,7 +68,7 @@ parameters:
   description: The Git reference to use for the above repository
   value: master
   required: true
-- name: LAUNCHER_BOOSTER_CATALOG_FILTER
+- name: LAUNCHER_BACKEND_CATALOG_FILTER
   displayName: Catalog Filter
   description: Optional expression to filter a subset of boosters for the above repository (eg. booster.mission.id == 'rest-http')
   value:
