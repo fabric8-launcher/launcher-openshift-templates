@@ -69,7 +69,7 @@ parameters:
 - name: LAUNCHER_BOOSTER_CATALOG_REF
   displayName: Catalog Git Reference
   description: The Git reference to use for the above repository
-  value: master
+  value: latest
   required: true
 - name: LAUNCHER_BOOSTER_CATALOG_FILTER
   displayName: Catalog Filter
