@@ -129,7 +129,7 @@ parameters:
   required: true
 
 - name: FRONTEND_IMAGE_TAG
-  value: e0f202e
+  value: latest
   required: true
 
 - description: CPU request
