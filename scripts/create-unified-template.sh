@@ -9,7 +9,7 @@
 #
 
 main() {
-    DIR=$(dirname $(readlink -f $0))
+    DIR=$(cd "$(dirname "$0")" ; pwd -P)
     cat $DIR/../openshift/split/launcher-header.yaml
     echo "parameters:"
     printTemplateParams $DIR/../openshift/split/launcher-configmap.yaml
