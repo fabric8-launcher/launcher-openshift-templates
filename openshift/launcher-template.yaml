@@ -323,11 +323,11 @@ objects:
                 key: launcher.missioncontrol.github.token
                 optional: true
           - name: SENTRY_DSN
-          valueFrom:
-            configMapKeyRef:
-              name: launcher
-              key: launcher.backend.sentry.dsn
-              optional: true
+            valueFrom:
+              configMapKeyRef:
+                name: launcher
+                key: launcher.backend.sentry.dsn
+                optional: true
           - name: LAUNCHER_KEYCLOAK_URL
             valueFrom:
               configMapKeyRef:
@@ -499,11 +499,11 @@ objects:
                 name: launcher
                 key: launcher.tracker.segment.token
                 optional: true
-          - name: LAUNCHER_FRONTEND_SENTRY_DSN
+          - name: LAUNCHER_SENTRY_DSN
             valueFrom:
               configMapKeyRef:
                 name: launcher
-                key: launcher.frontend.sentry.dsn
+                key: launcher.sentry.dsn
                 optional: true
           resources: {}
           terminationMessagePath: /dev/termination-log
