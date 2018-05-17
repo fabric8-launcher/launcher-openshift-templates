@@ -189,14 +189,14 @@ objects:
     launcher.keycloak.url: ${LAUNCHER_KEYCLOAK_URL}
     launcher.keycloak.realm: ${LAUNCHER_KEYCLOAK_REALM}
     launcher.tracker.segment.token: ${LAUNCHER_TRACKER_SEGMENT_TOKEN}
+    launcher.frontend.sentry.dsn: ${LAUNCHER_FRONTEND_SENTRY_DSN}
+    launcher.backend.sentry.dsn: ${LAUNCHER_BACKEND_SENTRY_DSN}
     launcher.backend.url: /launch/api
-    launcher.missioncontrol.url: /launch
     osio.keycloak.saas.url: https://api.prod-preview.openshift.io
     osio.openshift.api.url: https://f8osoproxy-test-dsaas-preview.b6ff.rh-idev.openshiftapps.com
     osio.wit.url: https://api.prod-preview.openshift.io
     osio.auth.url: https://auth.prod-preview.openshift.io
     osio.jenkins.url: https://jenkins.prod-preview.openshift.io
-    osio.sentry.dsn: ""
 - kind: ConfigMap
   apiVersion: v1
   metadata:
@@ -342,6 +342,12 @@ objects:
               configMapKeyRef:
                 name: launcher
                 key: launcher.backend.environment
+          - name: SENTRY_DSN
+            valueFrom:
+              configMapKeyRef:
+                name: launcher
+                key: launcher.backend.sentry.dsn
+                optional: true
           - name: LAUNCHER_MISSIONCONTROL_OPENSHIFT_CLUSTERS_FILE
             value: /etc/fabric8-launcher/openshift-clusters.yaml
           - name: KEYCLOAK_SAAS_URL
@@ -371,12 +377,6 @@ objects:
               configMapKeyRef:
                 name: launcher
                 key: osio.jenkins.url
-                optional: true
-          - name: SENTRY_DSN
-            valueFrom:
-              configMapKeyRef:
-                name: launcher
-                key: osio.sentry.dsn
                 optional: true
           image: ${BACKEND_IMAGE}:${BACKEND_IMAGE_TAG}
           imagePullPolicy: Always
@@ -476,11 +476,6 @@ objects:
               configMapKeyRef:
                 name: launcher
                 key: launcher.backend.url
-          - name: LAUNCHER_MISSIONCONTROL_URL
-            valueFrom:
-              configMapKeyRef:
-                name: launcher
-                key: launcher.missioncontrol.url
           - name: LAUNCHER_KEYCLOAK_URL
             valueFrom:
               configMapKeyRef:
@@ -496,6 +491,11 @@ objects:
               configMapKeyRef:
                 name: launcher
                 key: launcher.tracker.segment.token
+          - name: LAUNCHER_FRONTEND_SENTRY_DSN
+            valueFrom:
+              configMapKeyRef:
+                name: launcher
+                key: launcher.frontend.sentry.dsn
           resources: {}
           terminationMessagePath: /dev/termination-log
           readinessProbe:
