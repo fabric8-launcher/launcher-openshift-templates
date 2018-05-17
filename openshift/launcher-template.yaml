@@ -499,11 +499,11 @@ objects:
                 name: launcher
                 key: launcher.tracker.segment.token
                 optional: true
-          - name: LAUNCHER_SENTRY_DSN
+          - name: LAUNCHER_FRONTEND_SENTRY_DSN
             valueFrom:
               configMapKeyRef:
                 name: launcher
-                key: launcher.sentry.dsn
+                key: launcher.frontend.sentry.dsn
                 optional: true
           resources: {}
           terminationMessagePath: /dev/termination-log
