@@ -188,10 +188,11 @@ objects:
     launcher.backend.environment: ${LAUNCHER_BACKEND_ENVIRONMENT}
     launcher.keycloak.url: ${LAUNCHER_KEYCLOAK_URL}
     launcher.keycloak.realm: ${LAUNCHER_KEYCLOAK_REALM}
+    launcher.keycloak.client.id:
     launcher.tracker.segment.token: ${LAUNCHER_TRACKER_SEGMENT_TOKEN}
     launcher.backend.url: /launch/api
-    launcher.frontend.sentry.dsn: ${LAUNCHER_FRONTEND_SENTRY_DSN}
-    launcher.backend.sentry.dsn: ${LAUNCHER_BACKEND_SENTRY_DSN}
+    launcher.frontend.sentry.dsn:
+    launcher.backend.sentry.dsn:
     osio.keycloak.saas.url: https://api.prod-preview.openshift.io
     osio.openshift.api.url: https://f8osoproxy-test-dsaas-preview.b6ff.rh-idev.openshiftapps.com
     osio.wit.url: https://api.prod-preview.openshift.io
@@ -491,7 +492,7 @@ objects:
             valueFrom:
               configMapKeyRef:
                 name: launcher
-                key: launcher.keycloak.clientId
+                key: launcher.keycloak.client.id
                 optional: true
           - name: LAUNCHER_TRACKER_SEGMENT_TOKEN
             valueFrom:
