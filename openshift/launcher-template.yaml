@@ -188,7 +188,7 @@ objects:
     launcher.backend.environment: ${LAUNCHER_BACKEND_ENVIRONMENT}
     launcher.keycloak.url: ${LAUNCHER_KEYCLOAK_URL}
     launcher.keycloak.realm: ${LAUNCHER_KEYCLOAK_REALM}
-    launcher.keycloak.clientId:
+    launcher.keycloak.client.id:
     launcher.tracker.segment.token: ${LAUNCHER_TRACKER_SEGMENT_TOKEN}
     launcher.backend.url: /launch/api
     launcher.frontend.sentry.dsn:
@@ -492,7 +492,7 @@ objects:
             valueFrom:
               configMapKeyRef:
                 name: launcher
-                key: launcher.keycloak.clientId
+                key: launcher.keycloak.client.id
                 optional: true
           - name: LAUNCHER_TRACKER_SEGMENT_TOKEN
             valueFrom:
