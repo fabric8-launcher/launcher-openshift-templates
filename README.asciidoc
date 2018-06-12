@@ -1,5 +1,5 @@
-== launcher-templates
-:idprefix: id_ 
+== OpenShift Templates
+
 The OpenShift templates that will create all the necessary services to run the Launcher
         
 == Setup
@@ -17,6 +17,6 @@ By default this creates a new Launcher application containing the latest version
 
 You can find more detail on how to configure and start a Single-node OpenShift Cluster for the Fabric8 Launcher Tool in the https://access.redhat.com/documentation/en-us/red_hat_openshift_application_runtimes/1/html-single/install_and_configure_the_fabric8_launcher_tool/#introduction-to-the-launcher-application[documentation].
 
-== Addon
+== Add-on
 
-We provide an addon to load this template in the OpenShift/MiniShift catalog. Just copy the `addons` directory to your `~/.minishift/addons` as explained here: https://docs.openshift.org/latest/minishift/using/addons.html
+We provide an add-on to load this template in the OpenShift/MiniShift catalog: https://github.com/minishift/minishift-addons/tree/master/add-ons/fabric8-launcher. More instructions about add-ons can be found here: https://docs.openshift.org/latest/minishift/using/addons.html

@@ -1,6 +1,0 @@
-# Name: fabric8-launch
-# Description:  Fabric8 Launcher
-
-echo Installing Fabric8 Launcher...
-oc create -f https://raw.githubusercontent.com/fabric8-launcher/launcher-openshift-templates/master/openshift/launcher-template.yaml -n openshift
-echo Fabric8 Launcher was successfully installed!
