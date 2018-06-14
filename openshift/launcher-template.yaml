@@ -88,14 +88,14 @@ parameters:
   value:
 - name: LAUNCHER_BACKEND_ARTEMIS_URL
   displayName: ActiveMQ Artemis JMS URL
-  description: ActiveMQ Artemis URL to store your status messages (needed when using multiple backend replicas).
+  description: ActiveMQ Artemis URL to store your status messages (needed when using multiple backend replicas). 
     Leave it blank if you are not planning on using more than one replica for the backend.
   value:
-- name: LAUNCHER_BACKEND_ARTEMIS_URL
+- name: LAUNCHER_BACKEND_ARTEMIS_USERNAME
   displayName: ActiveMQ Artemis JMS Username
   description: ActiveMQ Artemis Username for the ActiveMQ Artemis URL. Leave it blank if ActiveMQ Artemis URL is unset.
   value:
-- name: LAUNCHER_BACKEND_ARTEMIS_URL
+- name: LAUNCHER_BACKEND_ARTEMIS_PASSWORD
   displayName: ActiveMQ Artemis JMS Password
   description: ActiveMQ Artemis Password for the ActiveMQ Artemis URL. Leave it blank if ActiveMQ Artemis URL is unset.
   value:
@@ -385,6 +385,12 @@ objects:
                 key: launcher.backend.environment
           - name: LAUNCHER_MISSIONCONTROL_OPENSHIFT_CLUSTERS_FILE
             value: /etc/fabric8-launcher/openshift-clusters.yaml
+          - name: LAUNCHER_MISSIONCONTROL_OPENSHIFT_CLUSTER_SUBSCRIPTION_TOKEN
+            valueFrom:
+              configMapKeyRef:
+                name: launcher
+                key: launcher.missioncontrol.openshift.cluster.subscription.token
+                optional: true
           - name: KEYCLOAK_SAAS_URL
             valueFrom:
               configMapKeyRef:

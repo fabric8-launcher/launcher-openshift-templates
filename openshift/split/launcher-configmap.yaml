@@ -88,11 +88,11 @@ parameters:
   description: ActiveMQ Artemis URL to store your status messages (needed when using multiple backend replicas). 
     Leave it blank if you are not planning on using more than one replica for the backend.
   value:
-- name: LAUNCHER_BACKEND_ARTEMIS_URL
+- name: LAUNCHER_BACKEND_ARTEMIS_USERNAME
   displayName: ActiveMQ Artemis JMS Username
   description: ActiveMQ Artemis Username for the ActiveMQ Artemis URL. Leave it blank if ActiveMQ Artemis URL is unset.
   value:
-- name: LAUNCHER_BACKEND_ARTEMIS_URL
+- name: LAUNCHER_BACKEND_ARTEMIS_PASSWORD
   displayName: ActiveMQ Artemis JMS Password
   description: ActiveMQ Artemis Password for the ActiveMQ Artemis URL. Leave it blank if ActiveMQ Artemis URL is unset.
   value:
