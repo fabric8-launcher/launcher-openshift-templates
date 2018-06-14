@@ -12,17 +12,19 @@ main() {
     DIR=$(cd "$(dirname "$0")" ; pwd -P)
     cat $DIR/../openshift/split/launcher-header.yaml
     echo "parameters:"
-    printTemplateParams $DIR/../openshift/split/launcher-configmap.yaml
+    printTemplateParams $DIR/../openshift/split/launcher-configmaps.yaml
     printTemplateParams $DIR/../../launcher-backend/openshift/template.yaml "BACKEND"
     printTemplateParams $DIR/../../launcher-frontend/openshift/template.yaml "FRONTEND"
     printTemplateParams $DIR/../openshift/split/launcher-configmapcontroller.yaml "CONTROLLER"
-    printTemplateParams $DIR/../openshift/split/launcher-route.yaml
+    printTemplateParams $DIR/../openshift/split/launcher-routes.yaml
+    printTemplateParams $DIR/../openshift/split/launcher-secrets.yaml
     echo "objects:"
-    printTemplateObjects $DIR/../openshift/split/launcher-configmap.yaml
+    printTemplateObjects $DIR/../openshift/split/launcher-configmaps.yaml
     printTemplateObjects $DIR/../../launcher-backend/openshift/template.yaml "BACKEND"
     printTemplateObjects $DIR/../../launcher-frontend/openshift/template.yaml "FRONTEND"
     printTemplateObjects $DIR/../openshift/split/launcher-configmapcontroller.yaml "CONTROLLER"
-    printTemplateObjects $DIR/../openshift/split/launcher-route.yaml
+    printTemplateObjects $DIR/../openshift/split/launcher-routes.yaml
+    printTemplateObjects $DIR/../openshift/split/launcher-secrets.yaml
 }
 
 printTemplateParams() {

@@ -660,3 +660,10 @@ objects:
     wildcardPolicy: None
   status: {}
 
+- apiVersion: v1
+  kind: Secret
+  metadata:
+    name: launcher
+  data:
+    launcher.missioncontrol.openshift.clusters.subscription.token:
+
