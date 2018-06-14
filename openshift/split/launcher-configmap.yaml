@@ -108,6 +108,7 @@ objects:
     launcher.missioncontrol.openshift.password: ${LAUNCHER_MISSIONCONTROL_OPENSHIFT_PASSWORD}
     launcher.missioncontrol.openshift.api.url: ${LAUNCHER_MISSIONCONTROL_OPENSHIFT_API_URL}
     launcher.missioncontrol.openshift.console.url: ${LAUNCHER_MISSIONCONTROL_OPENSHIFT_CONSOLE_URL}
+    launcher.missioncontrol.openshift.cluster.subscription.token:
     launcher.backend.artemis.url: ${LAUNCHER_BACKEND_ARTEMIS_URL}
     launcher.backend.artemis.username: ${LAUNCHER_BACKEND_ARTEMIS_USERNAME}
     launcher.backend.artemis.password: ${LAUNCHER_BACKEND_ARTEMIS_PASSWORD}
