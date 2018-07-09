@@ -318,7 +318,8 @@ __EOF__
     fi
     if [[ ! -z $3 ]]
     then
-        perl -i -pe "s/\\\$\{IMAGENAME}/$3/g" $1
+        IMG=${3//\//\\\/}
+        perl -i -pe "s/\\\$\{IMAGENAME}/$IMG/g" $1
     fi
 }
 
