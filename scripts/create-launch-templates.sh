@@ -9,8 +9,8 @@
 
 main() {
     # Step 1 - Run mvn to create the fabric8 OpenSHift temapltes
-    echo "Running 'mvn fabric8:resource -Popenshift' to create application templates..."
-    mvn > /dev/null fabric8:resource -Popenshift || { echo "Maven command failed. Try running 'mvn fabric8:resource -Popenshift' yourself to see what went wrong." ; exit 1; }
+    echo "Running 'mvn fabric8:resource -Dfabric8.openshift.trimImageInContainerSpec=false  -Popenshift' to create application templates..."
+    mvn > /dev/null fabric8:resource -Dfabric8.openshift.trimImageInContainerSpec=false -Popenshift || { echo "Maven command failed. Try running 'mvn fabric8:resource -Dfabric8.openshift.trimImageInContainerSpec=false -Popenshift' yourself to see what went wrong." ; exit 1; }
 
     # Step 2 - Find the templates
     TEMPLATES=$(find . -wholename '*/fabric8/openshift.yml')
