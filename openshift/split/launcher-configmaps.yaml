@@ -54,6 +54,11 @@ parameters:
   description: The keycloak realm to be used (leave empty if you've explicitly specified
     GitHub/OpenShift authentication above)
   value: rh-developers-launch
+- name: LAUNCHER_KEYCLOAK_CLIENT_ID
+  displayName: KeyCloak Client ID
+  description: The keycloak client id to be used in the frontend (leave empty if you've explicitly specified
+    GitHub/OpenShift authentication above)
+  value:
 - name: LAUNCHER_TRACKER_SEGMENT_TOKEN
   displayName: Segment Token
   description: The token to use for Segment tracking. Leaving this empty will disable
@@ -119,7 +124,7 @@ objects:
     launcher.backend.environment: ${LAUNCHER_BACKEND_ENVIRONMENT}
     launcher.keycloak.url: ${LAUNCHER_KEYCLOAK_URL}
     launcher.keycloak.realm: ${LAUNCHER_KEYCLOAK_REALM}
-    launcher.keycloak.client.id:
+    launcher.keycloak.client.id: ${LAUNCHER_KEYCLOAK_CLIENT_ID}
     launcher.tracker.segment.token: ${LAUNCHER_TRACKER_SEGMENT_TOKEN}
     launcher.backend.url: /launch/api
     launcher.frontend.sentry.dsn:
@@ -129,6 +134,7 @@ objects:
     osio.wit.url: https://api.prod-preview.openshift.io
     osio.auth.url: https://auth.prod-preview.openshift.io
     osio.jenkins.url: https://jenkins.prod-preview.openshift.io
+    f8a.analytics.recommender.api.url: https://recommender.api.openshift.io
 - kind: ConfigMap
   apiVersion: v1
   metadata:
