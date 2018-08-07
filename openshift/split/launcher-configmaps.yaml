@@ -130,7 +130,7 @@ objects:
     launcher.frontend.sentry.dsn:
     launcher.backend.sentry.dsn:
     osio.keycloak.saas.url: https://api.prod-preview.openshift.io
-    osio.openshift.api.url: https://f8osoproxy-test-dsaas-preview.b6ff.rh-idev.openshiftapps.com
+    osio.openshift.api.url: https://osoproxy.prod-preview.openshift.io
     osio.wit.url: https://api.prod-preview.openshift.io
     osio.auth.url: https://auth.prod-preview.openshift.io
     osio.jenkins.url: https://jenkins.prod-preview.openshift.io
