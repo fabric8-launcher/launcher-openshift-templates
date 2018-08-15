@@ -37,12 +37,16 @@ parameters:
   value:
 - name: LAUNCHER_MISSIONCONTROL_OPENSHIFT_USERNAME
   displayName: OpenShift user name
-  description: OpenShift user (leave empty when using Keycloak)
+  description: OpenShift user (leave empty when using Keycloak with OpenShift as an Identity Provider or token)
   value: developer
 - name: LAUNCHER_MISSIONCONTROL_OPENSHIFT_PASSWORD
   displayName: OpenShift password
-  description: OpenShift password (leave empty when using Keycloak)  
+  description: OpenShift password (leave empty when using Keycloak with OpenShift as an Identity Provider or token)
   value: developer
+- name: LAUNCHER_MISSIONCONTROL_OPENSHIFT_IMPERSONATE_USER
+  displayName: Impersonate OpenShift users
+  description: Impersonate OpenShift users (requires a ServiceAccount with impersonator role)
+  value:
 - name: LAUNCHER_KEYCLOAK_URL
   displayName: KeyCloak URL
   description: The URL (with the /auth part) of a Keycloak installation to perform SSO
@@ -111,6 +115,7 @@ objects:
     launcher.missioncontrol.github.token: ${LAUNCHER_MISSIONCONTROL_GITHUB_TOKEN}
     launcher.missioncontrol.openshift.username: ${LAUNCHER_MISSIONCONTROL_OPENSHIFT_USERNAME}
     launcher.missioncontrol.openshift.password: ${LAUNCHER_MISSIONCONTROL_OPENSHIFT_PASSWORD}
+    launcher.missioncontrol.openshift.impersonate.user: ${LAUNCHER_MISSIONCONTROL_OPENSHIFT_IMPERSONATE_USER}
     launcher.missioncontrol.openshift.api.url: ${LAUNCHER_MISSIONCONTROL_OPENSHIFT_API_URL}
     launcher.missioncontrol.openshift.console.url: ${LAUNCHER_MISSIONCONTROL_OPENSHIFT_CONSOLE_URL}
     launcher.backend.artemis.url: ${LAUNCHER_BACKEND_ARTEMIS_URL}
