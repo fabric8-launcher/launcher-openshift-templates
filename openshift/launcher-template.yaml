@@ -155,6 +155,44 @@ parameters:
   name: BACKEND_REPLICAS
   value: "1"
 
+- name: CREATOR_BACKEND_IMAGE
+  value: fabric8/launcher-creator-backend
+  required: true
+
+- name: CREATOR_BACKEND_IMAGE_TAG
+  value: latest
+  required: true
+
+- description: CPU request
+  displayName: CPU request
+  required: true
+  name: CREATOR_BACKEND_CPU_REQUEST
+  value: "10m"
+
+- description: CPU limit
+  displayName: CPU limit
+  required: true
+  name: CREATOR_BACKEND_CPU_LIMIT
+  value: "50m"
+
+- description: Memory request
+  displayName: Memory request
+  required: true
+  name: CREATOR_BACKEND_MEMORY_REQUEST
+  value: "8M"
+
+- description: Memory limit
+  displayName: Memory limit
+  required: true
+  name: CREATOR_BACKEND_MEMORY_LIMIT
+  value: "64M"
+
+- description: Number of deployment replicas
+  displayName: Number of deployment replicas
+  required: true
+  name: CREATOR_BACKEND_REPLICAS
+  value: "1"
+
 - name: FRONTEND_IMAGE
   value: fabric8/launcher-frontend
   required: true
@@ -536,6 +574,91 @@ objects:
       service: launcher-backend
     sessionAffinity: None
     type: ClusterIP
+- kind: DeploymentConfig
+  apiVersion: v1
+  metadata:
+    name: launcher-creator-backend
+    annotations:
+      configmap.fabric8.io/update-on-change: "launcher"
+  spec:
+    replicas: "${{CREATOR_BACKEND_REPLICAS}}"
+    selector:
+      service: launcher-creator-backend
+    strategy:
+      resources: {}
+      rollingParams:
+        intervalSeconds: 1
+        maxSurge: 25%
+        maxUnavailable: 25%
+        timeoutSeconds: 600
+        updatePeriodSeconds: 1
+      type: Rolling
+    template:
+      metadata:
+        labels:
+          service: launcher-creator-backend
+      spec:
+        containers:
+        - image: ${CREATOR_BACKEND_IMAGE}:${CREATOR_BACKEND_IMAGE_TAG}
+          imagePullPolicy: Always
+          name: launcher-creator-backend
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          env:
+          - name: LAUNCHER_BACKEND_URL
+            valueFrom:
+              configMapKeyRef:
+                name: launcher
+                key: launcher.backend.url
+                optional: true
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 15
+            timeoutSeconds: 10
+            periodSeconds: 20
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 30
+            timeoutSeconds: 10
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: ${CREATOR_BACKEND_CPU_REQUEST}
+              memory: ${CREATOR_BACKEND_MEMORY_REQUEST}
+            limits:
+              cpu: ${CREATOR_BACKEND_CPU_LIMIT}
+              memory: ${CREATOR_BACKEND_MEMORY_LIMIT}
+        restartPolicy: Always
+        dnsPolicy: ClusterFirst
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+    test: false
+    triggers:
+    - type: ConfigChange
+- kind: Service
+  apiVersion: v1
+  metadata:
+    labels:
+      service: launcher-creator-backend
+    name: launcher-creator-backend
+  spec:
+    ports:
+    - name: "8080"
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      service: launcher-creator-backend
+    sessionAffinity: None
+    type: ClusterIP
+
 - kind: DeploymentConfig
   apiVersion: v1
   metadata:
