@@ -150,7 +150,6 @@ objects:
     osio.wit.url: https://api.prod-preview.openshift.io
     osio.auth.url: https://auth.prod-preview.openshift.io
     osio.jenkins.url: https://jenkins.prod-preview.openshift.io
-    f8a.analytics.recommender.api.url: https://recommender.api.openshift.io
 - kind: ConfigMap
   apiVersion: v1
   metadata:
