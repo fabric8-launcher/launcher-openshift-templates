@@ -271,13 +271,15 @@ objects:
     launcher.tracker.segment.token: ${LAUNCHER_TRACKER_SEGMENT_TOKEN}
     launcher.backend.url: /launch/api
     launcher.frontend.sentry.dsn:
+    launcher.frontend.targetenvironment.skip:
     launcher.backend.sentry.dsn:
+    launcher.creator.enabled:
+    launcher.creator.url: /launch/creator
     osio.keycloak.saas.url: https://api.prod-preview.openshift.io
     osio.openshift.api.url: https://osoproxy.prod-preview.openshift.io
     osio.wit.url: https://api.prod-preview.openshift.io
     osio.auth.url: https://auth.prod-preview.openshift.io
     osio.jenkins.url: https://jenkins.prod-preview.openshift.io
-    f8a.analytics.recommender.api.url: https://recommender.api.openshift.io
 - kind: ConfigMap
   apiVersion: v1
   metadata:
@@ -697,6 +699,18 @@ objects:
                 name: launcher
                 key: launcher.backend.url
                 optional: true
+          - name: LAUNCHER_CREATOR_URL
+            valueFrom:
+              configMapKeyRef:
+                name: launcher
+                key: launcher.creator.url
+                optional: true
+          - name: LAUNCHER_CREATOR_ENABLED
+            valueFrom:
+              configMapKeyRef:
+                name: launcher
+                key: launcher.creator.enabled
+                optional: true
           - name: LAUNCHER_KEYCLOAK_URL
             valueFrom:
               configMapKeyRef:
@@ -724,6 +738,12 @@ objects:
               configMapKeyRef:
                 name: launcher
                 key: launcher.frontend.sentry.dsn
+                optional: true
+          - name: LAUNCHER_TARGETENVIRONMENT_SKIP
+            valueFrom:
+              configMapKeyRef:
+                name: launcher
+                key: launcher.frontend.targetenvironment.skip
                 optional: true
           resources: {}
           terminationMessagePath: /dev/termination-log

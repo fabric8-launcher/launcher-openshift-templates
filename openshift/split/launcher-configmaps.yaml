@@ -144,7 +144,10 @@ objects:
     launcher.tracker.segment.token: ${LAUNCHER_TRACKER_SEGMENT_TOKEN}
     launcher.backend.url: /launch/api
     launcher.frontend.sentry.dsn:
+    launcher.frontend.targetenvironment.skip:
     launcher.backend.sentry.dsn:
+    launcher.creator.enabled:
+    launcher.creator.url: /launch/creator
     osio.keycloak.saas.url: https://api.prod-preview.openshift.io
     osio.openshift.api.url: https://osoproxy.prod-preview.openshift.io
     osio.wit.url: https://api.prod-preview.openshift.io
