@@ -274,6 +274,7 @@ objects:
     launcher.frontend.targetenvironment.skip:
     launcher.backend.sentry.dsn:
     launcher.creator.enabled:
+    launcher.creator.sentry.dsn:
     launcher.creator.url: /launch/creator
     osio.keycloak.saas.url: https://api.prod-preview.openshift.io
     osio.openshift.api.url: https://osoproxy.prod-preview.openshift.io
@@ -613,6 +614,12 @@ objects:
               configMapKeyRef:
                 name: launcher
                 key: launcher.backend.url
+                optional: true
+          - name: SENTRY_DSN
+            valueFrom:
+              configMapKeyRef:
+                name: launcher
+                key: launcher.creator.sentry.dsn
                 optional: true
           resources: {}
           terminationMessagePath: /dev/termination-log

@@ -147,6 +147,7 @@ objects:
     launcher.frontend.targetenvironment.skip:
     launcher.backend.sentry.dsn:
     launcher.creator.enabled:
+    launcher.creator.sentry.dsn:
     launcher.creator.url: /launch/creator
     osio.keycloak.saas.url: https://api.prod-preview.openshift.io
     osio.openshift.api.url: https://osoproxy.prod-preview.openshift.io
