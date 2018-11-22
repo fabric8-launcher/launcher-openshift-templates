@@ -173,19 +173,19 @@ parameters:
   displayName: CPU limit
   required: true
   name: CREATOR_BACKEND_CPU_LIMIT
-  value: "50m"
+  value: "1000m"
 
 - description: Memory request
   displayName: Memory request
   required: true
   name: CREATOR_BACKEND_MEMORY_REQUEST
-  value: "8M"
+  value: "8Mi"
 
 - description: Memory limit
   displayName: Memory limit
   required: true
   name: CREATOR_BACKEND_MEMORY_LIMIT
-  value: "64M"
+  value: "128Mi"
 
 - description: Number of deployment replicas
   displayName: Number of deployment replicas
