@@ -610,7 +610,7 @@ objects:
             protocol: TCP
           env:
           - name: LAUNCHER_BACKEND_URL
-            value: http://launcher-backend:8080
+            value: http://launcher-backend:8080/api
           - name: SENTRY_DSN
             valueFrom:
               configMapKeyRef:
