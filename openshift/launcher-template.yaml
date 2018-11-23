@@ -860,7 +860,7 @@ objects:
   kind: Secret
   metadata:
     name: launcher
-  data:
+  stringData:
     launcher.missioncontrol.openshift.clusters.subscription.token:
     launcher.missioncontrol.openshift.token: ${LAUNCHER_MISSIONCONTROL_OPENSHIFT_TOKEN}
 
