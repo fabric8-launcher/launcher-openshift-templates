@@ -3,11 +3,11 @@ apiVersion: v1
 metadata:
   name: fabric8-launcher
   annotations:
-    openshift.io/display-name: "Fabric8 Launch (Frontend + Backend)"
-    description: This application consists of the combination of Backend and Frontend services for Fabric8 Launch
+    openshift.io/display-name: "Red Hat Application Launcher"
+    description: This application consists of the combination of backend and frontend services for the Red Hat Application Launcher
     tags: instant-app,fabric8-launcher
     iconClass: icon-shadowman
-    template.openshift.io/long-description: This application consists of the combination of Backend and Frontend services for Fabric8 Launch
+    template.openshift.io/long-description: This application consists of the combination of backend and frontend services for the Red Hat Application Launcher
     template.openshift.io/provider-display-name: Red Hat, Inc.
     template.openshift.io/documentation-url: https://github.com/fabric8-launcher
     template.openshift.io/support-url: https://access.redhat.com
@@ -21,8 +21,8 @@ parameters:
   displayName: Your GitHub username
   description: Your GitHub username (leave empty when using Keycloak)
 - name: LAUNCHER_MISSIONCONTROL_GITHUB_TOKEN
-  displayName: Your GitHub Mission Control access token
-  description: Your GitHub Mission Control access token (leave empty when using Keycloak)
+  displayName: Your GitHub personal access token (set at https://github.com/settings/tokens)
+  description: Your GitHub personal access token (set at https://github.com/settings/tokens; leave empty when using Keycloak)
 - name: LAUNCHER_MISSIONCONTROL_OPENSHIFT_API_URL
   displayName: Target OpenShift API URL
   description: The base URL of the OpenShift API where the launched boosters
