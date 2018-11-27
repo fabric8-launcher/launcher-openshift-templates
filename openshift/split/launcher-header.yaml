@@ -3,11 +3,11 @@ apiVersion: v1
 metadata:
   name: fabric8-launcher
   annotations:
-    openshift.io/display-name: "Fabric8 Launch (Frontend + Backend)"
-    description: This application consists of the combination of Backend and Frontend services for Fabric8 Launch
+    openshift.io/display-name: "Red Hat Application Launcher"
+    description: This application consists of the combination of backend and frontend services for the Red Hat Application Launcher
     tags: instant-app,fabric8-launcher
     iconClass: icon-shadowman
-    template.openshift.io/long-description: This application consists of the combination of Backend and Frontend services for Fabric8 Launch
+    template.openshift.io/long-description: This application consists of the combination of backend and frontend services for the Red Hat Application Launcher
     template.openshift.io/provider-display-name: Red Hat, Inc.
     template.openshift.io/documentation-url: https://github.com/fabric8-launcher
     template.openshift.io/support-url: https://access.redhat.com
