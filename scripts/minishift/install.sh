@@ -19,7 +19,7 @@ oc process --local -f openshift/launcher-template.yaml \
    LAUNCHER_KEYCLOAK_REALM= \
    LAUNCHER_MISSIONCONTROL_GITHUB_USERNAME=$(git config github.user) \
    LAUNCHER_MISSIONCONTROL_GITHUB_TOKEN=$(git config github.token) \
-   LAUNCHER_MISSIONCONTROL_OPENSHIFT_CONSOLE_URL=$(minishift console --url) \
+   LAUNCHER_MISSIONCONTROL_OPENSHIFT_CONSOLE_URL=$(minishift console --url | sed 's/\/console//') \
    --param-file=released.properties -o yaml | oc create -f -
 
 echo Enabling Launcher Creator
