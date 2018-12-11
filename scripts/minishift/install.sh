@@ -1,11 +1,11 @@
 #!/bin/bash
 
-echo This script will install Fabric8 Launcher in Minishift. Make sure that:
+echo This script will install the Launcher in Minishift. Make sure that:
 echo 
 echo  - Minishift is running 
 echo  - You have run oc login previously
-echo  - Your GitHub Username is correct: $(git config github.user)
-echo  - Your GitHub Token  is correct: $(git config github.token)
+echo  - Your GitHub Username is correct [found from git config github.user]: $(git config github.user)
+echo  - Your GitHub Token is correct [found from git config github.token]: *REDACTED*
 echo 
 echo Press any key to continue ...
 read 
