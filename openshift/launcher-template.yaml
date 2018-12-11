@@ -155,6 +155,18 @@ parameters:
   name: BACKEND_REPLICAS
   value: "1"
 
+- name: WELCOME_IMAGE_NAME
+  description: The Welcome App's image name
+  displayName: Image Name
+  required: true
+  value: fabric8/launcher-creator-welcome-app
+
+- name: WELCOME_IMAGE_TAG
+  description: The Welcome App's image tag
+  displayName: Image Tag
+  required: true
+  value: latest
+
 - name: CREATOR_BACKEND_IMAGE
   value: fabric8/launcher-creator-backend
   required: true
@@ -611,6 +623,10 @@ objects:
           env:
           - name: LAUNCHER_BACKEND_URL
             value: http://launcher-backend:8080/api
+          - name: WELCOME_IMAGE_NAME
+            value: ${WELCOME_IMAGE_NAME}
+          - name: WELCOME_IMAGE_TAG
+            value: ${WELCOME_IMAGE_TAG}
           - name: SENTRY_DSN
             valueFrom:
               configMapKeyRef:
