@@ -34,3 +34,23 @@ If you quickly want to run the Launcher on an unprepared system (Docker required
 ----
 
 You can start it either with `minishift` if you have a locally running Minishift instance or `keycloak` if you want to connect to the official Launcher keycloak server. If you're finished you can run the script again with `stop` to stop and remove the Docker containers.
+
+=== Install Launcher into Minishift
+
+From the root directory, run: 
+
+[source,bash]
+----
+    scripts/minishift/install.sh
+----
+
+
+=== Update the released.properties file
+
+To automatically update the released.properties file with the latest SHA1 commits, run the following script from the root directory:
+
+[source,bash]
+----
+    scripts/update-released.sh
+----
+
