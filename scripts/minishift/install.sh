@@ -16,6 +16,7 @@ oc new-project launcher
 echo Processing the template and installing ...
 oc process --local -f openshift/launcher-template.yaml \
    LAUNCHER_KEYCLOAK_URL= \
+   LAUNCHER_KEYCLOAK_REALM= \
    LAUNCHER_MISSIONCONTROL_GITHUB_USERNAME=$(git config github.user) \
    LAUNCHER_MISSIONCONTROL_GITHUB_TOKEN=$(git config github.token) \
    LAUNCHER_MISSIONCONTROL_OPENSHIFT_CONSOLE_URL=$(minishift console --url) \
