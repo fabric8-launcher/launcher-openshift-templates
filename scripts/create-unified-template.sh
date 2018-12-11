@@ -39,12 +39,13 @@ printTemplateParams() {
     while (my $line = <>) {
         if ($start == 1) {
             if ($line =~ /^[\s-]/) {
-                $line =~ s/IMAGE/${modname}_IMAGE/g;
-                $line =~ s/CPU_REQUEST/${modname}_CPU_REQUEST/g;
-                $line =~ s/CPU_LIMIT/${modname}_CPU_LIMIT/g;
-                $line =~ s/MEMORY_REQUEST/${modname}_MEMORY_REQUEST/g;
-                $line =~ s/MEMORY_LIMIT/${modname}_MEMORY_LIMIT/g;
-                $line =~ s/REPLICAS/${modname}_REPLICAS/g;
+                $line =~ s/\bIMAGE\b/${modname}_IMAGE/g;
+                $line =~ s/\bIMAGE_TAG\b/${modname}_IMAGE_TAG/g;
+                $line =~ s/\bCPU_REQUEST\b/${modname}_CPU_REQUEST/g;
+                $line =~ s/\bCPU_LIMIT\b/${modname}_CPU_LIMIT/g;
+                $line =~ s/\bMEMORY_REQUEST\b/${modname}_MEMORY_REQUEST/g;
+                $line =~ s/\bMEMORY_LIMIT\b/${modname}_MEMORY_LIMIT/g;
+                $line =~ s/\bREPLICAS\b/${modname}_REPLICAS/g;
                 print $line;
             } else {
                 exit;
