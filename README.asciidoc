@@ -2,7 +2,25 @@
 
 The OpenShift templates that will create all the necessary services to run the Launcher
         
-== Setup
+== Installation
+
+=== Minishift
+
+Before starting the installation make sure that:
+
+ - Minishift is running
+ - You are logged in using `oc login`
+ - Your GitHub Username is set using `git config --set github.user <user>`
+ - Your GitHub Token is set using `git config --set github.token <token>`
+
+After that simply run the following:
+
+[source,bash]
+----
+    curl -s https://raw.githubusercontent.com/fabric8-launcher/launcher-openshift-templates/master/scripts/minishift/install.sh | bash
+----
+
+=== Any OpenShift
 
 To install this template in your OpenShift project run the following:
 
