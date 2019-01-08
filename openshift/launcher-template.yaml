@@ -822,7 +822,7 @@ objects:
   metadata:
     labels:
       service: configmapcontroller
-    name: configmapcontroller-edit
+    name: configmapcontroller
   roleRef:
     name: edit
   subjects:
