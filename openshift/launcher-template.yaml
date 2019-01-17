@@ -632,7 +632,6 @@ objects:
                 name: launcher
                 key: launcher.creator.sentry.dsn
                 optional: true
-          resources: {}
           terminationMessagePath: /dev/termination-log
           readinessProbe:
             httpGet:
@@ -763,7 +762,6 @@ objects:
                 name: launcher
                 key: launcher.frontend.targetenvironment.skip
                 optional: true
-          resources: {}
           terminationMessagePath: /dev/termination-log
           readinessProbe:
             httpGet:
