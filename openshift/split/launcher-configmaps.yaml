@@ -195,3 +195,9 @@ objects:
         apiUrl: https://api.pro-ap-southeast-2.openshift.com
         consoleUrl: https://console.pro-ap-southeast-2.openshift.com
         type: pro
+    git-providers.yaml: |-
+      - id: GitHub
+        name: "GitHub"
+        apiUrl: https://api.github.com
+        repositoryUrl: https://github.com
+        type: GITHUB
