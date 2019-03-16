@@ -9,6 +9,10 @@ case "$1" in
         BASE=.
         PROPS=$(cat released.properties)
         ;;
+    "--latest")
+        BASE=.
+        PROPS=
+        ;;
     "--delete")
         oc delete project launcher
         exit
