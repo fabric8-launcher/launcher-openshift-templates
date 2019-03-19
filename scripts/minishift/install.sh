@@ -1,16 +1,17 @@
 #!/bin/bash
 
+if [[ -t 0 ]]; then
+    BASE=.
+    PROPS=$(cat released.properties)
+else
+    BASE="https://raw.githubusercontent.com/fabric8-launcher/launcher-openshift-templates/master"
+    PROPS=$(curl -s $BASE/released.properties)
+fi
+
 case "$1" in
-    ""|"--remote")
-        BASE="https://raw.githubusercontent.com/fabric8-launcher/launcher-openshift-templates/master"
-        PROPS=$(curl -s $BASE/released.properties)
-        ;;
-    "--local")
-        BASE=.
-        PROPS=$(cat released.properties)
+    ""|"--released")
         ;;
     "--latest")
-        BASE=.
         PROPS=
         ;;
     "--delete")
@@ -19,10 +20,14 @@ case "$1" in
         ;;
     *)
         echo "Invalid argument: $1"
-        echo "Usage: install [--local] [--remote] [--delete]"
+        echo "Usage: install [--released] [--latest] [--delete]"
         exit
         ;;
 esac
+
+echo $BASE
+echo $PROPS
+exit
 
 for p in $PROPS; do
     PARAMS="$PARAMS -p $p"
