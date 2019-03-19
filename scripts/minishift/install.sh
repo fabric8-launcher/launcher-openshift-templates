@@ -25,10 +25,6 @@ case "$1" in
         ;;
 esac
 
-echo $BASE
-echo $PROPS
-exit
-
 for p in $PROPS; do
     PARAMS="$PARAMS -p $p"
 done
