@@ -17,9 +17,6 @@ labels:
   app: fabric8-launcher
 
 parameters:
-- name: LAUNCHER_MISSIONCONTROL_GITHUB_USERNAME
-  displayName: Your GitHub username
-  description: Your GitHub username (leave empty when using Keycloak)
 - name: LAUNCHER_MISSIONCONTROL_GITHUB_TOKEN
   displayName: Your GitHub personal access token (set at https://github.com/settings/tokens)
   description: Your GitHub personal access token (set at https://github.com/settings/tokens; leave empty when using Keycloak)
@@ -259,7 +256,6 @@ objects:
   metadata:
     name: launcher
   data:
-    launcher.missioncontrol.github.username: ${LAUNCHER_MISSIONCONTROL_GITHUB_USERNAME}
     launcher.missioncontrol.github.token: ${LAUNCHER_MISSIONCONTROL_GITHUB_TOKEN}
     launcher.missioncontrol.openshift.username: ${LAUNCHER_MISSIONCONTROL_OPENSHIFT_USERNAME}
     launcher.missioncontrol.openshift.password: ${LAUNCHER_MISSIONCONTROL_OPENSHIFT_PASSWORD}
@@ -459,12 +455,6 @@ objects:
               configMapKeyRef:
                 name: launcher
                 key: launcher.missioncontrol.openshift.impersonate.user
-                optional: true
-          - name: LAUNCHER_MISSIONCONTROL_GITHUB_USERNAME
-            valueFrom:
-              configMapKeyRef:
-                name: launcher
-                key: launcher.missioncontrol.github.username
                 optional: true
           - name: LAUNCHER_MISSIONCONTROL_GITHUB_TOKEN
             valueFrom:
