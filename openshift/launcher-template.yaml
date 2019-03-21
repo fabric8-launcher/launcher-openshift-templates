@@ -202,43 +202,43 @@ parameters:
   name: CREATOR_BACKEND_REPLICAS
   value: "1"
 
-- name: FRONTEND_IMAGE
-  value: fabric8/launcher-frontend
-  required: true
+  - name: FRONTEND_IMAGE
+    value: fabric8/launcher-frontend
+    required: true
 
-- name: FRONTEND_IMAGE_TAG
-  value: latest
-  required: true
+  - name: FRONTEND_IMAGE_TAG
+    value: latest
+    required: true
 
-- description: CPU request
-  displayName: CPU request
-  required: true
-  name: FRONTEND_CPU_REQUEST
-  value: "10m"
+  - description: CPU request
+    displayName: CPU request
+    required: true
+    name: FRONTEND_CPU_REQUEST
+    value: "10m"
 
-- description: CPU limit
-  displayName: CPU limit
-  required: true
-  name: FRONTEND_CPU_LIMIT
-  value: "50m"
+  - description: CPU limit
+    displayName: CPU limit
+    required: true
+    name: FRONTEND_CPU_LIMIT
+    value: "50m"
 
-- description: Memory request
-  displayName: Memory request
-  required: true
-  name: FRONTEND_MEMORY_REQUEST
-  value: "8M"
+  - description: Memory request
+    displayName: Memory request
+    required: true
+    name: FRONTEND_MEMORY_REQUEST
+    value: "8M"
 
-- description: Memory limit
-  displayName: Memory limit
-  required: true
-  name: FRONTEND_MEMORY_LIMIT
-  value: "64M"
+  - description: Memory limit
+    displayName: Memory limit
+    required: true
+    name: FRONTEND_MEMORY_LIMIT
+    value: "64M"
 
-- description: Number of deployment replicas
-  displayName: Number of deployment replicas
-  required: true
-  name: FRONTEND_REPLICAS
-  value: "1"
+  - description: Number of deployment replicas
+    displayName: Number of deployment replicas
+    required: true
+    name: FRONTEND_REPLICAS
+    value: "1"
 
 - name: CONTROLLER_IMAGE
   value: fabric8/configmapcontroller
@@ -676,136 +676,129 @@ objects:
     sessionAffinity: None
     type: ClusterIP
 
-- kind: DeploymentConfig
-  apiVersion: v1
-  metadata:
-    name: launcher-frontend
-    annotations:
-      configmap.fabric8.io/update-on-change: "launcher"
-  spec:
-    replicas: "${{FRONTEND_REPLICAS}}"
-    selector:
-      service: launcher-frontend
-    strategy:
-      resources: {}
-      rollingParams:
-        intervalSeconds: 1
-        maxSurge: 25%
-        maxUnavailable: 25%
-        timeoutSeconds: 600
-        updatePeriodSeconds: 1
-      type: Rolling
-    template:
-      metadata:
-        labels:
-          service: launcher-frontend
-      spec:
-        containers:
-        - image: ${FRONTEND_IMAGE}:${FRONTEND_IMAGE_TAG}
-          imagePullPolicy: Always
-          name: launcher-frontend
-          ports:
-          - containerPort: 8080
-            protocol: TCP
-          env:
-          - name: LAUNCHER_BACKEND_URL
-            valueFrom:
-              configMapKeyRef:
-                name: launcher
-                key: launcher.backend.url
-                optional: true
-          - name: LAUNCHER_CREATOR_URL
-            valueFrom:
-              configMapKeyRef:
-                name: launcher
-                key: launcher.creator.url
-                optional: true
-          - name: LAUNCHER_CREATOR_ENABLED
-            valueFrom:
-              configMapKeyRef:
-                name: launcher
-                key: launcher.creator.enabled
-                optional: true
-          - name: LAUNCHER_KEYCLOAK_URL
-            valueFrom:
-              configMapKeyRef:
-                name: launcher
-                key: launcher.keycloak.url
-          - name: LAUNCHER_KEYCLOAK_REALM
-            valueFrom:
-              configMapKeyRef:
-                name: launcher
-                key: launcher.keycloak.realm
-          - name: LAUNCHER_KEYCLOAK_CLIENT_ID
-            valueFrom:
-              configMapKeyRef:
-                name: launcher
-                key: launcher.keycloak.client.id
-                optional: true
-          - name: LAUNCHER_TRACKER_SEGMENT_TOKEN
-            valueFrom:
-              configMapKeyRef:
-                name: launcher
-                key: launcher.tracker.segment.token
-                optional: true
-          - name: LAUNCHER_FRONTEND_SENTRY_DSN
-            valueFrom:
-              configMapKeyRef:
-                name: launcher
-                key: launcher.frontend.sentry.dsn
-                optional: true
-          - name: LAUNCHER_TARGETENVIRONMENT_SKIP
-            valueFrom:
-              configMapKeyRef:
-                name: launcher
-                key: launcher.frontend.targetenvironment.skip
-                optional: true
-          terminationMessagePath: /dev/termination-log
-          readinessProbe:
-            httpGet:
-              path: /launch/wizard
-              port: 8080
-            initialDelaySeconds: 15
-            timeoutSeconds: 10
-            periodSeconds: 20
-          livenessProbe:
-            httpGet:
-              path: /launch/wizard
-              port: 8080
-            initialDelaySeconds: 30
-            timeoutSeconds: 10
-            periodSeconds: 20
-          resources:
-            requests:
-              cpu: ${FRONTEND_CPU_REQUEST}
-              memory: ${FRONTEND_MEMORY_REQUEST}
-            limits:
-              cpu: ${FRONTEND_CPU_LIMIT}
-              memory: ${FRONTEND_MEMORY_LIMIT}
-        restartPolicy: Always
-        dnsPolicy: ClusterFirst
-        securityContext: {}
-        terminationGracePeriodSeconds: 30
-    test: false
-    triggers:
-    - type: ConfigChange
-- kind: Service
-  apiVersion: v1
-  metadata:
-    labels:
-      service: launcher-frontend
-    name: launcher-frontend
-  spec:
-    ports:
-    - name: "8080"
-      port: 8080
-      protocol: TCP
-      targetPort: 8080
-    selector:
-      service: launcher-frontend
-    sessionAffinity: None
-    type: ClusterIP
-
+  - kind: DeploymentConfig
+    apiVersion: v1
+    metadata:
+      name: launcher-frontend
+      annotations:
+        configmap.fabric8.io/update-on-change: "launcher"
+    spec:
+      replicas: "${{FRONTEND_REPLICAS}}"
+      selector:
+        service: launcher-frontend
+      strategy:
+        resources: {}
+        rollingParams:
+          intervalSeconds: 1
+          maxSurge: 25%
+          maxUnavailable: 25%
+          timeoutSeconds: 600
+          updatePeriodSeconds: 1
+        type: Rolling
+      template:
+        metadata:
+          labels:
+            service: launcher-frontend
+        spec:
+          containers:
+            - image: ${FRONTEND_IMAGE}:${FRONTEND_IMAGE_TAG}
+              imagePullPolicy: Always
+              name: launcher-frontend
+              ports:
+                - containerPort: 8080
+                  protocol: TCP
+              env:
+                - name: LAUNCHER_BACKEND_URL
+                  valueFrom:
+                    configMapKeyRef:
+                      name: launcher
+                      key: launcher.backend.url
+                      optional: true
+                - name: LAUNCHER_CREATOR_URL
+                  valueFrom:
+                    configMapKeyRef:
+                      name: launcher
+                      key: launcher.creator.url
+                      optional: true
+                - name: LAUNCHER_KEYCLOAK_URL
+                  valueFrom:
+                    configMapKeyRef:
+                      name: launcher
+                      key: launcher.keycloak.url
+                - name: LAUNCHER_KEYCLOAK_REALM
+                  valueFrom:
+                    configMapKeyRef:
+                      name: launcher
+                      key: launcher.keycloak.realm
+                - name: LAUNCHER_KEYCLOAK_CLIENT_ID
+                  valueFrom:
+                    configMapKeyRef:
+                      name: launcher
+                      key: launcher.keycloak.client.id
+                      optional: true
+                - name: LAUNCHER_TRACKER_SEGMENT_TOKEN
+                  valueFrom:
+                    configMapKeyRef:
+                      name: launcher
+                      key: launcher.tracker.segment.token
+                      optional: true
+                - name: LAUNCHER_FRONTEND_SENTRY_DSN
+                  valueFrom:
+                    configMapKeyRef:
+                      name: launcher
+                      key: launcher.frontend.sentry.dsn
+                      optional: true
+                - name: LAUNCHER_TARGETENVIRONMENT_SKIP
+                  valueFrom:
+                    configMapKeyRef:
+                      name: launcher
+                      key: launcher.frontend.targetenvironment.skip
+                      optional: true
+              terminationMessagePath: /dev/termination-log
+              readinessProbe:
+                httpGet:
+                  path: /launch
+                  port: 8080
+                initialDelaySeconds: 15
+                timeoutSeconds: 10
+                periodSeconds: 20
+              livenessProbe:
+                httpGet:
+                  path: /launch
+                  port: 8080
+                initialDelaySeconds: 30
+                timeoutSeconds: 10
+                periodSeconds: 20
+              resources:
+                requests:
+                  cpu: ${FRONTEND_CPU_REQUEST}
+                  memory: ${FRONTEND_MEMORY_REQUEST}
+                limits:
+                  cpu: ${FRONTEND_CPU_LIMIT}
+                  memory: ${FRONTEND_MEMORY_LIMIT}
+          restartPolicy: Always
+          dnsPolicy: ClusterFirst
+          securityContext: {}
+          terminationGracePeriodSeconds: 30
+      test: false
+      triggers:
+        - type: ConfigChange
+  - kind: Service
+    apiVersion: v1
+    metadata:
+      labels:
+        service: launcher-frontend
+      name: launcher-frontend
+    spec:
+      ports:
+        - name: "8080"
+          port: 8080
+          protocol: TCP
+          targetPort: 8080
+      selector:
+        service: launcher-frontend
+      sessionAffinity: None
+      type: ClusterIP
 - apiVersion: v1
   kind: ServiceAccount
   metadata:
