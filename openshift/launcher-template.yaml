@@ -117,41 +117,34 @@ parameters:
 - name: BACKEND_IMAGE
   value: fabric8/launcher-backend
   required: true
-
 - name: BACKEND_IMAGE_TAG
   value: latest
   required: true
-
 - description: CPU request
   displayName: CPU request
   required: true
   name: BACKEND_CPU_REQUEST
-  value: "10m"
-
+  value: 10m
 - description: CPU limit
   displayName: CPU limit
   required: true
   name: BACKEND_CPU_LIMIT
-  value: "1000m"
-
+  value: 1000m
 - description: Memory request
   displayName: Memory request
   required: true
   name: BACKEND_MEMORY_REQUEST
-  value: "768Mi"
-
+  value: 768Mi
 - description: Memory limit
   displayName: Memory limit
   required: true
   name: BACKEND_MEMORY_LIMIT
-  value: "2G"
-
+  value: 2G
 - description: Number of deployment replicas
   displayName: Number of deployment replicas
   required: true
   name: BACKEND_REPLICAS
-  value: "1"
-
+  value: '1'
 - name: WELCOME_IMAGE_NAME
   description: The Welcome App's image name
   displayName: Image Name
@@ -205,41 +198,34 @@ parameters:
 - name: FRONTEND_IMAGE
   value: fabric8/launcher-frontend
   required: true
-
 - name: FRONTEND_IMAGE_TAG
   value: latest
   required: true
-
 - description: CPU request
   displayName: CPU request
   required: true
   name: FRONTEND_CPU_REQUEST
-  value: "10m"
-
+  value: 10m
 - description: CPU limit
   displayName: CPU limit
   required: true
   name: FRONTEND_CPU_LIMIT
-  value: "50m"
-
+  value: 50m
 - description: Memory request
   displayName: Memory request
   required: true
   name: FRONTEND_MEMORY_REQUEST
-  value: "8M"
-
+  value: 8M
 - description: Memory limit
   displayName: Memory limit
   required: true
   name: FRONTEND_MEMORY_LIMIT
-  value: "64M"
-
+  value: 64M
 - description: Number of deployment replicas
   displayName: Number of deployment replicas
   required: true
   name: FRONTEND_REPLICAS
-  value: "1"
-
+  value: '1'
 - name: CONTROLLER_IMAGE
   value: fabric8/configmapcontroller
   required: true
@@ -341,9 +327,9 @@ objects:
   metadata:
     name: launcher-backend
     annotations:
-      configmap.fabric8.io/update-on-change: "launcher,launcher-clusters"
+      configmap.fabric8.io/update-on-change: launcher,launcher-clusters
   spec:
-    replicas: "${{BACKEND_REPLICAS}}"
+    replicas: ${{BACKEND_REPLICAS}}
     selector:
       service: launcher-backend
     strategy:
@@ -578,7 +564,7 @@ objects:
     name: launcher-backend
   spec:
     ports:
-    - name: "8080"
+    - name: '8080'
       port: 8080
       protocol: TCP
       targetPort: 8080
@@ -681,9 +667,9 @@ objects:
   metadata:
     name: launcher-frontend
     annotations:
-      configmap.fabric8.io/update-on-change: "launcher"
+      configmap.fabric8.io/update-on-change: launcher
   spec:
-    replicas: "${{FRONTEND_REPLICAS}}"
+    replicas: ${{FRONTEND_REPLICAS}}
     selector:
       service: launcher-frontend
     strategy:
@@ -719,12 +705,6 @@ objects:
               configMapKeyRef:
                 name: launcher
                 key: launcher.creator.url
-                optional: true
-          - name: LAUNCHER_CREATOR_ENABLED
-            valueFrom:
-              configMapKeyRef:
-                name: launcher
-                key: launcher.creator.enabled
                 optional: true
           - name: LAUNCHER_KEYCLOAK_URL
             valueFrom:
@@ -763,14 +743,14 @@ objects:
           terminationMessagePath: /dev/termination-log
           readinessProbe:
             httpGet:
-              path: /launch/wizard
+              path: /launch
               port: 8080
             initialDelaySeconds: 15
             timeoutSeconds: 10
             periodSeconds: 20
           livenessProbe:
             httpGet:
-              path: /launch/wizard
+              path: /launch
               port: 8080
             initialDelaySeconds: 30
             timeoutSeconds: 10
@@ -797,7 +777,7 @@ objects:
     name: launcher-frontend
   spec:
     ports:
-    - name: "8080"
+    - name: '8080'
       port: 8080
       protocol: TCP
       targetPort: 8080
@@ -805,7 +785,6 @@ objects:
       service: launcher-frontend
     sessionAffinity: None
     type: ClusterIP
-
 - apiVersion: v1
   kind: ServiceAccount
   metadata:
