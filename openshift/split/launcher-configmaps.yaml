@@ -145,11 +145,6 @@ objects:
     launcher.creator.enabled:
     launcher.creator.sentry.dsn:
     launcher.creator.url: /launch/creator
-    osio.keycloak.saas.url: https://api.prod-preview.openshift.io
-    osio.openshift.api.url: https://osoproxy.prod-preview.openshift.io
-    osio.wit.url: https://api.prod-preview.openshift.io
-    osio.auth.url: https://auth.prod-preview.openshift.io
-    osio.jenkins.url: https://jenkins.prod-preview.openshift.io
 - kind: ConfigMap
   apiVersion: v1
   metadata:
