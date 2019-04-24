@@ -116,11 +116,11 @@ parameters:
   value: GITHUB
 - name: LAUNCHER_FILTER_RUNTIME
   displayName: Filter runtimes
-  description: Comma-separated regular expressions that will be used to match against the id field of each runtime. Prepend `!` in the expression to exclude runtimes.
+  description: A regular expression that will be used to match against the id field of each runtime. You can prepend `!` in the expression to negate.
   value:
 - name: LAUNCHER_FILTER_VERSION
   displayName: Filter versions
-  description: Comma-separated regular expressions that will be used to match against the id field of each version. Prepend `!` in the expression to exclude versions.
+  description: A regular expression that will be used to match against the id field of each version. You can prepend `!` in the expression to negate.
   value:
 - name: BACKEND_IMAGE
   value: fabric8/launcher-backend
@@ -607,6 +607,18 @@ objects:
             value: ${WELCOME_IMAGE_TAG}
           - name: CREATOR_RUNTIME_FILTER
             value: ${CREATOR_RUNTIME_FILTER}
+          - name: LAUNCHER_FILTER_RUNTIME
+            valueFrom:
+              configMapKeyRef:
+                name: launcher
+                key: launcher.filter.runtime
+                optional: true
+          - name: LAUNCHER_FILTER_VERSION
+            valueFrom:
+              configMapKeyRef:
+                name: launcher
+                key: launcher.filter.version
+                optional: true
           - name: SENTRY_DSN
             valueFrom:
               configMapKeyRef:
