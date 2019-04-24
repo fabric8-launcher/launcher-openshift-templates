@@ -114,6 +114,14 @@ parameters:
   displayName: Git Provider
   description: The Git provider to be used by Launcher (defaults to GitHub)
   value: GITHUB
+- name: LAUNCHER_FILTER_RUNTIME
+  displayName: Filter runtimes
+  description: Comma-separated regular expressions that will be used to match against the id field of each runtime. Prepend `!` in the expression to exclude runtimes.
+  value:
+- name: LAUNCHER_FILTER_VERSION
+  displayName: Filter versions
+  description: Comma-separated regular expressions that will be used to match against the id field of each version. Prepend `!` in the expression to exclude versions.
+  value:
 - name: BACKEND_IMAGE
   value: fabric8/launcher-backend
   required: true
@@ -270,6 +278,8 @@ objects:
     launcher.keycloak.client.id: ${LAUNCHER_KEYCLOAK_CLIENT_ID}
     launcher.tracker.segment.token: ${LAUNCHER_TRACKER_SEGMENT_TOKEN}
     launcher.backend.url: /launch/api
+    launcher.filter.runtime: ${LAUNCHER_FILTER_RUNTIME}
+    launcher.filter.version: ${LAUNCHER_FILTER_VERSION}
     launcher.frontend.sentry.dsn:
     launcher.frontend.targetenvironment.skip:
     launcher.backend.sentry.dsn:
@@ -484,6 +494,18 @@ objects:
               secretKeyRef:
                 name: launcher
                 key: launcher.missioncontrol.openshift.clusters.subscription.token
+                optional: true
+          - name: LAUNCHER_FILTER_RUNTIME
+            valueFrom:
+              configMapKeyRef:
+                name: launcher
+                key: launcher.filter.runtime
+                optional: true
+          - name: LAUNCHER_FILTER_VERSION
+            valueFrom:
+              configMapKeyRef:
+                name: launcher
+                key: launcher.filter.version
                 optional: true
           image: ${BACKEND_IMAGE}:${BACKEND_IMAGE_TAG}
           imagePullPolicy: Always
