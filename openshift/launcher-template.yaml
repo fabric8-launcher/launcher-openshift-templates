@@ -165,12 +165,6 @@ parameters:
   required: true
   value: latest
 
-- name: CREATOR_RUNTIME_FILTER
-  description: List of runtimes allowed in the Create Application flow
-  displayName: Show these runtimes only in the Create Application flow (comma-separated values)
-  required: false
-  value:
-
 - name: CREATOR_BACKEND_IMAGE
   value: fabric8/launcher-creator-backend
   required: true
@@ -605,8 +599,6 @@ objects:
             value: ${WELCOME_IMAGE_NAME}
           - name: WELCOME_IMAGE_TAG
             value: ${WELCOME_IMAGE_TAG}
-          - name: CREATOR_RUNTIME_FILTER
-            value: ${CREATOR_RUNTIME_FILTER}
           - name: LAUNCHER_FILTER_RUNTIME
             valueFrom:
               configMapKeyRef:
