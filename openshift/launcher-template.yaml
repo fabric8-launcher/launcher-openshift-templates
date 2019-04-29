@@ -723,6 +723,30 @@ objects:
                 name: launcher
                 key: launcher.keycloak.client.id
                 optional: true
+          - name: LAUNCHER_OAUTH_OPENSHIFT_URL
+            valueFrom:
+              configMapKeyRef:
+                name: launcher
+                key: launcher.oauth.openshift.url
+                optional: true
+          - name: LAUNCHER_OAUTH_OPENSHIFT_CLIENT_ID
+            valueFrom:
+              configMapKeyRef:
+                name: launcher
+                key: launcher.oauth.openshift.clientId
+                optional: true
+          - name: LAUNCHER_OAUTH_GITHUB_CLIENT_ID
+            valueFrom:
+              configMapKeyRef:
+                name: launcher
+                key: launcher.oauth.github.clientId
+                optional: true
+          - name: LAUNCHER_OAUTH_GITHUB_SECRET
+            valueFrom:
+              configMapKeyRef:
+                name: launcher
+                key: launcher.oauth.github.secret
+                optional: true
           - name: LAUNCHER_TRACKER_SEGMENT_TOKEN
             valueFrom:
               configMapKeyRef:
