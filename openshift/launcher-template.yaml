@@ -63,6 +63,18 @@ parameters:
   description: The keycloak client id to be used in the frontend (leave empty if you've explicitly specified
     GitHub/OpenShift authentication above)
   value:
+- name: LAUNCHER_OAUTH_OPENSHIFT_URL
+  displayName: OpenShift OAuth Url
+  description: The OpenShift Oauth Url to use for cluster authentication
+- name: LAUNCHER_OAUTH_OPENSHIFT_CLIENT_ID
+  displayName: OpenShift Client ID
+  description:  The OpenShift Oauth Client ID to use for cluster authentication
+- name: LAUNCHER_OAUTH_GITHUB_CLIENT_ID
+  displayName: GitHub Oauth Client ID
+  description: The GitHub Oauth Client ID to use for GitHub authentication
+- name: LAUNCHER_OAUTH_GITHUB_SECRET
+  displayName: GitHub Oauth Secret
+  description: The GitHub Oauth Secret to use for GitHub authentication
 - name: LAUNCHER_TRACKER_SEGMENT_TOKEN
   displayName: Segment Token
   description: The token to use for Segment tracking. Leaving this empty will disable
@@ -270,6 +282,10 @@ objects:
     launcher.keycloak.url: ${LAUNCHER_KEYCLOAK_URL}
     launcher.keycloak.realm: ${LAUNCHER_KEYCLOAK_REALM}
     launcher.keycloak.client.id: ${LAUNCHER_KEYCLOAK_CLIENT_ID}
+    launcher.oauth.openshift.url: ${LAUNCHER_OAUTH_OPENSHIFT_URL}
+    launcher.oauth.openshift.clientId: ${LAUNCHER_OAUTH_OPENSHIFT_CLIENT_ID}
+    launcher.oauth.github.clientId: ${LAUNCHER_OAUTH_GITHUB_CLIENT_ID}
+    launcher.oauth.github.secret: ${LAUNCHER_OAUTH_GITHUB_SECRET}
     launcher.tracker.segment.token: ${LAUNCHER_TRACKER_SEGMENT_TOKEN}
     launcher.backend.url: /launch/api
     launcher.filter.runtime: ${LAUNCHER_FILTER_RUNTIME}
