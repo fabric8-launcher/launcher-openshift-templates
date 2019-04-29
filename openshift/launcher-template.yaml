@@ -63,6 +63,9 @@ parameters:
   description: The keycloak client id to be used in the frontend (leave empty if you've explicitly specified
     GitHub/OpenShift authentication above)
   value:
+- name: LAUNCHER_OAUTH_OPENSHIFT_URL
+  displayName: OpenShift OAuth Url
+  description: The OpenShift Oauth Url to use for cluster authentication
 - name: LAUNCHER_TRACKER_SEGMENT_TOKEN
   displayName: Segment Token
   description: The token to use for Segment tracking. Leaving this empty will disable
@@ -244,6 +247,18 @@ parameters:
   displayName: OpenShift token
   description: OpenShift token (leave empty when using Keycloak with OpenShift as an Identity Provider or user/password above)
   value:
+- name: LAUNCHER_OAUTH_OPENSHIFT_CLIENT_ID
+  displayName: OpenShift Client ID
+  description:  The OpenShift Oauth Client ID to use for cluster authentication
+  value:
+- name: LAUNCHER_OAUTH_GITHUB_CLIENT_ID
+  displayName: GitHub Oauth Client ID
+  description: The GitHub Oauth Client ID to use for GitHub authentication
+  value:
+- name: LAUNCHER_OAUTH_GITHUB_SECRET
+  displayName: GitHub Oauth Secret
+  description: The GitHub Oauth Secret to use for GitHub authentication
+  value:
 objects:
 - kind: ConfigMap
   apiVersion: v1
@@ -270,6 +285,7 @@ objects:
     launcher.keycloak.url: ${LAUNCHER_KEYCLOAK_URL}
     launcher.keycloak.realm: ${LAUNCHER_KEYCLOAK_REALM}
     launcher.keycloak.client.id: ${LAUNCHER_KEYCLOAK_CLIENT_ID}
+    launcher.oauth.openshift.url: ${LAUNCHER_OAUTH_OPENSHIFT_URL}
     launcher.tracker.segment.token: ${LAUNCHER_TRACKER_SEGMENT_TOKEN}
     launcher.backend.url: /launch/api
     launcher.filter.runtime: ${LAUNCHER_FILTER_RUNTIME}
@@ -731,21 +747,21 @@ objects:
                 optional: true
           - name: LAUNCHER_OAUTH_OPENSHIFT_CLIENT_ID
             valueFrom:
-              configMapKeyRef:
-                name: launcher
-                key: launcher.oauth.openshift.clientId
+              secretKeyRef:
+                name: launcher-oauth-openshift
+                key: clientId
                 optional: true
           - name: LAUNCHER_OAUTH_GITHUB_CLIENT_ID
             valueFrom:
-              configMapKeyRef:
-                name: launcher
-                key: launcher.oauth.github.clientId
+              secretKeyRef:
+                name: launcher-oauth-github
+                key: clientId
                 optional: true
           - name: LAUNCHER_OAUTH_GITHUB_SECRET
             valueFrom:
-              configMapKeyRef:
-                name: launcher
-                key: launcher.oauth.github.secret
+              secretKeyRef:
+                name: launcher-oauth-github
+                key: secret
                 optional: true
           - name: LAUNCHER_TRACKER_SEGMENT_TOKEN
             valueFrom:
@@ -878,4 +894,16 @@ objects:
   stringData:
     launcher.missioncontrol.openshift.clusters.subscription.token:
     launcher.missioncontrol.openshift.token: ${LAUNCHER_MISSIONCONTROL_OPENSHIFT_TOKEN}
-
+- apiVersion: v1
+  kind: Secret
+  metadata:
+    name: launcher-oauth-openshift
+  stringData:
+    clientId: ${LAUNCHER_OAUTH_OPENSHIFT_CLIENT_ID}
+- apiVersion: v1
+  kind: Secret
+  metadata:
+    name: launcher-oauth-github
+  stringData:
+    clientId: ${LAUNCHER_OAUTH_GITHUB_CLIENT_ID}
+    secret: ${LAUNCHER_OAUTH_GITHUB_SECRET}
